@@ -1,2 +1,5 @@
 /out/production/Gwent/
 /.idea/
+/target/
+/project/target/
+/project/project/target/
