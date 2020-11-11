@@ -1,6 +1,6 @@
 package main
 
-import gwentpackage.model.Player
+import model.Player
 
 
 object Gwent{

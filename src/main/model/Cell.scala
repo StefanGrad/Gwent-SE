@@ -1,7 +1,6 @@
 package main.model
+case class Cell(value: Int) {
+  def isSet: Boolean = value != 0
 
-case class Cell(card: Card) {
-  def isSet: Boolean = false == (card.name == "")
-
-  override def toString: String = card.toString.replace('0', ' ')
+  override def toString: String = value.toString.replace('0', ' ')
 }

@@ -1,6 +1,5 @@
-package
-
-import org.scalatest._
+import main.model.Player
+import org.scalatest.{Matchers, WordSpec}
 
 class Playerspec extends WordSpec with Matchers {
   "A Player" when { "new" should {
