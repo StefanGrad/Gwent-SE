@@ -1,13 +1,13 @@
 import main.model.{Card, Cell, Grid, Matrix}
 import org.scalatest.{Matchers, WordSpec}
 
-class Gridspec extends WordSpec with Matchers {
+class GridSpec extends WordSpec with Matchers {
   "A Grid is the playing field of Gwent. A Grid" when {
     "it is normal" should {
       "consist out of two rows with any number of columns"
-      val smallGrid = new Grid(1,2)
-      val mediumGrid = new Grid(1,3)
-      val largeGrid = new Grid(1,6)
+      val smallGrid = new Grid(2)
+      val mediumGrid = new Grid(3)
+      val largeGrid = new Grid(6)
     }
     "for test purposes only created with a Matrix of Cells" in {
       val emptyCard = new Card("",0,0,0)
@@ -16,7 +16,7 @@ class Gridspec extends WordSpec with Matchers {
     }
   }
   "created properly but emty" should {
-    val smallGrid = new Grid(1,3)
+    val smallGrid = new Grid(3)
     "give access to its Cells" in {
       val emptyCard = new Card("",0,0,0)
       smallGrid.cell(0, 0) should be (Cell(emptyCard))

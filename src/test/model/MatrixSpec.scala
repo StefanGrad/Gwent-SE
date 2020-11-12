@@ -2,7 +2,7 @@ import main.model.{Card, Cell, Grid, Matrix}
 import org.scalatest.{Matchers, WordSpec}
 
 
-class Matrixspec extends WordSpec with Matchers {
+class MatrixSpec extends WordSpec with Matchers {
   "A Matrix is a tailor-make immutable data type that contains a two-dimensional Vector of Cells. A Matrix" when {
     "empty" should {
       "be created by using a dimension and a sample cell" in {
@@ -23,7 +23,7 @@ class Matrixspec extends WordSpec with Matchers {
       }
       "replace cells and return a new data structure" in {
         val returnedMatrix = matrix.replaceCell(0, 0, Cell(new Card("Crossbowmen", 0, 5, 1)))
-        matrix.cell(0, 0) should be(Cell(5))
+        matrix.cell(0, 0) should be(Cell(Card("Crossbowmen", 0, 5, 1)))
         returnedMatrix.cell(0, 0) should be(Cell(new Card("Crossbowmen", 0, 5, 1)))
       }
     }

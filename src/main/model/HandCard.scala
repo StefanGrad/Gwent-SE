@@ -9,6 +9,6 @@ case class HandCard() {
     hand :+ deck(r.nextInt(size))
   }
   def show(index: Int): Card = hand(index)
-  def playCard(cardAt: Int)
+  //def playCard(cardAt: Int)
   def draw: Card = deck(r.nextInt(size))
 }
