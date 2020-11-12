@@ -7,7 +7,9 @@ case class Grid(private val cells:Matrix[Cell]) {
   val size:Int = cells.size
   def cell(row:Int, col:Int):Cell = cells.cell(row, col)
   def set(row:Int, col:Int, value:Card):Grid = copy(cells.replaceCell(row, col, Cell(value)))
-  def row(row:Int):House = House(cells.rows(row))
+  override def toString: String = super.toStringString = "Grid :" + stringMaker:String = for()
+  def stringMaker
+  /*def row(row:Int):House = House(cells.rows(row))
   def col(col:Int):House = House(cells.rows.map(row=>row(col)))
   def block(block:Int):House = {
     val blocknum:Int = sqrt(size).toInt
@@ -16,10 +18,10 @@ case class Grid(private val cells:Matrix[Cell]) {
       row <- 0 until size
       col <- 0 until size; if blockAt(row, col) == block
     } yield cell(row, col)).asInstanceOf[Vector[Cell]])
-  }
+  }*/
 }
 
 
-case class House(private val cells:Vector[Cell]) {
+/*case class House(private val cells:Vector[Cell]) {
   def cell(index:Int):Cell = cells(index)
-}
+}*/

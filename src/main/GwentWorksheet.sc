@@ -22,5 +22,9 @@ Spz1: Alle gleichen Karten +1 atk (stapelbar)
 Spz2: Eine karte aus dem Stapel ziehen
 */
 
-val i = 9
-i + 1
+
+
+
+val z = Vector.fill(4, 2)(0)
+println(z)
+
