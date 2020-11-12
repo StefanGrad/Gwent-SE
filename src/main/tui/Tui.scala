@@ -1,22 +1,25 @@
-package tui
 
-import main.model.{Grid}
+package main.tui
+
+import main.model.{Evaluation, Field, Player}
+
+import scala.util.Random.nextInt
 
 class Tui {
-  def processInputLine(input: String, grid:Grid):Grid = {
+
+  def processInputLine(input: String, field:Field, playerTop: Player, playerBot: Player, eval:Evaluation):Field = {
     input match {
-      case "q" => grid
-      case "n"=> new Grid(9)
-      case "r" => new GridCreator(9).createRandom(16)
-      case "s" =>
-        val (success, solvedGrid) = new Solver(grid).solve;
-        if (success) println("Puzzle solved")else println("This puzzle could not be solved!")
-        solvedGrid
+      case "close" => field
+      case "clear" => eval.eval(field,playerTop,playerBot)
+        field.clear(field)
+      case "help" => println("Possiblites: close, clear, top + Cardindex + Col + Row, bot + Cardindex + Col + Row")
+        field
+      case "top" => playerTop.hand.playCard(nextInt(),field,nextInt(),nextInt())
+        field
+      case "bot" => playerBot.hand.playCard(nextInt(),field,nextInt(),nextInt())
+        field
       case _ => {
-        input.toList.filter(c => c != ' ').map(c => c.toString.toInt) match {
-          case row :: column :: value :: Nil => grid.set(row, column, value)
-          case _ => grid
-        }
+        field
       }
     }
   }

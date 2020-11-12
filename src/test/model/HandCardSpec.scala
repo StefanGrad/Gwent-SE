@@ -1,4 +1,4 @@
-import main.model.{Card, Cell, Grid, Matrix, HandCard}
+import main.model.{Card, HandCard}
 import org.scalatest.{Matchers, WordSpec}
 
 
