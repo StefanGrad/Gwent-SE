@@ -16,7 +16,7 @@ class GridSpec extends WordSpec with Matchers {
     }
   }
   "created properly but emty" should {
-    val smallGrid = new Grid(3)
+    val smallGrid = new Grid(4)
     "give access to its Cells" in {
       val emptyCard = new Card("",0,0,0)
       smallGrid.cell(0, 0) should be (Cell(emptyCard))
