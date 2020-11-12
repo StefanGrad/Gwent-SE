@@ -24,7 +24,8 @@ Spz2: Eine karte aus dem Stapel ziehen
 
 
 
-
 val z = Vector.fill(4, 2)(0)
-println(z)
+val a = Array.fill(4,1)("emptyCard")
+a(0) = "test"
+println(a)
 
