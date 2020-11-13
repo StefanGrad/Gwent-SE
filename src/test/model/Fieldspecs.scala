@@ -4,19 +4,29 @@ import main.model.{Card, Field}
 
 class Fieldspecs extends WordSpec with Matchers {
   "A Field is a 4x4 Array of Arrays with are then filled with Cards" when {
-    "empty" should {
-      val field = Field(4,4)
-      "only be filled with empty Cards" in {
-        for {
-          row <- 0 until field.row
-          col <- 0 until field.col
-        } field.isEmpty(col, row) should be (true)
+    "a Field" should {
+      val emptyCard = new Card("",0,0,0)
+      "initially be filled with empty Cards" in {
+        Field(4,4).get(0,0) should be (emptyCard)
+        Field(4,4).get(0,1) should be (emptyCard)
+        Field(4,4).get(0,2) should be (emptyCard)
+        Field(4,4).get(0,3) should be (emptyCard)
+        Field(4,4).get(1,0) should be (emptyCard)
+        Field(4,4).get(1,1) should be (emptyCard)
+        Field(4,4).get(1,2) should be (emptyCard)
+        Field(4,4).get(1,3) should be (emptyCard)
+        Field(4,4).get(2,0) should be (emptyCard)
+        Field(4,4).get(2,1) should be (emptyCard)
+        Field(4,4).get(2,2) should be (emptyCard)
+        Field(4,4).get(2,3) should be (emptyCard)
+        Field(4,4).get(3,0) should be (emptyCard)
+        Field(4,4).get(3,1) should be (emptyCard)
+        Field(4,4).get(3,2) should be (emptyCard)
+        Field(4,4).get(3,3) should be (emptyCard)
       }
     }
-    "is set" should {
-      val field = Field(4,4)
-      "place a Card in the chosen spot" in {
-        field.set(0,0, new Card("Archer", 0, 3, 1)) should be (Card("Archer", 0, 3, 1))
+      "place a the String of a Card in the chosen spot" in {
+        Field(4,4).set(0,0,Card("Archer", 0, 3, 1)) should be ("Archer A0 S3")
       }
     }
     "can be Converted to String" should {
@@ -26,5 +36,4 @@ class Fieldspecs extends WordSpec with Matchers {
       }
 
     }
-  }
 }

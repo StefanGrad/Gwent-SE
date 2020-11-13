@@ -20,7 +20,7 @@ case class Evaluation() {
       winner = playerBot
     }
     if (winner.toString.equals("Unentschieden")) {
-      println("The game ended with a ty")
+      println("The game ended with a tie")
     }
     if (!winner.toString.equals("Unentschieden")){
       println("The winner of this round is " + winner)

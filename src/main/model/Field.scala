@@ -6,7 +6,7 @@ case class Field(col:Int, row:Int) {
   val field = Array.fill(col,row)(emptyCard)
   val size = field.size
   val blocknum: Int = sqrt(size).toInt
-  def set(col:Int,row:Int, card:Card) = (field(col)(row) = card)
+  def set(col:Int,row:Int, card:Card): Card = (field(col)(row) = card)
   override def toString: String = {
     val lineseparator = ("+-----" + ("-----" * blocknum)) * blocknum + "+\n"
     val line = ("|" + "x") * row + "|\n"
