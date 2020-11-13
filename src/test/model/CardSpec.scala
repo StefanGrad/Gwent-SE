@@ -6,13 +6,19 @@ class CardSpec extends WordSpec with Matchers {
     "no Specs are added" should {
       val emptyCard = new Card("", 0, 0, 0)
       "have no specific value" in {
-        emptyCard.cardSpecs should be("", 0, 0, 0)
+        emptyCard.isEmpty should be("", 0, 0, 0)
       }
     }
-    "it is spizified" should {
+    "it is spezified" should {
       val nonEmptyCard = new Card("Archer", 0, 3, 1)
       "contain the values" in {
         nonEmptyCard.cardSpecs should be("Archer", 0, 3, 1)
+      }
+    }
+    "can be converted to String" should{
+      val nonEmptyCard = new Card("Archer", 0, 3, 1)
+      "as a toString" in {
+        nonEmptyCard.toString should be("Archer31")
       }
     }
   }

@@ -29,9 +29,11 @@ case class HandCard() {
     hand += deck(r.nextInt(size))
   }
   def show(index: Int): Card = hand(index)
-  def playCard(cardAt: Int, field: Field, inRow: Int, inCol: Int): Unit ={
-    field.set(inCol, inRow, hand(cardAt))
+  def playCard(cardAt: Int, field: Field, inRow: Int, inCol: Int):Card ={
+    val c = hand(cardAt)
+    field.set(inCol, inRow, c)
     hand.update(cardAt, Card("",0,0,0))
+    c
   }
   def set(i:Int, card: Card) = hand(i) = card
   def draw: Card = deck(r.nextInt(size))

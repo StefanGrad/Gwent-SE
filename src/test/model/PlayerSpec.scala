@@ -1,4 +1,5 @@
-import main.model.Player
+import main.Gwent.hand
+import main.model.{Card, Player}
 import org.scalatest.{Matchers, WordSpec}
 
 class PlayerSpec extends WordSpec with Matchers {
@@ -11,6 +12,13 @@ class PlayerSpec extends WordSpec with Matchers {
       "have a nice String representation" in {
         player.toString should be("Your Name")
       }
+      "and hold Cards" in {
+        player.hand should be (new scala.collection.mutable.ArrayBuffer[Card]())
+      }
     }
+
+
+
   }
+}
 }
