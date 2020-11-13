@@ -1,6 +1,6 @@
 package main.model
 
-class Evaluation {
+case class Evaluation() {
   def eval(field: Field, playerTop: Player, playerBot: Player):Player = {
     var top = 0
     for {

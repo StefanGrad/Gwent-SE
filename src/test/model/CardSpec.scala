@@ -3,24 +3,18 @@ import main.model.Card
 
 class CardSpec extends WordSpec with Matchers {
   "A Card is an immutable Combination of a name: String, a Spezial: int, an atkValue: int and a Range: Int" when {
-    "added" should {
-      val emptyCard = new Card("", 0, 0, 0)
-      val nonEmptyCard = new Card("Archer", 0, 3, 1)
-      "be or not be Empty" in {
-        emptyCard.isEmpty should be(true)
-        emptyCard.isEmpty should be(false)
+    "a Card" should {
+      "have a Value" in {
+        Card("Archer", 0, 3, 1) shouldBe a [Card]
       }
-    }
-    "when not empty" should {
-      val nonEmptyCard = new Card("Archer", 0, 3, 1)
-      "contain the values" in {
-        nonEmptyCard.cardSpecs should be("Archer", 0, 3, 1)
+      "be empty" in {
+        Card("",0,0,0).isEmpty should be (true)
       }
-    }
-    "can be converted to String" should{
-      val nonEmptyCard = new Card("Archer", 0, 3, 1)
-      "as a toString" in {
-        nonEmptyCard.toString should be("Archer A3 S1")
+      "have specs" in {
+        Card("Archer", 0, 3, 1).cardSpecs should be ("Archer", 0, 3, 1)
+      }
+      "can be converted to a nice String" in {
+        Card("Archer", 0 ,3, 1).toString should be("Archer A0 S3")
       }
     }
   }
