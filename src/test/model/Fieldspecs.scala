@@ -26,7 +26,7 @@ class Fieldspecs extends WordSpec with Matchers {
       }
     }
       "place a the String of a Card in the chosen spot" in {
-        Field(4,4).set(0,0,Card("Archer", 0, 3, 1)) should be ("Archer A0 S3")
+          Field(4,4).set(0,0,Card("Archer", 0, 3, 1)) should be (Card("Archer",0,3,1))
       }
     }
     "can be Converted to String" should {

@@ -6,7 +6,19 @@ case class Field(col:Int, row:Int) {
   val field = Array.fill(col,row)(emptyCard)
   val size = field.size
   val blocknum: Int = sqrt(size).toInt
-  def set(col:Int,row:Int, card:Card): Card = (field(col)(row) = card)
+  def isEmpty(col:Int,row:Int):Boolean = field(col)(row).isEmpty
+  def isNotFull(fromRow:Int, tillRow:Int): Boolean = {
+    var notFull = 0
+    for {
+      row <- fromRow until tillRow
+      col <- 0 until col
+    } if (field(row)(col).isEmpty) {notFull += 1}
+    notFull > 0
+  }
+  def set(col:Int,row:Int,card:Card):Card = {
+    field(col)(row) = card
+    card
+  }
   override def toString: String = {
     val lineseparator = ("+-----" + ("-----" * blocknum)) * blocknum + "+\n"
     val line = ("|" + "x") * row + "|\n"
