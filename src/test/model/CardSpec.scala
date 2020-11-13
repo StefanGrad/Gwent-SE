@@ -2,7 +2,7 @@ import org.scalatest.{Matchers, WordSpec}
 import main.model.Card
 
 class CardSpec extends WordSpec with Matchers {
-  "A Card is an immutable Combination of a name: String, a Spezial: int and an atkValue: int" when {
+  "A Card is an immutable Combination of a name: String, a Spezial: int, an atkValue: int and a Range: Int" when {
     "no Specs are added" should {
       val emptyCard = new Card("", 0, 0, 0)
       "have no specific value" in {
