@@ -10,7 +10,7 @@ case class HandCard() {
     Card ("Fußsoldat", 0, 1, 0),
     Card ("Zwergen-Scharmützler", 2, 3, 0),
     Card ("Bogenschütze", 0, 2, 1),
-    Card ("Heiler", 2, 0, 1),
+    //Card ("Heiler", 2, 0, 1),
     Card ("Scharfschütze", 1, 2, 1),
     Card ("Steinwerfer", 0, 1, 1),
     Card ("Kanonier", 0, 5, 1),
@@ -18,8 +18,8 @@ case class HandCard() {
     Card ("Speerdude", 1, 3, 0),
     Card ("Reiter", 0, 4, 0),
     Card ("Pikenier", 1, 2, 0),
-    Card ("Musketier", 1, 3, 1),
-    Card ("Hobbit", 2, 0, 0))
+    Card ("Musketier", 1, 3, 1))
+    // Card ("Hobbit", 2, 0, 0))
   val hand = new scala.collection.mutable.ArrayBuffer[Card]()
   val size: Int = deck.length
   val i = 0

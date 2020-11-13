@@ -21,5 +21,12 @@ class HandCardsSpec extends WordSpec with Matchers {
       hand.show(0) should be (Card("Archer", 0, 3, 1))
       }
     }
+    "can be set"  should{
+      val hand = new HandCard()
+      hand.set(0, new Card("Archer", 0, 3, 1))
+      "have set that Card in the hand" in {
+      hand.show(0) should be (Card("Archer", 0, 3, 1))
+      }
+    }
   }
 }
