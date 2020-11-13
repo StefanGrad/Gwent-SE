@@ -22,21 +22,48 @@ case class HandCard() {
     Card ("Hobbit", 2, 0, 0))
   val hand = new scala.collection.mutable.ArrayBuffer[Card]()
   val size: Int = deck.length
-  val length: Int = hand.size
   val i = 0
   val r = scala.util.Random
+
   for( x <- 0 to 9){
     hand += deck(r.nextInt(size))
   }
+
+  def handIsEmpty: Boolean = {
+    var notEmpty = 0
+    for (x <- 0 to 9) {
+      if (hand(x).isEmpty) {
+        notEmpty += 1
+      }
+    }
+    notEmpty < 10
+  }
+
   def show(index: Int): Card = hand(index)
+
+  def playTopBotCard(field: Field): Field = {
+    playCard(1,field,1,1)
+    playCard(2,field,3,3)
+    field
+  }
+
   def playCard(cardAt: Int, field: Field, inRow: Int, inCol: Int):Card ={
     val c = hand(cardAt)
     field.set(inCol, inRow, c)
     hand.update(cardAt, Card("",0,0,0))
     c
   }
-  def set(i:Int, card: Card) = hand(i) = card
-  def draw: Card = deck(r.nextInt(size))
 
-  override def toString: String = hand.toString().replace("ArrayBuffer", "")
+  def set(i:Int, card: Card) = hand(i) = card
+
+  def draw: Card = deck(r.nextInt(size))
+ /*
+ val sb = StringBuilder
+        sb + playerBot.hand.show(0).toString
+        for(x <- 1 to 9) {
+          sb + ", " + playerBot.hand.show(x).toString
+        }
+        println(sb.toString)
+  */
+  override def toString: String = hand.toString().replace("ArrayBuffer", "").replace("(", "").replace(")", "")
 }

@@ -11,11 +11,6 @@ object Gwent{
     val playerBot = Player("Stefan")
     val eval = new Evaluation
     val hand = new HandCard()
-    println(hand.toString)
-    hand.playCard(1,field,1,0)
-    println(field.toString)
-    println(hand.toString)
-    println(eval.eval(field,playerTop, playerBot).toString)
     val tui = new Tui
 
     def main(args: Array[String]): Unit = {
