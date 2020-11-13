@@ -10,7 +10,7 @@ case class HandCard() {
     Card ("Fußsoldat", 0, 1, 0),
     Card ("Zwergen-Scharmützler", 2, 3, 0),
     Card ("Bogenschütze", 0, 2, 1),
-    //Card ("Heiler", 2, 0, 1),
+    Card ("Heiler", 2, 0, 1),
     Card ("Scharfschütze", 1, 2, 1),
     Card ("Steinwerfer", 0, 1, 1),
     Card ("Kanonier", 0, 5, 1),
@@ -18,8 +18,8 @@ case class HandCard() {
     Card ("Speerdude", 1, 3, 0),
     Card ("Reiter", 0, 4, 0),
     Card ("Pikenier", 1, 2, 0),
-    Card ("Musketier", 1, 3, 1))
-    // Card ("Hobbit", 2, 0, 0))
+    Card ("Musketier", 1, 3, 1),
+    Card ("Hobbit", 2, 0, 0))
   val hand = new scala.collection.mutable.ArrayBuffer[Card]()
   val size: Int = deck.length
   val i = 0
@@ -36,16 +36,10 @@ case class HandCard() {
         notEmpty += 1
       }
     }
-    notEmpty < 10
+    notEmpty == 10
   }
 
   def show(index: Int): Card = hand(index)
-
-  def playTopBotCard(field: Field): Field = {
-    playCard(1,field,1,1)
-    playCard(2,field,3,3)
-    field
-  }
 
   def playCard(cardAt: Int, field: Field, inRow: Int, inCol: Int):Card ={
     val c = hand(cardAt)
@@ -53,9 +47,13 @@ case class HandCard() {
     hand.update(cardAt, Card("",0,0,0))
     c
   }
-/*
-  def set(i:Int, card: Card) = hand(i) = card
 
+  def set(i:Int, card: Card):Card = {
+    val oldCard = hand(i)
+    hand.update(i,card)
+    oldCard
+  }
+/*
  def draw: Card = deck(r.nextInt(size))
 /al sb = StringBuilder
        sb + playerBot.hand.show(0).toString

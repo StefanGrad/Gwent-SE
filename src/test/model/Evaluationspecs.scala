@@ -1,22 +1,25 @@
 
 
 import org.scalatest.{Matchers, WordSpec}
-import main.model.{Evaluation, Field, HandCard, Player}
+import main.model.{Evaluation, Field, HandCard, Player, Card}
 
 class Evaluationspecs extends WordSpec with Matchers {
   "Evaluation compares the Attack Values of both Players and prints out the Winner of the Round" when{
     "Evaluation" should {
       val field = Field(4,4)
       "have a draw" in {
-        Evaluation().eval(field,Player("Stefan") ,Player("Adrian") ) should be (Player("Unentschieden"))
+        Evaluation().eval(field,Player("Stefan") ,Player("Adrian")) should be (0)
       }
       "have playerTop win" in {
-        Player("Stefan").hand.playCard(0, field, 0, 0)
-        Evaluation().eval(field, Player("Stefan"), Player("Adrian")) should be(Player("Stefan"))
+        //Player("Stefan").hand.playCard(0, field, 0, 0)
+        field.set(0,0,Card("Test",1,1,1))
+        Evaluation().eval(field, Player("Stefan"), Player("Adrian")) should be(1)
       }
       "have playerBot win" in {
-        Player("Adrian").hand.playCard(0, field, 2, 2)
-        Evaluation().eval(field, Player("Stefan"), Player("Adrian")) should be(Player("Adrian"))
+        //Player("Adrian").hand.playCard(0, field, 2, 2)
+        field.set(0,0,Card("",0,0,0))
+        field.set(2,2,Card("Test",1,1,1))
+        Evaluation().eval(field, Player("Stefan"), Player("Adrian")) should be(-1)
       }
     }
   }

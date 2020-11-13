@@ -6,14 +6,16 @@ case class Evaluation() {
     for {
       r <- 0 until (field.row - 2)
       c <- 0 until field.col
-    } topC += field.get(c,r).strength
+    } topC += field.get(r,c).strength
     val top = topC
+    //topC = 0
     var botC = 0
     for {
       r <- 2 until field.row
       c <- 0 until field.col
-    } botC += field.get(c,r).strength
+    } botC += field.get(r,c).strength
     val bot = botC
+    //botC = 0
     var winner = Player("Unentschieden")
     if (top - bot > 0) {
       println("The winner of this round is " + playerTop)

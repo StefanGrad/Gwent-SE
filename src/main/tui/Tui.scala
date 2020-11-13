@@ -24,7 +24,7 @@ class Tui {
         var colR = r.nextInt(2) + 2
         var rowR = r.nextInt(4)
         var cardR = 0
-        if(field.isNotFull(2,4) && playerBot.hand.handIsEmpty) {
+        if(field.isNotFull(2,4) && !playerBot.hand.handIsEmpty) {
           while (field.isEmpty(colR, rowR) == false) {
             colR = r.nextInt(2) + 2
             rowR = r.nextInt(4)
@@ -39,7 +39,7 @@ class Tui {
         var colR = 0
         var rowR = 0
         var cardR = 0
-        if(field.isNotFull(0,2) && playerTop.hand.handIsEmpty) {
+        if(field.isNotFull(0,2) && !playerTop.hand.handIsEmpty) {
           do {
             colR = r.nextInt(2)
             rowR = r.nextInt(4)
