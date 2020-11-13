@@ -4,14 +4,12 @@ import org.scalatest.{Matchers, WordSpec}
 
 class HandCardsSpec extends WordSpec with Matchers {
   "Handcards are an Array of  10 Cards from the Deck. Handcards" when {
-    "played in row 0 and Col 0" should {
+    "a Handcard" should {
       val field = Field(4, 4)
       val hand = new HandCard()
       hand.size should be(10)
-      "place a Card in a Spot and lose it from its Array" in {
-        hand.playCard(0, field, 0, 0)
-        hand.show(0) should be(field.get(0, 0))
-        hand.size should be(9)
+      "be empty when" in {
+        hand.handIsEmpty should be (true)
       }
     }
     "can be set"  should{

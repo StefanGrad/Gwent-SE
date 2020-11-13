@@ -62,8 +62,8 @@ class Fieldspecs extends WordSpec with Matchers {
       val archer = Card("Archer", 0, 3, 1)
       val field = Field(4,4)
       field.set(0,0,archer) should be (Card("Archer",0,3,1))
-      //field.isEmpty(0,0) should be (false)
-      field.clear(Field(4,4))
+      field.isEmpty(0,0) should be (false)
+      field.clear(field)
       field.isEmpty(0,0) should be (true)
     }
     }
