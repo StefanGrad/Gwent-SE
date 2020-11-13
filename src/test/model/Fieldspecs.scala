@@ -25,15 +25,46 @@ class Fieldspecs extends WordSpec with Matchers {
         Field(4,4).get(3,3) should be (emptyCard)
       }
     }
-      "place a the String of a Card in the chosen spot" in {
+      "place a Card in the chosen spot" in {
           Field(4,4).set(0,0,Card("Archer", 0, 3, 1)) should be (Card("Archer",0,3,1))
       }
-    }
-    "can be Converted to String" should {
-      val field = Field(4,4)
-      "have a nice TUI layout" in {
-        field.toString should be ("+---------------+---------------+\n|    |    |    |    |\n|    |    |    |    |\n+---------------+---------------+\n|    |    |    |    |\n|    |    |    |    |\n+---------------+---------------+")
+      "get a Card out of a chosen spot" in {
+        val field = Field(4,4)
+        field.set(0,0,Card("Archer",0,3,1))
+        field.get(0,0) should be (Card("Archer",0,3,1))
       }
-
+      "is full when" in {
+        val field = Field(4,4)
+        val archer = Card("Archer", 0, 3, 1)
+        field.set(0,0,archer)
+        field.set(0,1,archer)
+        field.set(0,2,archer)
+        field.set(0,3,archer)
+        field.set(1,0,archer)
+        field.set(1,1,archer)
+        field.set(1,2,archer)
+        field.set(1,3,archer)
+        field.set(2,0,archer)
+        field.set(2,1,archer)
+        field.set(2,2,archer)
+        field.set(2,3,archer)
+        field.set(3,0,archer)
+        field.set(3,1,archer)
+        field.set(3,2,archer)
+        field.isNotFull(0,4) should be (true)
+        field.set(3,3,archer)
+        field.isNotFull(0,4) should be (false)
+      }
+    "is converted toString" in {
+      Field(4,4).toString should be ("\n+---------------+---------------+\n" + "|    |    |    |    |\n|    |    |    |    |\n+---------------+---------------+\n|    |    |    |    |\n|    |    |    |    |\n+---------------+---------------+\n")
+      }
+    "can be cleared" in {
+      val archer = Card("Archer", 0, 3, 1)
+      val field = Field(4,4)
+      field.set(0,0,archer) should be (Card("Archer",0,3,1))
+      field.isEmpty(0,0) should be (false)
+      field.clear(field)
+      field.isEmpty(0,0) should be (true)
+    }
     }
 }

@@ -53,17 +53,16 @@ case class HandCard() {
     hand.update(cardAt, Card("",0,0,0))
     c
   }
-
+/*
   def set(i:Int, card: Card) = hand(i) = card
 
-  def draw: Card = deck(r.nextInt(size))
- /*
- val sb = StringBuilder
-        sb + playerBot.hand.show(0).toString
-        for(x <- 1 to 9) {
-          sb + ", " + playerBot.hand.show(x).toString
-        }
-        println(sb.toString)
-  */
-  override def toString: String = hand.toString().replace("ArrayBuffer", "").replace("(", "").replace(")", "")
+ def draw: Card = deck(r.nextInt(size))
+/al sb = StringBuilder
+       sb + playerBot.hand.show(0).toString
+       for(x <- 1 to 9) {
+         sb + ", " + playerBot.hand.show(x).toString
+       }
+       println(sb.toString)
+ */
+ override def toString: String = hand.toString().replace("ArrayBuffer", "").replace("(", "").replace(")", "")
 }
