@@ -12,3 +12,4 @@ a(0)(0) = "test"
 println(a(1)(0))
 println(a(0)(0))
 
+Vector(1, 2, 3, 4, 5) patch (from = 2, patch = Nil, replaced = 1)

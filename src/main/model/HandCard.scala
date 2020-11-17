@@ -1,61 +1,56 @@
 package main.model
 
-import model.Deck
-
-case class HandCard(hand: List[Card]) {
-
-  val size: Int = Deck().length
+case class HandCard() {
+  val deck = Deck()
+  val hand = newDeck()
+  val size: Int = deck.length
   val i = 0
-  val r = scala.util.Random
 
-  def draw(handCard: HandCard): HandCard = {
-    var temp = handCard.hand
-    temp = handCard.hand.++(List((Deck ().deck (r.nextInt (size) ))))
-    HandCard(temp)
+
+  def newDeck(): Vector[Card] = {
+    new Vector[Card](deck.getRandomCard(),deck.getRandomCard(),deck.getRandomCard(),deck.getRandomCard(),deck.getRandomCard(),
+      deck.getRandomCard(), deck.getRandomCard(),deck.getRandomCard(),deck.getRandomCard(),deck.getRandomCard())
+
   }
-
-  def drawTen: List[Card] = {
-    var list = List[Card] ()
-      for (x <- 0 to 9) {
-        list = list.++ (List (Deck ().deck (r.nextInt (size) ) ) )
-      }
-    list
-  }
-
-  def this() {
-    this(drawTen)
-  }
-
   def handIsEmpty: Boolean = {
-    /*var notEmpty = 0
-    for (x <- 0 to hand.size) {
+    var notEmpty = 0
+    for (x <- 0 to 9) {
       if (hand(x).isEmpty) {
         notEmpty += 1
       }
     }
-    notEmpty == 10*/
-    hand.size == 0
+    notEmpty == 10
   }
 
   def show(index: Int): Card = hand(index)
 
-  def playCard(cardAt: Int, field: Field, inRow: Int, inCol: Int):HandCard = {
-    field.set(inCol, inRow, hand(cardAt))
-    var temp = List[Card]()
-    for (x <- 0 to hand.size) {
-      if (x != cardAt) {
-        temp = temp.++(hand.take(x))
+  //return wert auswählen z.b. val test = playCard(x,x,x,x,x)._1 für c oder ._2 für newhand
+  def playCard(cardAt: Int, field: Field, inRow: Int, inCol: Int):(Card, Vector[Card]) ={
+    val c = hand(cardAt)
+    field.set(inCol, inRow, c)
+    val newhand = deleteCard(c)
+    (c, newhand)
+  }
+  // Läuft über die hand wenn das Jeweilige i meine card ist, gibt er eine leere Karte zurück und wenn nicht lässt er die Karte drin
+  def deleteCard(card: Card): Vector[Card] = {
+    val returnIndex = getCardIndex(card)
+    hand patch (from = returnIndex, patch = Nil, replaced = 1)
+  }
+
+  def getCardIndex(card: Card): Int ={
+    for (x <- 0 to hand.length){
+      if(hand(x) == card){
+        return x
       }
     }
-    HandCard(temp)
+    -1
   }
-/*
   def set(i:Int, card: Card):Card = {
     val oldCard = hand(i)
     hand.update(i,card)
     oldCard
   }
-
+/*
  def draw: Card = deck(r.nextInt(size))
 /al sb = StringBuilder
        sb + playerBot.hand.show(0).toString
