@@ -10,9 +10,6 @@ class CardSpec extends WordSpec with Matchers {
       "be empty" in {
         Card("",0,0,0).isEmpty should be (true)
       }
-      "have specs" in {
-        Card("Archer", 0, 3, 1).cardSpecs should be ("Archer", 0, 3, 1)
-      }
       "can be converted to a nice String" in {
         Card("Archer", 0 ,3, 1).toString should be("Archer A0 S3")
       }

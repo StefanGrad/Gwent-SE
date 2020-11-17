@@ -1,6 +1,10 @@
 
 
-
+val l1 = List("hallo")
+val l2 = List("hi")
+val l3 = l1.++(l2)
+println(l3.toString())
+println(l1)
 
 val z = Vector.fill(4, 2)(0)
 val a = Array.fill(4,1)("emptyCard")

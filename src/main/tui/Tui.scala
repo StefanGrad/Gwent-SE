@@ -12,7 +12,7 @@ class Tui {
       case "close" => field
       case "clear" => eval.eval(field,playerTop,playerBot)
         field.clear(field)
-      case "help" => println("Possiblites: close, clear, eval, top/bot for Card display, top pr/bot pr for playing a Random Card")
+      case "help" => println("Possiblites: close, clear, top/bot for Card display, top pr/bot pr for playing a Random Card")
         field
       case "top" =>
         println(playerTop.hand)
@@ -24,7 +24,7 @@ class Tui {
         var colR = r.nextInt(2) + 2
         var rowR = r.nextInt(4)
         var cardR = 0
-        if(field.isNotFull(2,4) && playerBot.hand.handIsEmpty) {
+        if(field.isNotFull(2,4) && !playerBot.hand.handIsEmpty) {
           while (field.isEmpty(colR, rowR) == false) {
             colR = r.nextInt(2) + 2
             rowR = r.nextInt(4)
@@ -39,7 +39,7 @@ class Tui {
         var colR = 0
         var rowR = 0
         var cardR = 0
-        if(field.isNotFull(0,2) && playerTop.hand.handIsEmpty) {
+        if(field.isNotFull(0,2) && !playerTop.hand.handIsEmpty) {
           do {
             colR = r.nextInt(2)
             rowR = r.nextInt(4)
