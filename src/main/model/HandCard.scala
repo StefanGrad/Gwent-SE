@@ -1,5 +1,8 @@
 package main.model
 
+// bei floobits einmal drin, immer drin
+// niemals unter keinen umständen auf gar keinen fall update während man in floobits drinnen ist
+
 case class HandCard() {
   val deck = Deck()
   val hand = newDeck()
@@ -45,9 +48,9 @@ case class HandCard() {
     }
     -1
   }
-  def set(i:Int, card: Card):Card = {
-    val oldCard = hand(i)
-    hand.update(i,card)
+  def set(cardAt:Int, card: Card):Vector[Card]= {
+    val returnIndex = getCardIndex(Card)
+    Vector vector = new Vector(Card)
     oldCard
   }
 /*
