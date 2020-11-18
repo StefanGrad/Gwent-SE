@@ -1,9 +1,8 @@
-package model
-
-import main.model.Card
+package main.model
 
 case class Deck() {
-  val deck = List(new Card("Archer", 0, 3, 1),
+  val r = scala.util.Random
+  val deck = Vector(Card("Archer", 0, 3, 1),
     Card ("Berserker", 0, 4, 0),
     Card ("Einschüchterer", 0 , 4, 0),
     Card ("Infanterie", 1 , 1, 0),
@@ -23,4 +22,12 @@ case class Deck() {
     Card ("Musketier", 1, 3, 1),
     Card ("Hobbit", 2, 0, 0))
   val length = deck.length
+
+  def getRandomCard(): Card ={
+    deck(r.nextInt(length))
+  }
+}
+
+object Deck {
+  def getRandomCard() = ???
 }

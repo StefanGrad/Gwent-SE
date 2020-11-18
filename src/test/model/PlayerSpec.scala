@@ -1,4 +1,4 @@
-import main.Gwent.hand
+
 import main.model.{Card, HandCard, Player}
 import org.scalatest.{Matchers, WordSpec}
 
@@ -13,10 +13,6 @@ class PlayerSpec extends WordSpec with Matchers {
       "have a nice String representation" in {
 
         Player("Stefan").toString should be("Stefan")
-      }
-      "and hold Cards" in {
-
-        Player("Stefan").hand shouldBe a [HandCard]
       }
     }
   }

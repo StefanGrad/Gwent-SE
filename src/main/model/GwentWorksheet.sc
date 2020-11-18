@@ -1,9 +1,18 @@
+val v = Vector[Int](0,1,2)
+val v2 = Vector[String]("2,3,3")
+val v3 = v++v2
+println(v2.apply(0))
+val t = (1,"s")
+t._1
+
 
 
 val l1 = List("hallo")
 val l2 = List("hi")
 val l3 = l1.++(l2)
 println(l3.toString())
+l3.filterNot(p => p.equals("hi"))
+
 println(l1)
 
 val z = Vector.fill(4, 2)(0)
@@ -12,3 +21,4 @@ a(0)(0) = "test"
 println(a(1)(0))
 println(a(0)(0))
 
+Vector(1, 2, 3, 4, 5) patch (from = 2, patch = Nil, replaced = 1)
