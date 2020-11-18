@@ -37,7 +37,7 @@ case class HandCard(hand: Vector[Card]) {
         }
       }
       //return HandCard(hand patch (from = returnIndex, patch = Nil, replaced = 1))
-    newHand
+    HandCard(newHand)
   }
 
   def getCardIndex(card: Card): Int ={
