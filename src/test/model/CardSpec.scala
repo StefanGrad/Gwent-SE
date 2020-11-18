@@ -1,6 +1,5 @@
 package model
 import org.scalatest.{Matchers, WordSpec}
-import main.model.Card
 
 class CardSpec extends WordSpec with Matchers {
   "A Card is an immutable Combination of a name: String, a Spezial: int, an atkValue: int and a Range: Int" when {

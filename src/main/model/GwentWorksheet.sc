@@ -5,15 +5,15 @@ println(v2.apply(0))
 val t = (1,"s")
 t._1
 
-
-
-val l1 = List("hallo")
-val l2 = List("hi")
-val l3 = l1.++(l2)
-println(l3.toString())
-l3.filterNot(p => p.equals("hi"))
-
-println(l1)
+/*
+      var newHand = Vector[Card]()
+      for (x <- hand.indices) {
+        if (returnIndex != x) {
+          newHand = newHand++Vector[Card](hand(x))
+        }
+      }
+     HandCard(newHand)
+    */
 
 val z = Vector.fill(4, 2)(0)
 val a = Array.fill(4,1)("emptyCard")

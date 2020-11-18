@@ -1,4 +1,4 @@
-package main.model
+package model
 
 case class Card(name: String, ability: Int, strength: Int, range: Int) {
   def isEmpty: Boolean = this.equals(Card("",0,0,0))

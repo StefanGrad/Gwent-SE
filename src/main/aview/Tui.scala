@@ -1,6 +1,6 @@
-package main.tui
+package aview
 
-import main.model.{Card, Evaluation, Field, HandCard, Player}
+import model.{Evaluation, Field, HandCard, Player}
 
 import scala.util.Random.nextInt
 
@@ -32,8 +32,8 @@ class Tui {
           do {
             cardR = r.nextInt(handBot.hand.size)
           } while (handBot.show(cardR).isEmpty)
-          val change = handBot.playCard(cardR, field, rowR, colR)
-          val handBotNew = change._2
+          val tuple = handBot.playCard(cardR, field, rowR, colR)
+          val handBotNew = tuple._2
           return (field,handTop,handBotNew)
         }
         (field,handTop,handBot)
@@ -49,7 +49,7 @@ class Tui {
           do {
             cardR = r.nextInt(handTop.hand.size)
           } while (handTop.show(cardR).isEmpty)
-          val handTopNew = (handTop.playCard(cardR, field, rowR, colR)._2)
+          val handTopNew = handTop.playCard(cardR, field, rowR, colR)._2
           return (field,handTopNew,handBot)
         }
         (field,handTop,handBot)

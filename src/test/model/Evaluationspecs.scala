@@ -1,7 +1,6 @@
 package model
 
 import org.scalatest.{Matchers, WordSpec}
-import main.model.{Evaluation, Field, Player, Card}
 
 class Evaluationspecs extends WordSpec with Matchers {
   "Evaluation compares the Attack Values of both Players and prints out the Winner of the Round" when{

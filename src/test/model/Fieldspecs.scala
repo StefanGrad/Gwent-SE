@@ -1,6 +1,5 @@
 package model
 import org.scalatest.{Matchers, WordSpec}
-import main.model.{Card, Field}
 
 class Fieldspecs extends WordSpec with Matchers {
   "A Field is a 4x4 Array of Arrays with are then filled with Cards" when {

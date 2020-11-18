@@ -1,4 +1,4 @@
-package main.model
+package model
 
 case class Evaluation() {
   def eval(field: Field, playerTop: Player, playerBot: Player):Int = {

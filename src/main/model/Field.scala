@@ -1,10 +1,10 @@
-package main.model
+package model
 import scala.math.sqrt
 
 case class Field(col:Int, row:Int) {
   val emptyCard = Card("",0,0,0)
   val field = Array.fill(col,row)(emptyCard)
-  val size = field.size
+  val size = field.length
   val blocknum: Int = sqrt(size).toInt
   def isEmpty(col:Int,row:Int):Boolean = field(col)(row).isEmpty
   def isNotFull(fromRow:Int, tillRow:Int): Boolean = {

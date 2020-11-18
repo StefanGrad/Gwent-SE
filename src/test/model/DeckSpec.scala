@@ -1,6 +1,5 @@
 package model
 import org.scalatest.{Matchers, WordSpec}
-import main.model.{Card, Deck}
 
 class DeckSpec extends WordSpec with Matchers {
   "A Deck holds all Cards playable in the game" when {

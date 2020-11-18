@@ -1,4 +1,4 @@
-package main.model
+package model
 
 case class Deck() {
   val r = scala.util.Random
