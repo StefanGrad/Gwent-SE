@@ -30,11 +30,11 @@ class Tui {
             rowR = r.nextInt(4)
           }
           do {
-            cardR = r.nextInt(10)
+            cardR = r.nextInt(handBot.hand.size)
           } while (handBot.show(cardR).isEmpty)
           val change = handBot.playCard(cardR, field, rowR, colR)
-          var handBotNew = HandCard(Vector[Card]())
-          (field,handTop,handBotNew)
+          val handBotNew = change._2
+          return (field,handTop,handBotNew)
         }
         (field,handTop,handBot)
       case "top pr" =>
@@ -47,9 +47,10 @@ class Tui {
             rowR = r.nextInt(4)
           } while (field.get(colR, rowR).isEmpty == false)
           do {
-            cardR = r.nextInt(10)
+            cardR = r.nextInt(handTop.hand.size)
           } while (handTop.show(cardR).isEmpty)
-          (field,handTop.playCard(cardR, field, rowR, colR)_2,handBot)
+          val handTopNew = (handTop.playCard(cardR, field, rowR, colR)._2)
+          return (field,handTopNew,handBot)
         }
         (field,handTop,handBot)
       case _ => {

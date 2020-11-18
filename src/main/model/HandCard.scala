@@ -22,13 +22,13 @@ case class HandCard(hand: Vector[Card]) {
   def show(index: Int): Card = hand(index)
 
   //return wert auswählen z.b. val test = playCard(x,x,x,x,x)._1 für c oder ._2 für newhand
-  def playCard(cardAt: Int, field: Field, inRow: Int, inCol: Int):(Card, Vector[Card]) ={
+  def playCard(cardAt: Int, field: Field, inRow: Int, inCol: Int):(Card, HandCard) ={
     val c = hand(cardAt)
     field.set(inCol, inRow, c)
     (c, deleteCard(c))
   }
   // Läuft über die hand wenn das Jeweilige i meine card ist, gibt er eine leere Karte zurück und wenn nicht lässt er die Karte drin
-  def deleteCard(card: Card): Vector[Card] = {
+  def deleteCard(card: Card): HandCard = {
     val returnIndex = getCardIndex(card)
       var newHand = Vector[Card]()
       for (x <- 0 to hand.size-1) {
