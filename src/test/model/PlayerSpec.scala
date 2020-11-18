@@ -1,5 +1,5 @@
-
-import main.model.{Card, HandCard, Player}
+package model
+import main.model.Player
 import org.scalatest.{Matchers, WordSpec}
 
 class PlayerSpec extends WordSpec with Matchers {

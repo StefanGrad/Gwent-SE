@@ -1,8 +1,8 @@
+package model
 import main.model.{Card, Field, HandCard}
 import org.scalatest.{Matchers, WordSpec}
 
-
-class HandCardsSpec extends WordSpec with Matchers {
+class HandCardSpec extends WordSpec with Matchers {
   "Handcards are an Array of  10 Cards from the Deck. Handcards" when {
     "a Handcard" should {
       "be empty when all cards are played" in {

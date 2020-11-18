@@ -1,3 +1,4 @@
+package model
 import org.scalatest.{Matchers, WordSpec}
 import main.model.Card
 

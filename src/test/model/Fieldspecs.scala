@@ -1,11 +1,11 @@
-
+package model
 import org.scalatest.{Matchers, WordSpec}
 import main.model.{Card, Field}
 
 class Fieldspecs extends WordSpec with Matchers {
   "A Field is a 4x4 Array of Arrays with are then filled with Cards" when {
     "a Field" should {
-      val emptyCard = new Card("",0,0,0)
+      val emptyCard = Card("",0,0,0)
       "initially be filled with empty Cards" in {
         Field(4,4).get(0,0) should be (emptyCard)
         Field(4,4).get(0,1) should be (emptyCard)

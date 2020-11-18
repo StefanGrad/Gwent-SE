@@ -23,11 +23,7 @@ case class Deck() {
     Card ("Hobbit", 2, 0, 0))
   val length = deck.length
 
-  def getRandomCard(): Card ={
+  def getRandomCard: Card ={
     deck(r.nextInt(length))
   }
-}
-
-object Deck {
-  def getRandomCard() = ???
 }

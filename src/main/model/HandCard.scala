@@ -9,13 +9,13 @@ case class HandCard(hand: Vector[Card]) {
 
 
   def newDeck(): HandCard = {
-    val newDeck = Vector[Card](deck.getRandomCard(),deck.getRandomCard(),deck.getRandomCard(),deck.getRandomCard(),deck.getRandomCard(), deck.getRandomCard(), deck.getRandomCard(),deck.getRandomCard(),deck.getRandomCard(),deck.getRandomCard())
+    val newDeck = Vector[Card](deck.getRandomCard,deck.getRandomCard,deck.getRandomCard,deck.getRandomCard,deck.getRandomCard, deck.getRandomCard, deck.getRandomCard,deck.getRandomCard,deck.getRandomCard,deck.getRandomCard)
     HandCard(newDeck)
   }
 
   def draw(card: Card): HandCard = HandCard(hand++Vector[Card](card))
 
-  def drawRandom: HandCard = HandCard(hand++Vector[Card](deck.getRandomCard()))
+  def drawRandom: HandCard = HandCard(hand++Vector[Card](deck.getRandomCard))
 
   def handIsEmpty: Boolean = 0 == hand.size
 
@@ -31,7 +31,7 @@ case class HandCard(hand: Vector[Card]) {
   def deleteCard(card: Card): HandCard = {
     val returnIndex = getCardIndex(card)
       var newHand = Vector[Card]()
-      for (x <- 0 to hand.size-1) {
+      for (x <- hand.indices) {
         if (returnIndex != x) {
           newHand = newHand++Vector[Card](hand(x))
         }
