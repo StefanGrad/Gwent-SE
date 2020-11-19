@@ -13,7 +13,9 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
   def fieldToString: String = field.toString
 
   def evaluate(fieldPlay: Field, playerTop: Player, playerBot: Player): Unit = {
-    fieldPlay.evaluator.eval(fieldPlay,playerTop,playerBot)
+    val winner = fieldPlay.evaluator.eval(fieldPlay,playerTop,playerBot)
+    if (winner == 1) updatePlayerTopWins(playerTop)
+    if (winner == 2) updatePlayerBotWins(playerBot)
     fieldPlay.clear(fieldPlay)
   }
 
@@ -23,12 +25,22 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
   }
 
   def createPlayerTop(name:String):Unit = {
-    playerTop = Player(name, HandCard(Vector[Card]()).newDeck())
+    playerTop = Player(name, HandCard(Vector[Card]()).newDeck(),0)
     notifyObservers
   }
 
   def createPlayerBot(name:String):Unit = {
-    playerBot = Player(name, HandCard(Vector[Card]()).newDeck())
+    playerBot = Player(name, HandCard(Vector[Card]()).newDeck(),0)
+    notifyObservers
+  }
+
+  def updatePlayerTopWins(player: Player): Unit = {
+    playerTop = player.updateWins(player)
+    notifyObservers
+  }
+
+  def updatePlayerBotWins(player: Player): Unit = {
+    playerBot = player.updateWins(player)
     notifyObservers
   }
 
@@ -40,10 +52,10 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
     field = tuple._3
     val name = player.name
     if (rememberTop) {
-      playerTop = Player(name, tuple._2)
+      playerTop = Player(name, tuple._2,player.wins)
       return notifyObservers
     }
-    playerBot = Player(name,tuple._2)
+    playerBot = Player(name,tuple._2, player.wins)
     notifyObservers
   }
 

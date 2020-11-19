@@ -34,7 +34,7 @@ class Tui {
           } while (playerBot.handCard.show(cardR).isEmpty)
           val handBotNew = playerBot.handCard.playCard(cardR, field, rowR, colR)._2
           val name = playerBot.name
-          val playerBotNew = Player(name,handBotNew)
+          val playerBotNew = Player(name,handBotNew,0)
           return (field,playerTop,playerBotNew)
         }
         (field,playerTop,playerBot)
@@ -51,7 +51,7 @@ class Tui {
             cardR = r.nextInt(playerTop.handCard.hand.size)
           } while (playerTop.handCard.show(cardR).isEmpty)
           val handTopNew = playerTop.handCard.playCard(cardR, field, rowR, colR)._2
-          return (field,Player(playerTop.name,handTopNew),playerBot)
+          return (field,Player(playerTop.name,handTopNew,0),playerBot)
         }
         (field,playerTop,playerBot)
       case _ => {

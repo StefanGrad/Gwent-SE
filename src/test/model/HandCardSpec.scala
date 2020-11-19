@@ -22,24 +22,12 @@ class HandCardSpec extends WordSpec with Matchers {
         hand.playCard(0,field,0,0)._1 should be (Card("Archer",0,3,1))
       }
       "draws a random Card" in {
-        var hand = HandCard(Vector[Card]())
+        val hand = HandCard(Vector[Card]())
         hand.drawRandom.hand.size should be(1)
-
       }
       "delete a card" in {
         val hand = HandCard(Vector[Card](Card("Archer", 0, 3, 1)))
         hand.deleteCard(Card("Archer", 0, 3, 1)) should be (HandCard(Vector[Card]()))
-      }
-      "not delete a card" in {
-        val hand = HandCard(Vector[Card](Card("Archer", 0, 3, 1)))
-        hand.deleteCard(Card("",0,0,0)) should be (HandCard(Vector[Card](Card("Archer", 0, 3, 1))))
-      }
-      "draws a specific Card" in {
-        val hand = HandCard(Vector[Card]())
-        hand.draw(Card("Archer", 0, 3, 1)) should be(HandCard(Vector[Card](Card("Archer", 0, 3, 1))))
-      }
-      "can be converted" in {
-        HandCard(Vector[Card](Card("Archer", 0, 3, 1))).toString should be("Archer A0 S3")
       }
       "not delete a card" in {
         val hand = HandCard(Vector[Card](Card("Archer", 0, 3, 1)))

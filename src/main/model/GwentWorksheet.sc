@@ -4,6 +4,7 @@ val v3 = v++v2
 println(v2.apply(0))
 val t = (1,"s")
 t._1
+Array.fill(4,4)(1).size
 
 /*
       var newHand = Vector[Card]()

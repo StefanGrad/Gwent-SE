@@ -5,8 +5,8 @@ import model.{Card, Evaluation, Field, HandCard, Player}
 
 object Gwent{
   var field = Field(4,4)
-  var playerTop = Player("Adrian",HandCard(Vector[Card]()).newDeck())
-  var playerBot = Player("Stefan",HandCard(Vector[Card]()).newDeck())
+  var playerTop = Player("Adrian",HandCard(Vector[Card]()).newDeck(),0)
+  var playerBot = Player("Stefan",HandCard(Vector[Card]()).newDeck(),0)
   val tui = new Tui
 
   def main(args: Array[String]): Unit = {
