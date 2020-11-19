@@ -26,10 +26,16 @@ case class Field(col:Int, row:Int) {
     for {
       row <- 0 until row
       col <- 0 until col
-    } box = box.replaceFirst("x", field(row)(col).toString)
+    } {
+      val s = StringBuilder.newBuilder
+      s.append("(").append(row).append(",").append(col).append(")")
+      box = box.replaceFirst("x", field(row)(col).toString.replace("    ", s.toString()))
+    }
     box
   }
+
   def get(col:Int,row:Int): Card = field(col)(row)
+
   def clear(field: Field): Field = {
     for {
       row <- 0 until row
