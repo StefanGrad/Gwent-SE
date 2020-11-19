@@ -1,7 +1,7 @@
 package controller
 
 import util.Observable
-import model.{Field, HandCard, Player}
+import model.{Card, Field, HandCard, Player}
 
 class Controller(var field: Field, var playerTop: Player, var playerBot: Player) extends Observable {
 
@@ -21,6 +21,18 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
     field = fieldPlay.clear(fieldPlay)
     notifyObservers
   }
+
+  def createPlayerTop(name:String):Unit = {
+    playerTop = Player(name, HandCard(Vector[Card]()).newDeck())
+    notifyObservers
+  }
+
+  def createPlayerBot(name:String):Unit = {
+    playerBot = Player(name, HandCard(Vector[Card]()).newDeck())
+    notifyObservers
+  }
+
+  def playerToString(player: Player): String = player.toString
 
   def playCardAt(fieldPlay: Field, row: Int, col:Int, player: Player, cardIndex: Int): Unit = {
     val rememberTop = player.equals(playerTop)
