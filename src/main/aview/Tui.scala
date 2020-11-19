@@ -25,12 +25,13 @@ class Tui(controller: Controller) extends Observer{
       case _ => {
         input.toList.filter(c => c != ' ').map(c => c.toString.toInt) match {
           case row :: column :: cardIndex :: Nil =>
-            if (controller.playerTop.handCard.size > cardIndex & cardIndex >= 0) {
+            if (controller.playerTop.handCard.size > cardIndex & cardIndex >= 0 & controller.field.isEmpty(column,row) & 0 <= column & column < 4 & 0 <= row & row < 2) {
               controller.playCardAt(controller.field, row, column, controller.playerTop, cardIndex)
               topPassed = false
+              failedInput = false
               return
             }
-            println("You choose the wrong Index")
+            println("You choose an nonexisting Index or an invalid row/col.")
             failedInput = true
           case _ => failedInput = true
         }
@@ -52,9 +53,10 @@ class Tui(controller: Controller) extends Observer{
       case _ => {
         input.toList.filter(c => c != ' ').map(c => c.toString.toInt) match {
           case row :: column :: cardIndex :: Nil =>
-            if (controller.playerBot.handCard.size > cardIndex & cardIndex >= 0) {
+            if (controller.playerBot.handCard.size > cardIndex & cardIndex >= 0 & controller.field.isEmpty(column,row) & 0 <= column & column < 4 & 2 <= row & row < 4) {
               controller.playCardAt(controller.field, row, column, controller.playerBot, cardIndex)
               botPassed = false
+              failedInput = false
               return
             }
             println("You choose the wrong Index")
@@ -62,13 +64,6 @@ class Tui(controller: Controller) extends Observer{
           case _ => failedInput = true
         }
       }
-    }
-  }
-
-  def prozessFailedInputLine(input: String): Unit = {
-    input match {
-      case "y" => failedInput = false
-      case _ =>
     }
   }
 
