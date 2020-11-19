@@ -2,6 +2,7 @@ package model
 import scala.math.sqrt
 
 case class Field(col:Int, row:Int) {
+  val evaluator = Evaluation()
   val emptyCard = Card("",0,0,0)
   val field = Array.fill(col,row)(emptyCard)
   val size = field.length
