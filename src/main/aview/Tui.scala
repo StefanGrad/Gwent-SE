@@ -1,63 +1,77 @@
 package aview
 
-import model.{Evaluation, Field, HandCard, Player}
+import controller.Controller
 
-import scala.util.Random.nextInt
+import util.Observer
 
-class Tui {
+class Tui(controller: Controller) extends Observer{
 
-  def processInputLine(input: String, field:Field, playerTop: Player, playerBot: Player):(Field,Player,Player) = {
-    val r = scala.util.Random
+  controller.add(this)
+  var botPassed = false
+  var topPassed = false
+  var failedInput = false
+
+  def processInputLineTop(input: String):Unit = {
     input match {
-      case "close" => (field,playerTop,playerBot)
-      case "clear" => field.evaluator.eval(field,playerTop,playerBot)
-        (field.clear(field),playerTop,playerBot)
-      case "help" => println("Possiblites: close, clear, top/bot for Card display, top pr/bot pr for playing a Random Card")
-        (field,playerTop,playerBot)
-      case "top" =>
-        println(playerTop)
-        (field,playerTop,playerBot)
-      case "bot" =>
-        println(playerBot)
-        (field,playerTop,playerBot)
-      case "bot pr" =>
-        var colR = r.nextInt(2) + 2
-        var rowR = r.nextInt(4)
-        var cardR = 0
-        if(field.isNotFull(2,4) && !playerBot.handCard.handIsEmpty) {
-          while (field.isEmpty(colR, rowR) == false) {
-            colR = r.nextInt(2) + 2
-            rowR = r.nextInt(4)
-          }
-          do {
-            cardR = r.nextInt(playerBot.handCard.hand.size)
-          } while (playerBot.handCard.show(cardR).isEmpty)
-          val handBotNew = playerBot.handCard.playCard(cardR, field, rowR, colR)._2
-          val name = playerBot.name
-          val playerBotNew = Player(name,handBotNew,0)
-          return (field,playerTop,playerBotNew)
+      case "q" =>
+      case "c" =>
+        if (botPassed) {
+          botPassed = false
+          topPassed = false
+          controller.evaluate(controller.field,controller.playerTop,controller.playerBot)
         }
-        (field,playerTop,playerBot)
-      case "top pr" =>
-        var colR = 0
-        var rowR = 0
-        var cardR = 0
-        if(field.isNotFull(0,2) && !playerTop.handCard.handIsEmpty) {
-          do {
-            colR = r.nextInt(2)
-            rowR = r.nextInt(4)
-          } while (field.get(colR, rowR).isEmpty == false)
-          do {
-            cardR = r.nextInt(playerTop.handCard.hand.size)
-          } while (playerTop.handCard.show(cardR).isEmpty)
-          val handTopNew = playerTop.handCard.playCard(cardR, field, rowR, colR)._2
-          return (field,Player(playerTop.name,handTopNew,0),playerBot)
-        }
-        (field,playerTop,playerBot)
+        topPassed = true
+        println("Player " + controller.playerTop.name + " has passed this Turn.")
       case _ => {
-        (field,playerTop,playerBot)
+        input.toList.filter(c => c != ' ').map(c => c.toString.toInt) match {
+          case row :: column :: cardIndex :: Nil =>
+            if (controller.playerTop.handCard.size > cardIndex & cardIndex >= 0) {
+              controller.playCardAt(controller.field, row, column, controller.playerTop, cardIndex)
+              topPassed = false
+              return
+            }
+            println("You choose the wrong Index")
+            failedInput = true
+          case _ => failedInput = true
+        }
       }
     }
   }
+
+  def processInputLineBot(input: String):Unit = {
+    input match {
+      case "q" =>
+      case "c" =>
+        if (topPassed) {
+          botPassed = false
+          topPassed = false
+          controller.evaluate(controller.field,controller.playerBot,controller.playerBot)
+        }
+        botPassed = true
+        println("Player " + controller.playerBot.name + " has passed this Turn.")
+      case _ => {
+        input.toList.filter(c => c != ' ').map(c => c.toString.toInt) match {
+          case row :: column :: cardIndex :: Nil =>
+            if (controller.playerBot.handCard.size > cardIndex & cardIndex >= 0) {
+              controller.playCardAt(controller.field, row, column, controller.playerBot, cardIndex)
+              botPassed = false
+              return
+            }
+            println("You choose the wrong Index")
+            failedInput = true
+          case _ => failedInput = true
+        }
+      }
+    }
+  }
+
+  def prozessFailedInputLine(input: String): Unit = {
+    input match {
+      case "y" => failedInput = false
+      case _ =>
+    }
+  }
+
+  override def update: Unit =  println(controller.fieldToString)
 
 }

@@ -1,27 +1,37 @@
 
 import aview.Tui
-import model.{Card, Evaluation, Field, HandCard, Player}
+import controller.Controller
+import model.{Card, Field, HandCard, Player}
 
 
 object Gwent{
-  var field = Field(4,4)
-  var playerTop = Player("Adrian",HandCard(Vector[Card]()).newDeck(),0)
-  var playerBot = Player("Stefan",HandCard(Vector[Card]()).newDeck(),0)
-  val tui = new Tui
+  val playerTop = Player("Adrian",HandCard(Vector[Card]()).newDeck(),0)
+  val playerBot = Player("Stefan",HandCard(Vector[Card]()).newDeck(),0)
+  val controller = new Controller(new Field(4,4),playerTop,playerBot)
+  val tui = new Tui(controller)
+  controller.notifyObservers
 
   def main(args: Array[String]): Unit = {
     var input: String = ""
+    var turnFor = 0
 
     do {
-      println("Field : \n" + field.toString)
-      input = scala.io.StdIn.readLine()
-      val tuple = tui.processInputLine(input, field, playerTop, playerBot)
-      field = tuple._1
-      playerTop = tuple._2
-      playerBot = tuple._3
-
-    } while (input != "close")
-
+      if(turnFor % 2 == 0) {
+        println(controller.playerTop)
+        println("May chose his options (q,c,(row,col,cardAt))")
+        input = readLine()//scala.io.StdIn.readLine()//
+        tui.processInputLineTop(input)
+      } else {
+        println(controller.playerBot)
+        println("May chose his options (q,c,(row,col,cardAt))")
+        input = readLine()//scala.io.StdIn.readLine()//
+        tui.processInputLineBot(input)
+      }
+      turnFor += 1
+      if (tui.failedInput) {
+        println("Your input was incorrect please try again. If you want to pass press 'c'")
+        turnFor -= 1
+      }
+    } while (input != "q")
   }
-
 }
