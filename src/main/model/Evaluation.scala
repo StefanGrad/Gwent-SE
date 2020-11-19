@@ -16,7 +16,6 @@ case class Evaluation() {
     } botC += field.get(r,c).strength
     val bot = botC
     //botC = 0
-    var winner = Player("Unentschieden",HandCard(Vector[Card]()),0)
     if (top - bot > 0) {
       println("The winner of this round is " + playerTop.name)
       return 1

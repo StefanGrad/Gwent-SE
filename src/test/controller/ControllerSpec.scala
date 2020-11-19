@@ -9,8 +9,8 @@ class ControllerSpec extends  WordSpec with Matchers {
     "A Controller " should {
       val archer = Card("Archer", 0, 3, 1)
       val field = Field(4, 4)
-      val playerTop = Player("Top", HandCard(Vector[Card](archer)),0)
-      val playerBot = Player("Bot", HandCard(Vector[Card](archer)),0)
+      val playerTop = Player("Top", HandCard(Vector[Card](archer,archer)),0)
+      val playerBot = Player("Bot", HandCard(Vector[Card](archer,archer)),0)
       val ctrl = new Controller(field, playerTop, playerBot)
       val observer = new Observer {
         var updated: Boolean = false
@@ -36,14 +36,23 @@ class ControllerSpec extends  WordSpec with Matchers {
         ctrl.field.isEmpty(1,1) should be(true)
       }
       "evaluate the Game" in {
-        ctrl.createField
-        ctrl.playCardAt(field,0,0,playerBot,0)
-        ctrl.evaluate(field,playerTop,playerBot) should be (4)
-        ctrl.clearField(field)
-        ctrl.playCardAt(field,3,3,playerBot,0)
-        ctrl.evaluate(field,playerTop,playerBot) should be ("ugf")
-        ctrl.clearField(field)
-        ctrl.evaluate(field,playerTop,playerBot) should be ("uzg")
+        val ctrl = new Controller(field,playerTop,playerBot)
+        ctrl.playCardAt(ctrl.field,3,3,ctrl.playerBot,0)
+        observer.updated should be(true)
+        ctrl.evaluate(ctrl.field,ctrl.playerTop,ctrl.playerBot)
+        observer.updated should be(true)
+        ctrl.playerTop.wins should be(0)
+        ctrl.playerBot.wins should be(1)
+        ctrl.playCardAt(ctrl.field,0,0,ctrl.playerTop,0)
+        observer.updated should be(true)
+        ctrl.evaluate(ctrl.field,ctrl.playerTop,ctrl.playerBot)
+        observer.updated should be(true)
+        ctrl.playerTop.wins should be(1)
+        ctrl.playerBot.wins should be(1)
+        ctrl.evaluate(ctrl.field,ctrl.playerTop,ctrl.playerBot)
+        observer.updated should be(true)
+        ctrl.playerTop.wins should be(1)
+        ctrl.playerBot.wins should be(1)
         observer.updated should be(true)
       }
       "create the Top Player" in {
@@ -58,7 +67,7 @@ class ControllerSpec extends  WordSpec with Matchers {
       }
       "turn a player into a String" in {
         ctrl.playerTop = Player("Adrian", HandCard(Vector[Card](archer)),0)
-        ctrl.playerToString(ctrl.playerTop) should be("Adrian holds in his Hand: Archer A0 S3 R1")
+        ctrl.playerToString(ctrl.playerTop) should be("Adrian has won 0 times and holds in his Hand: Archer A0 S3 R1")
       }
       "play a Card at a chosen Cell" in {
         ctrl.playCardAt(field, 1,3,ctrl.playerTop,0)

@@ -13,7 +13,7 @@ class PlayerSpec extends WordSpec with Matchers {
         playerNew.wins should be(1)
       }
       "have a nice String representation" in {
-        player.toString should be("Your Name has won 0 times and holds in his Hand: Archer S0 A3 0")
+        player.toString should be("Your Name has won 0 times and holds in his Hand: Archer A0 S3 R1")
       }
     }
   }

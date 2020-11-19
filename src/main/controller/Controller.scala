@@ -14,8 +14,14 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
 
   def evaluate(fieldPlay: Field, playerTop: Player, playerBot: Player): Unit = {
     val winner = fieldPlay.evaluator.eval(fieldPlay,playerTop,playerBot)
-    if (winner == 1) updatePlayerTopWins(playerTop)
-    if (winner == 2) updatePlayerBotWins(playerBot)
+    if (winner == 1) {
+      updatePlayerTopWins(playerTop)
+      return fieldPlay.clear(fieldPlay)
+    }
+    if (winner == 2) {
+      updatePlayerBotWins(playerBot)
+      return fieldPlay.clear(fieldPlay)
+    }
     fieldPlay.clear(fieldPlay)
   }
 
