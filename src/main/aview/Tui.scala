@@ -19,9 +19,10 @@ class Tui(controller: Controller) extends Observer{
           botPassed = false
           topPassed = false
           controller.evaluate(controller.field,controller.playerTop,controller.playerBot)
+        } else {
+          topPassed = true
+          println("Player " + controller.playerTop.name + " has passed this Turn.")
         }
-        topPassed = true
-        println("Player " + controller.playerTop.name + " has passed this Turn.")
       case _ => {
         input.toList.filter(c => c != ' ').map(c => c.toString.toInt) match {
           case row :: column :: cardIndex :: Nil =>
@@ -47,9 +48,10 @@ class Tui(controller: Controller) extends Observer{
           botPassed = false
           topPassed = false
           controller.evaluate(controller.field,controller.playerBot,controller.playerBot)
+        } else {
+          botPassed = true
+          println("Player " + controller.playerBot.name + " has passed this Turn.")
         }
-        botPassed = true
-        println("Player " + controller.playerBot.name + " has passed this Turn.")
       case _ => {
         input.toList.filter(c => c != ' ').map(c => c.toString.toInt) match {
           case row :: column :: cardIndex :: Nil =>
