@@ -1,4 +1,4 @@
-package de.htwg.se.qwent.model
+package scala.de.htwg.se.gwent.model
 
 case class Card(name: String, ability: Int, strength: Int, range: Int) {
   def isEmpty: Boolean = this.equals(Card("",0,0,0))

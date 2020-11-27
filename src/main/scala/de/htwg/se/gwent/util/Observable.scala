@@ -1,7 +1,7 @@
-package de.htwg.se.qwent.util
+package scala.de.htwg.se.gwent.util
 
 trait Observer {
-  def update: Unit
+  def update: Boolean
 }
 
 class Observable {

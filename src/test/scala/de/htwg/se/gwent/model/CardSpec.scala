@@ -1,7 +1,9 @@
-package de.htwg.se.qwent.model
-import org.scalatest.{Matchers, WordSpec}
+package scala.de.htwg.se.gwent.model
 
-class CardSpec extends WordSpec with Matchers {
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
+
+class CardSpec extends AnyWordSpec with Matchers {
   "A Card is an immutable Combination of a name: String, a Spezial: int, an atkValue: int and a Range: Int" when {
     "a Card" should {
       "have a Value" in {

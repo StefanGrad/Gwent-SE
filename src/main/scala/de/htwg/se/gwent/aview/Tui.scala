@@ -1,8 +1,7 @@
-package de.htwg.se.qwent.aview
+package scala.de.htwg.se.gwent.aview
 
-import de.htwg.se.qwent.controller.Controller
-
-import de.htwg.se.qwent.util.Observer
+import scala.de.htwg.se.gwent.util.Observer
+import scala.de.htwg.se.gwent.controller.Controller
 
 class Tui(controller: Controller) extends Observer{
 
@@ -69,6 +68,9 @@ class Tui(controller: Controller) extends Observer{
     }
   }
 
-  override def update: Unit =  println(controller.fieldToString)
+   def update: Boolean =  {
+    println(controller.fieldToString)
+    true
+  }
 
 }

@@ -1,4 +1,4 @@
-package de.htwg.se.qwent.model
+package scala.de.htwg.se.gwent.model
 
 case class Evaluation() {
   def eval(field: Field, playerTop: Player, playerBot: Player):Int = {

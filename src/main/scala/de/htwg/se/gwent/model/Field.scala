@@ -1,4 +1,5 @@
-package de.htwg.se.qwent.model
+package scala.de.htwg.se.gwent.model
+
 import scala.math.sqrt
 
 case class Field(col:Int, row:Int) {

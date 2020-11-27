@@ -1,7 +1,9 @@
-package de.htwg.se.qwent.model
-import org.scalatest.{Matchers, WordSpec}
+package scala.de.htwg.se.gwent.model
 
-class DeckSpec extends WordSpec with Matchers {
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
+
+class DeckSpec extends AnyWordSpec with Matchers {
   "A Deck holds all Cards playable in the game" when {
     "a Card is drawn" should {
       "get a Card" in {

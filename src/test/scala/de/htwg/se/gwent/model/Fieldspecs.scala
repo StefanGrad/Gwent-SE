@@ -1,7 +1,9 @@
-package de.htwg.se.qwent.model
-import org.scalatest.{Matchers, WordSpec}
+package scala.de.htwg.se.gwent.model
 
-class Fieldspecs extends WordSpec with Matchers {
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
+
+class Fieldspecs extends AnyWordSpec with Matchers {
   "A Field is a 4x4 Array of Arrays with are then filled with Cards" when {
     "a Field" should {
       val emptyCard = Card("",0,0,0)

@@ -1,10 +1,12 @@
-package de.htwg.se.qwent.controller
+package scala.de.htwg.se.gwent.controller
 
-import de.htwg.se.qwent.model.{Card, Field, HandCard, Player}
-import org.scalatest.{Matchers, WordSpec}
-import de.htwg.se.qwent.util.Observer
+import scala.de.htwg.se.gwent.model.{Card, Field, HandCard, Player}
+import scala.de.htwg.se.gwent.util.Observer
 
-class ControllerSpec extends  WordSpec with Matchers {
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
+
+class ControllerSpec extends AnyWordSpec with Matchers {
   "the Controller acts as a medium between de.htwg.se.de.htwg.se.qwent.qwent.model and de.htwg.se.de.htwg.se.qwent.qwent.aview" when {
     "A Controller " should {
       val archer = Card("Archer", 0, 3, 1)
@@ -15,7 +17,7 @@ class ControllerSpec extends  WordSpec with Matchers {
       val observer = new Observer {
         var updated: Boolean = false
         def isUpdated: Boolean = updated
-        override def update: Unit = updated = true
+        override def update:Boolean = {updated = true; true}
       }
       ctrl.add(observer)
       "create a playing Field" in {

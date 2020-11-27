@@ -1,9 +1,8 @@
-package de.htwg.se.qwent
+package scala.de.htwg.se.gwent
 
-import de.htwg.se.qwent.aview.Tui
-import de.htwg.se.qwent.controller.Controller
-import de.htwg.se.qwent.model.{Card, Field, HandCard, Player}
-
+import scala.de.htwg.se.gwent.aview.Tui
+import scala.de.htwg.se.gwent.model.{Card, Field, HandCard, Player}
+import scala.de.htwg.se.gwent.controller.Controller
 import scala.io.StdIn.readLine
 
 object Gwent{

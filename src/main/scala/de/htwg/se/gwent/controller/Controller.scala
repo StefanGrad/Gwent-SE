@@ -1,7 +1,8 @@
-package de.htwg.se.qwent.controller
+package scala.de.htwg.se.gwent.controller
 
-import de.htwg.se.qwent.util.Observable
-import de.htwg.se.qwent.model.{Card, Field, HandCard, Player}
+import scala.de.htwg.se.gwent.model.{Card, Field, HandCard, Player}
+
+import scala.de.htwg.se.gwent.util.Observable
 
 class Controller(var field: Field, var playerTop: Player, var playerBot: Player) extends Observable {
 

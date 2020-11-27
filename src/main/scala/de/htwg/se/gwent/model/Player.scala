@@ -1,5 +1,4 @@
-package de.htwg.se.qwent.model
-
+package scala.de.htwg.se.gwent.model
 
 case class Player(name:String, handCard: HandCard, wins: Int) {
   def updateWins(p: Player): Player = Player(p.name,p.handCard,p.wins + 1)

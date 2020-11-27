@@ -1,8 +1,9 @@
-package de.htwg.se.qwent.model
+package scala.de.htwg.se.gwent.model
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
-class Evaluationspecs extends WordSpec with Matchers {
+class Evaluationspecs extends AnyWordSpec with Matchers {
   "Evaluation compares the Attack Values of both Players and prints out the Winner of the Round" when{
     "Evaluation" should {
       val field = Field(4,4)

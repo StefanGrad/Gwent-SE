@@ -1,7 +1,9 @@
-package de.htwg.se.qwent.model
-import org.scalatest.{Matchers, WordSpec}
+package scala.de.htwg.se.gwent.model
 
-class HandCardSpec extends WordSpec with Matchers {
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
+
+class HandCardSpec extends AnyWordSpec with Matchers {
   "Handcards are an Array of  10 Cards from the Deck. Handcards" when {
     "a Handcard" should {
       "be empty when all cards are played" in {

@@ -1,4 +1,4 @@
-package de.htwg.se.qwent.model
+package scala.de.htwg.se.gwent.model
 
 import scala.collection.immutable.Nil.patch
 

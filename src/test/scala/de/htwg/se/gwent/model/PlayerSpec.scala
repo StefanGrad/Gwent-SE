@@ -1,7 +1,9 @@
-package de.htwg.se.qwent.model
-import org.scalatest.{Matchers, WordSpec}
+package scala.de.htwg.se.gwent.model
 
-class PlayerSpec extends WordSpec with Matchers {
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
+
+class PlayerSpec extends AnyWordSpec with Matchers {
   "A Player" when {
     "new" should {
       val player = Player("Your Name", HandCard(Vector[Card](Card("Archer",0,3,1))),0)
