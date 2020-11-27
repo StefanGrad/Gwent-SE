@@ -1,5 +1,7 @@
 package de.htwg.se.qwent.model
 
+import scala.collection.immutable.Nil.patch
+
 // bei floobits einmal drin, immer drin
 // niemals unter keinen umständen auf gar keinen fall update während man in floobits drinnen ist
 
@@ -30,8 +32,14 @@ case class HandCard(hand: Vector[Card]) {
   // Läuft über die hand wenn das Jeweilige i meine card ist, gibt er eine leere Karte zurück und wenn nicht lässt er die Karte drin
   def deleteCard(card: Card): HandCard = {
     val returnIndex = getCardIndex(card)
+    var newHand = Vector[Card]()
     if (returnIndex != -1) {
-      return HandCard(hand patch (from = returnIndex, patch = Nil, replaced = 1))
+      for (x <- hand.indices) {
+        if (x != returnIndex) {
+          newHand = newHand ++ Vector[Card](hand(x))
+        }
+      }
+      return HandCard(newHand)
     }
     HandCard(hand)
   }

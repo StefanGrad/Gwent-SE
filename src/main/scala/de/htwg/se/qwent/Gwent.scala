@@ -4,6 +4,8 @@ import de.htwg.se.qwent.aview.Tui
 import de.htwg.se.qwent.controller.Controller
 import de.htwg.se.qwent.model.{Card, Field, HandCard, Player}
 
+import scala.io.StdIn.readLine
+
 object Gwent{
   val playerTop = Player("Adrian",HandCard(Vector[Card]()).newDeck(),0)
   val playerBot = Player("Stefan",HandCard(Vector[Card]()).newDeck(),0)
