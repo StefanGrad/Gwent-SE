@@ -41,6 +41,7 @@ class TuiSpec extends WordSpec with Matchers {
         tui.failedInput should be (true)
         tui.processInputLineBot("2 2 11")
         tui.failedInput should be (true)
+
       }
     }
   }
