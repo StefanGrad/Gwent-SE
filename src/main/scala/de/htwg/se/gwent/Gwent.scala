@@ -13,10 +13,15 @@ object Gwent{
   controller.notifyObservers
 
   def main(args: Array[String]): Unit = {
+    println("Welcome to Gwent")
     var input: String = ""
     var turnFor = 0
-
-    do {
+    if(args.length != 0) {
+      input = args(0)
+      tui.processInputLineTop(input)
+      tui.processInputLineBot(input)
+    }
+    else do {
       if(turnFor % 2 == 0) {
         println(controller.playerTop)
         println("May chose his options (q,c,(row,col,cardAt))")
@@ -34,5 +39,6 @@ object Gwent{
         turnFor -= 1
       }
     } while (input != "q")
+    println("See you next time")
   }
 }
