@@ -1,7 +1,7 @@
-package aview
+package de.htwg.se.qwent.aview
 
-import controller.Controller
-import model.{Card, Field, HandCard, Player}
+import de.htwg.se.qwent.controller.Controller
+import de.htwg.se.qwent.model.{Card, Field, HandCard, Player}
 import org.scalatest.{Matchers, WordSpec}
 
 class TuiSpec extends WordSpec with Matchers {

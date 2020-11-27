@@ -1,8 +1,8 @@
-package aview
+package de.htwg.se.qwent.aview
 
-import controller.Controller
+import de.htwg.se.qwent.controller.Controller
 
-import util.Observer
+import de.htwg.se.qwent.util.Observer
 
 class Tui(controller: Controller) extends Observer{
 

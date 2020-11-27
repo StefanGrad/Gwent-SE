@@ -1,11 +1,11 @@
-package controller
+package de.htwg.se.qwent.controller
 
-import model.{Card, Field, HandCard, Player}
+import de.htwg.se.qwent.model.{Card, Field, HandCard, Player}
 import org.scalatest.{Matchers, WordSpec}
-import util.Observer
+import de.htwg.se.qwent.util.Observer
 
 class ControllerSpec extends  WordSpec with Matchers {
-  "the Controller acts as a medium between model and aview" when {
+  "the Controller acts as a medium between de.htwg.se.de.htwg.se.qwent.qwent.model and de.htwg.se.de.htwg.se.qwent.qwent.aview" when {
     "A Controller " should {
       val archer = Card("Archer", 0, 3, 1)
       val field = Field(4, 4)

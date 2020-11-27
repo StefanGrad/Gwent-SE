@@ -1,4 +1,4 @@
-package model
+package de.htwg.se.qwent.model
 import scala.math.sqrt
 
 case class Field(col:Int, row:Int) {

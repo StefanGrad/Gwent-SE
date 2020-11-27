@@ -1,4 +1,4 @@
-package model
+package de.htwg.se.qwent.model
 
 // bei floobits einmal drin, immer drin
 // niemals unter keinen umständen auf gar keinen fall update während man in floobits drinnen ist

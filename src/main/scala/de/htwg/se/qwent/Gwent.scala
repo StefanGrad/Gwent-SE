@@ -1,8 +1,8 @@
+package de.htwg.se.qwent
 
-import aview.Tui
-import controller.Controller
-import model.{Card, Field, HandCard, Player}
-
+import de.htwg.se.qwent.aview.Tui
+import de.htwg.se.qwent.controller.Controller
+import de.htwg.se.qwent.model.{Card, Field, HandCard, Player}
 
 object Gwent{
   val playerTop = Player("Adrian",HandCard(Vector[Card]()).newDeck(),0)

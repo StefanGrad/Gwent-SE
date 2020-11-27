@@ -1,4 +1,4 @@
-package util
+package de.htwg.se.qwent.util
 
 trait Observer {
   def update: Unit

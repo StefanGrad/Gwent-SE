@@ -1,7 +1,7 @@
-package controller
+package de.htwg.se.qwent.controller
 
-import util.Observable
-import model.{Card, Field, HandCard, Player}
+import de.htwg.se.qwent.util.Observable
+import de.htwg.se.qwent.model.{Card, Field, HandCard, Player}
 
 class Controller(var field: Field, var playerTop: Player, var playerBot: Player) extends Observable {
 

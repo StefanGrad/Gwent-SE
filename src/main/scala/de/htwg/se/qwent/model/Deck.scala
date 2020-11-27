@@ -1,4 +1,4 @@
-package model
+package de.htwg.se.qwent.model
 
 case class Deck() {
   val r = scala.util.Random

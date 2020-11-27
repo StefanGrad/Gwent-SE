@@ -1,4 +1,4 @@
-package model
+package de.htwg.se.qwent.model
 
 import org.scalatest.{Matchers, WordSpec}
 
