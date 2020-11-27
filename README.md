@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/StefanGrad/SE_GWENT.svg?branch=master)](https://travis-ci.com/StefanGrad/SE_GWENT)
+
 # SE_GWENT
 Project for a Software Engineering class
 
