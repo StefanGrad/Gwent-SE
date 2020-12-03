@@ -16,11 +16,11 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
   def evaluate(fieldPlay: Field, playerTop: Player, playerBot: Player): Unit = {
     val winner = fieldPlay.evaluator.eval(fieldPlay,playerTop,playerBot)
     if (winner == 1) {
-      updatePlayerTopWins(playerTop)
+      updatePlayerWins(playerTop,0)
       return fieldPlay.clear(fieldPlay)
     }
     if (winner == 2) {
-      updatePlayerBotWins(playerBot)
+      updatePlayerWins(playerBot,1)
       return fieldPlay.clear(fieldPlay)
     }
     fieldPlay.clear(fieldPlay)
@@ -31,23 +31,20 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
     notifyObservers
   }
 
-  def createPlayerTop(name:String):Unit = {
-    playerTop = Player(name, HandCard(Vector[Card]()).newDeck(),0)
+  def createPlayer(name:String,p:Int):Unit = {
+    if (p == 1) {
+      playerBot = Player(p,name, HandCard(Vector[Card]()).newDeck(),0)
+      return notifyObservers
+    }
+    playerTop = Player(p,name, HandCard(Vector[Card]()).newDeck(),0)
     notifyObservers
   }
 
-  def createPlayerBot(name:String):Unit = {
-    playerBot = Player(name, HandCard(Vector[Card]()).newDeck(),0)
-    notifyObservers
-  }
-
-  def updatePlayerTopWins(player: Player): Unit = {
+  def updatePlayerWins(player: Player,p:Int): Unit = {
+    if (p == 1) {
+      playerBot = player.updateWins(player)
+    }
     playerTop = player.updateWins(player)
-    notifyObservers
-  }
-
-  def updatePlayerBotWins(player: Player): Unit = {
-    playerBot = player.updateWins(player)
     notifyObservers
   }
 
@@ -59,10 +56,10 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
     field = tuple._3
     val name = player.name
     if (rememberTop) {
-      playerTop = Player(name, tuple._2,player.wins)
+      playerTop = Player(0,name, tuple._2,player.wins)
       return notifyObservers
     }
-    playerBot = Player(name,tuple._2, player.wins)
+    playerBot = Player(1,name,tuple._2, player.wins)
     notifyObservers
   }
 

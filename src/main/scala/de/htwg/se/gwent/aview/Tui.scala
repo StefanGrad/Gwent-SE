@@ -17,9 +17,11 @@ class Tui(controller: Controller) extends Observer{
         if (botPassed) {
           botPassed = false
           topPassed = false
+          failedInput = false
           controller.evaluate(controller.field,controller.playerTop,controller.playerBot)
         } else {
           topPassed = true
+          failedInput = false
           println("Player " + controller.playerTop.name + " has passed this Turn.")
         }
       case _ => {
@@ -46,9 +48,11 @@ class Tui(controller: Controller) extends Observer{
         if (topPassed) {
           botPassed = false
           topPassed = false
+          failedInput = false
           controller.evaluate(controller.field,controller.playerBot,controller.playerBot)
         } else {
           botPassed = true
+          failedInput = false
           println("Player " + controller.playerBot.name + " has passed this Turn.")
         }
       case _ => {

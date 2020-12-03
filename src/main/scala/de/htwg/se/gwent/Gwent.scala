@@ -6,8 +6,8 @@ import scala.de.htwg.se.gwent.controller.Controller
 import scala.io.StdIn.readLine
 
 object Gwent{
-  val playerTop = Player("Adrian",HandCard(Vector[Card]()).newDeck(),0)
-  val playerBot = Player("Stefan",HandCard(Vector[Card]()).newDeck(),0)
+  val playerTop = Player(0,"Adrian",HandCard(Vector[Card]()).newDeck(),0)
+  val playerBot = Player(1,"Stefan",HandCard(Vector[Card]()).newDeck(),0)
   val controller = new Controller(new Field(4,4),playerTop,playerBot)
   val tui = new Tui(controller)
   controller.notifyObservers
@@ -17,9 +17,11 @@ object Gwent{
     var input: String = ""
     var turnFor = 0
     if(args.length != 0) {
-      input = args(0)
-      tui.processInputLineTop(input)
-      tui.processInputLineBot(input)
+      var input2 = args(0).toList.filter(c => c != '_').map(c => c.toString)
+      tui.processInputLineBot(input2(0))
+      tui.processInputLineTop(input2(1))
+      tui.processInputLineBot(input2(2))
+      tui.processInputLineTop(input2(3))
     }
     else do {
       if(turnFor % 2 == 0) {
