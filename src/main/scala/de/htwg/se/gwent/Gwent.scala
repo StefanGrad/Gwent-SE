@@ -17,11 +17,16 @@ object Gwent{
     var input: String = ""
     var turnFor = 0
     if(args.length != 0) {
-      var input2 = args(0).toList.filter(c => c != '_').map(c => c.toString)
-      tui.processInputLineBot(input2(0))
-      tui.processInputLineTop(input2(1))
-      tui.processInputLineBot(input2(2))
-      tui.processInputLineTop(input2(3))
+      var input2 = args(0).split('_')
+      for (i <- 0 until input2.length) {
+        if(turnFor % 2 == 0) {
+          tui.processInputLineBot(input2(i))
+          turnFor += 1
+        }
+        tui.processInputLineTop(input2(i))
+        turnFor += 1
+      }
+
     }
     else do {
       if(turnFor % 2 == 0) {
