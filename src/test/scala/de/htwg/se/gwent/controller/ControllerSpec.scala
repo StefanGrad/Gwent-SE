@@ -11,8 +11,8 @@ class ControllerSpec extends AnyWordSpec with Matchers {
     "A Controller " should {
       val archer = Card("Archer", 0, 3, 1)
       val field = Field(4, 4)
-      val playerTop = Player("Top", HandCard(Vector[Card](archer,archer)),0)
-      val playerBot = Player("Bot", HandCard(Vector[Card](archer,archer)),0)
+      val playerTop = Player("Top", HandCard(Vector[Card](archer,archer,archer)),0,true)
+      val playerBot = Player("Bot", HandCard(Vector[Card](archer,archer,archer)),0,false)
       val ctrl = new Controller(field, playerTop, playerBot)
       val observer = new Observer {
         var updated: Boolean = false
@@ -31,7 +31,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         ctrl.fieldToString should be ("\n+---------------+---------------+\n" + "|(0,0)|(0,1)|(0,2)|(0,3)|\n|(1,0)|(1,1)|(1,2)|(1,3)|\n+---------------+---------------+\n|(2,0)|(2,1)|(2,2)|(2,3)|\n|(3,0)|(3,1)|(3,2)|(3,3)|\n+---------------+---------------+\n")
       }
       "clear the Field" in {
-        ctrl.playCardAt(field, 1,1,Player("Top", HandCard(Vector[Card](archer)),0),0)
+        ctrl.playCardAt(field, 1,1,false,0)
         observer.updated should be(true)
         ctrl.clearField(field)
         observer.updated should be(true)
@@ -39,13 +39,13 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       }
       "evaluate the Game" in {
         val ctrl = new Controller(field,playerTop,playerBot)
-        ctrl.playCardAt(ctrl.field,3,3,ctrl.playerBot,0)
+        ctrl.playCardAt(ctrl.field,3,3,false,0)
         observer.updated should be(true)
         ctrl.evaluate(ctrl.field,ctrl.playerTop,ctrl.playerBot)
         observer.updated should be(true)
         ctrl.playerTop.wins should be(0)
         ctrl.playerBot.wins should be(1)
-        ctrl.playCardAt(ctrl.field,0,0,ctrl.playerTop,0)
+        ctrl.playCardAt(ctrl.field,0,0,true,0)
         observer.updated should be(true)
         ctrl.evaluate(ctrl.field,ctrl.playerTop,ctrl.playerBot)
         observer.updated should be(true)
@@ -68,13 +68,14 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         ctrl.playerBot.name should be("Stefan")
       }
       "turn a player into a String" in {
-        ctrl.playerTop = Player("Adrian", HandCard(Vector[Card](archer)),0)
+        ctrl.playerTop = Player("Adrian", HandCard(Vector[Card](archer)),0, true)
         ctrl.playerToString(ctrl.playerTop) should be("Adrian has won 0 times and holds in his Hand: Archer A0 S3 R1")
       }
       "play a Card at a chosen Cell" in {
-        ctrl.playCardAt(field, 1,3,ctrl.playerTop,0)
+        ctrl.clearField(field)
+        ctrl.playCardAt(field, 1,1,true,0)
         observer.updated should be(true)
-        ctrl.field.getCard(3,1) should be(archer)
+        ctrl.field.getCard(1,1) should be(archer)
       }
     }
   }

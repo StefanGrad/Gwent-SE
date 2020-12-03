@@ -1,7 +1,10 @@
 package scala.de.htwg.se.gwent.model
 
-case class Player(name:String, handCard: HandCard, wins: Int) {
-  def updateWins(p: Player): Player = Player(p.name,p.handCard,p.wins + 1)
+import de.htwg.se.gwent.model.PlayerArea
+
+case class Player(name:String, handCard: HandCard, wins: Int, whichPlayer:Boolean) {
+  val playArea = PlayerArea.handel(whichPlayer)
+  def updateWins(p: Player): Player = Player(p.name,p.handCard,p.wins + 1,p.whichPlayer)
   override def toString: String = name + " has won " + wins + " times and holds in his Hand: " + handCard
 }
 /*

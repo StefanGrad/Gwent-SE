@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/se_gwent.iml" filepath="$PROJECT_DIR$/.idea/modules/se_gwent.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/se_gwent-build.iml" filepath="$PROJECT_DIR$/.idea/modules/se_gwent-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Qwent.iml" filepath="$PROJECT_DIR$/.idea/modules/Qwent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Qwent-build.iml" filepath="$PROJECT_DIR$/.idea/modules/Qwent-build.iml" />
     </modules>
   </component>
 </project>
