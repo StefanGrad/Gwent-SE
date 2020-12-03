@@ -6,8 +6,8 @@ import scala.de.htwg.se.gwent.controller.Controller
 import scala.io.StdIn.readLine
 
 object Gwent{
-  val playerTop = Player(0,"Adrian",HandCard(Vector[Card]()).newDeck(),0)
-  val playerBot = Player(1,"Stefan",HandCard(Vector[Card]()).newDeck(),0)
+  val playerTop = Player("Adrian",HandCard(Vector[Card]()).newDeck(),0)
+  val playerBot = Player("Stefan",HandCard(Vector[Card]()).newDeck(),0)
   val controller = new Controller(new Field(4,4),playerTop,playerBot)
   val tui = new Tui(controller)
   controller.notifyObservers
