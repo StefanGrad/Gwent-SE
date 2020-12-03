@@ -1,13 +1,13 @@
 package scala.de.htwg.se.gwent.controller
 
-import de.htwg.se.gwent.controller.GameStatus.{GameStatus, PASSED, PLAYING}
-
+import scala.de.htwg.se.gwent.controller.GameStatus.{GameStatus, INPUTFAIL, PASSED, PLAYING}
 import scala.de.htwg.se.gwent.model.{Card, Field, HandCard, Player}
 import scala.de.htwg.se.gwent.util.Observable
 
 class Controller(var field: Field, var playerTop: Player, var playerBot: Player) extends Observable {
 
   var gameState: GameStatus = PLAYING
+  val logic = new GameLogic
   def createField:Unit = {
     field = Field(4,4)
     notifyObservers
@@ -17,6 +17,7 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
 
   def evaluate(fieldPlay: Field, playerTop: Player, playerBot: Player): Unit = {
     val winner = fieldPlay.evaluator.eval(fieldPlay,playerTop,playerBot)
+    gameState = PLAYING
     if (winner == 1) {
       updatePlayerWins(playerTop,0)
       return fieldPlay.clear(fieldPlay)
@@ -36,10 +37,10 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
 
   def createPlayer(name:String,p:Int):Unit = {
     if (p == 1) {
-      playerBot = Player(name, HandCard(Vector[Card]()).newDeck(),0)
+      playerBot = Player(name, HandCard(Vector[Card]()).newDeck(),0,false)
       return notifyObservers
     }
-    playerTop = Player(name, HandCard(Vector[Card]()).newDeck(),0)
+    playerTop = Player(name, HandCard(Vector[Card]()).newDeck(),0,true)
     notifyObservers
   }
 
@@ -55,16 +56,16 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
   def playerToString(player: Player): String = player.toString
 
   def playCardAt(fieldPlay: Field, row: Int, col:Int, player: Player, cardIndex: Int): Unit = {
-    gameState = PLAYING
-    val rememberTop = player.equals(playerTop)
+    gameState = logic.applyLogic(fieldPlay,row, col, player, cardIndex)
+    if (gameState.equals(INPUTFAIL)) return notifyObservers
     val tuple = player.handCard.playCard(cardIndex,fieldPlay,row,col)
     field = tuple._3
     val name = player.name
-    if (rememberTop) {
-      playerTop = Player(name, tuple._2,player.wins)
+    if (player.whichPlayer) {
+      playerTop = Player(name, tuple._2,player.wins,true)
       return notifyObservers
     }
-    playerBot = Player(name,tuple._2, player.wins)
+    playerBot = Player(name,tuple._2, player.wins, false)
     notifyObservers
   }
 

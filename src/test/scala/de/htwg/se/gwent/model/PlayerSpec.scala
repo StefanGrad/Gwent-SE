@@ -5,8 +5,8 @@ import org.scalatest.wordspec.AnyWordSpec
 
 class PlayerSpec extends AnyWordSpec with Matchers {
   "A Player" when {
-    "new" should {
-      var playerTop = Player("Your Name", HandCard(Vector[Card](Card("Archer",0,3,1))),0)
+    "a new Player" should {
+      var playerTop = Player("Your Name", HandCard(Vector[Card](Card("Archer",0,3,1))),0, true)
       //var playerBot = Player(1,"Your Name", HandCard(Vector[Card](Card("Archer",0,3,1))),0)
       "have a name" in {
         playerTop.name should be("Your Name")

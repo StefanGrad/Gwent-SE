@@ -1,6 +1,6 @@
-package de.htwg.se.gwent.controller
+package scala.de.htwg.se.gwent.controller
 
 object GameStatus extends Enumeration {
   type GameStatus = Value
-  val PLAYING,PASSED = Value
+  val PLAYING,PASSED,INPUTFAIL = Value
 }
