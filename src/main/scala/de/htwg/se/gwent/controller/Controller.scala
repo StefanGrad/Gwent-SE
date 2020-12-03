@@ -1,11 +1,13 @@
 package scala.de.htwg.se.gwent.controller
 
-import scala.de.htwg.se.gwent.model.{Card, Field, HandCard, Player}
+import de.htwg.se.gwent.controller.GameStatus.{GameStatus, PASSED, PLAYING}
 
+import scala.de.htwg.se.gwent.model.{Card, Field, HandCard, Player}
 import scala.de.htwg.se.gwent.util.Observable
 
 class Controller(var field: Field, var playerTop: Player, var playerBot: Player) extends Observable {
 
+  var gameState: GameStatus = PLAYING
   def createField:Unit = {
     field = Field(4,4)
     notifyObservers
@@ -52,6 +54,7 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
   def playerToString(player: Player): String = player.toString
 
   def playCardAt(fieldPlay: Field, row: Int, col:Int, player: Player, cardIndex: Int): Unit = {
+    gameState = PLAYING
     val rememberTop = player.equals(playerTop)
     val tuple = player.handCard.playCard(cardIndex,fieldPlay,row,col)
     field = tuple._3
@@ -62,6 +65,14 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
     }
     playerBot = Player(name,tuple._2, player.wins)
     notifyObservers
+  }
+
+  def passRound():Unit = {
+    if (gameState.equals(PLAYING)) {
+      gameState = PASSED
+      return notifyObservers
+    }
+    evaluate(field,playerTop,playerBot)
   }
 
 

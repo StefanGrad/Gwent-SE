@@ -6,30 +6,18 @@ import scala.de.htwg.se.gwent.controller.Controller
 class Tui(controller: Controller) extends Observer{
 
   controller.add(this)
-  var botPassed = false
-  var topPassed = false
   var failedInput = false
 
   def processInputLineTop(input: String):Unit = {
     input match {
       case "q" =>
       case "c" =>
-        if (botPassed) {
-          botPassed = false
-          topPassed = false
-          failedInput = false
-          controller.evaluate(controller.field,controller.playerTop,controller.playerBot)
-        } else {
-          topPassed = true
-          failedInput = false
-          println("Player " + controller.playerTop.name + " has passed this Turn.")
-        }
+        controller.passRound()
       case _ => {
         input.toList.filter(c => c != ' ').map(c => c.toString.toInt) match {
           case row :: column :: cardIndex :: Nil =>
             if (controller.playerTop.handCard.size > cardIndex & cardIndex >= 0 & controller.field.isEmpty(column,row) & 0 <= column & column < 4 & 0 <= row & row < 2) {
               controller.playCardAt(controller.field, row, column, controller.playerTop, cardIndex)
-              topPassed = false
               failedInput = false
               return
             }
@@ -44,23 +32,12 @@ class Tui(controller: Controller) extends Observer{
   def processInputLineBot(input: String):Unit = {
     input match {
       case "q" =>
-      case "c" =>
-        if (topPassed) {
-          botPassed = false
-          topPassed = false
-          failedInput = false
-          controller.evaluate(controller.field,controller.playerBot,controller.playerBot)
-        } else {
-          botPassed = true
-          failedInput = false
-          println("Player " + controller.playerBot.name + " has passed this Turn.")
-        }
+      case "c" => controller.passRound()
       case _ => {
         input.toList.filter(c => c != ' ').map(c => c.toString.toInt) match {
           case row :: column :: cardIndex :: Nil =>
             if (controller.playerBot.handCard.size > cardIndex & cardIndex >= 0 & controller.field.isEmpty(column,row) & 0 <= column & column < 4 & 2 <= row & row < 4) {
               controller.playCardAt(controller.field, row, column, controller.playerBot, cardIndex)
-              botPassed = false
               failedInput = false
               return
             }
