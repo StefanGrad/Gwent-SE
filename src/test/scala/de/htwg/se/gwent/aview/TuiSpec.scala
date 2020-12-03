@@ -1,5 +1,7 @@
 package scala.de.htwg.se.gwent.aview
 
+import de.htwg.se.gwent.controller.GameStatus.{PLAYING,PASSED}
+
 import scala.de.htwg.se.gwent.model.{Card, Field, HandCard, Player}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -18,19 +20,11 @@ class TuiSpec extends AnyWordSpec with Matchers {
 
 
       "have the active player pass on input 'c' and if he's the second one to pass the game is evaluated" in {
+        controller.gameState should be (PLAYING)
         tui.processInputLineTop("c")
-        tui.topPassed should be (true)
-        tui.botPassed should be (false)
+        controller.gameState should be (PASSED)
         tui.processInputLineBot("c")
-        tui.topPassed should be (false)
-        tui.botPassed should be (false)
-
-        tui.processInputLineBot("c")
-        tui.topPassed should be (false)
-        tui.botPassed should be (true)
-        tui.processInputLineTop("c")
-        tui.topPassed should be (false)
-        tui.botPassed should be (false)
+        controller.gameState should be (PLAYING)
       }
 
       "place the card with the chosen index into the chosen cell" in {

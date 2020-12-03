@@ -30,6 +30,7 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
 
   def clearField(fieldPlay: Field): Unit = {
     field = fieldPlay.clear(fieldPlay)
+    gameState = PLAYING
     notifyObservers
   }
 
