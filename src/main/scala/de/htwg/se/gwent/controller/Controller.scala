@@ -43,6 +43,7 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
   def updatePlayerWins(player: Player,p:Int): Unit = {
     if (p == 1) {
       playerBot = playerBot.updateWins(playerBot)
+      return notifyObservers
     }
     playerTop = playerTop.updateWins(playerTop)
     notifyObservers
