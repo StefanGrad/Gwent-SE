@@ -33,18 +33,18 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
 
   def createPlayer(name:String,p:Int):Unit = {
     if (p == 1) {
-      playerBot = Player(p,name, HandCard(Vector[Card]()).newDeck(),0)
+      playerBot = Player(name, HandCard(Vector[Card]()).newDeck(),0)
       return notifyObservers
     }
-    playerTop = Player(p,name, HandCard(Vector[Card]()).newDeck(),0)
+    playerTop = Player(name, HandCard(Vector[Card]()).newDeck(),0)
     notifyObservers
   }
 
   def updatePlayerWins(player: Player,p:Int): Unit = {
     if (p == 1) {
-      playerBot = player.updateWins(player)
+      playerBot = playerBot.updateWins(playerBot)
     }
-    playerTop = player.updateWins(player)
+    playerTop = playerTop.updateWins(playerTop)
     notifyObservers
   }
 
@@ -56,10 +56,10 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
     field = tuple._3
     val name = player.name
     if (rememberTop) {
-      playerTop = Player(0,name, tuple._2,player.wins)
+      playerTop = Player(name, tuple._2,player.wins)
       return notifyObservers
     }
-    playerBot = Player(1,name,tuple._2, player.wins)
+    playerBot = Player(name,tuple._2, player.wins)
     notifyObservers
   }
 

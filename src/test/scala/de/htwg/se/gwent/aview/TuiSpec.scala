@@ -11,8 +11,8 @@ class TuiSpec extends AnyWordSpec with Matchers {
     "a Tui" should {
       val archer = Card("Archer", 0, 3, 1)
       val field = Field(4, 4)
-      val playerTop = Player(0,"Top", HandCard(Vector[Card](archer,archer)),0)
-      val playerBot = Player(1,"Bot", HandCard(Vector[Card](archer,archer)),0)
+      val playerTop = Player("Top", HandCard(Vector[Card](archer,archer)),0)
+      val playerBot = Player("Bot", HandCard(Vector[Card](archer,archer)),0)
       val controller = new Controller(field, playerTop, playerBot)
       val tui = new Tui(controller)
 

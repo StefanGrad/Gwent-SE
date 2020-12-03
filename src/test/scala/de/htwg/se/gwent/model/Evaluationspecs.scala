@@ -7,8 +7,8 @@ class Evaluationspecs extends AnyWordSpec with Matchers {
   "Evaluation compares the Attack Values of both Players and prints out the Winner of the Round" when{
     "Evaluation" should {
       val field = Field(4,4)
-      val p1 = Player(0,"Stefan",HandCard(Vector[Card]()),0)
-      val p2 = Player(1,"Adrian",HandCard(Vector[Card]()),0)
+      val p1 = Player("Stefan",HandCard(Vector[Card]()),0)
+      val p2 = Player("Adrian",HandCard(Vector[Card]()),0)
       "have a draw" in {
         Evaluation().eval(field,p1 ,p2) should be (0)
       }
