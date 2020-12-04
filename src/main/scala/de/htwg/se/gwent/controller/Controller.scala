@@ -1,6 +1,6 @@
 package scala.de.htwg.se.gwent.controller
 
-import scala.de.htwg.se.gwent.controller.WeatherState.{FROST, SUNSHINE, WeatherState}
+import scala.de.htwg.se.gwent.controller.WeatherStatus.{FROST, SUNSHINE, WeatherState}
 import scala.de.htwg.se.gwent.controller.GameStatus.{GameStatus, INPUTFAIL, PASSED, PLAYING}
 import scala.de.htwg.se.gwent.model.PlayerType.{BOT, TOP}
 import scala.de.htwg.se.gwent.model.{Card, Field, HandCard, Player, PlayerType}
@@ -8,17 +8,17 @@ import scala.de.htwg.se.gwent.util.Observable
 
 class Controller(var field: Field, var playerTop: Player, var playerBot: Player) extends Observable {
   var gameState: GameStatus = PLAYING
-  var weather: WeatherState = SUNSHINE
+  var weather = new WeatherState.Sunshine
   val logic = new GameLogic
   def createField:Unit = {
     field = Field(4,4)
     notifyObservers
   }
-  val change = weatherChange.choice(FROST)
+  val change = WeatherState.choice(FROST)
   def fieldToString: String = field.toString
 
   def evaluate(fieldPlay: Field, playerTop: Player, playerBot: Player): Unit = {
-    val winner = fieldPlay.evaluator.eval(fieldPlay,playerTop,playerBot,weather)
+    val winner = fieldPlay.evaluator.eval(fieldPlay,playerTop,playerBot,weather.weather)
     gameState = PLAYING
     if (winner == 1) {
       updateWins(TOP)
@@ -63,6 +63,7 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
     val player = choosePlayer.choice(playerType).player(this)
     gameState = logic.applyLogic(fieldPlay,row, col, player, cardIndex)
     if (gameState.equals(INPUTFAIL)) {return notifyObservers}
+    weather.changeWeather(player.handCard.show(cardIndex))
     val tuple = player.handCard.playCard(cardIndex,fieldPlay,row,col)
     field = tuple._3
     val name = player.name

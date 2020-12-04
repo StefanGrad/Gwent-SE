@@ -3,7 +3,7 @@ package scala.de.htwg.se.gwent.model
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-import scala.de.htwg.se.gwent.controller.WeatherState.{FOG, FROST, SUNSHINE}
+import scala.de.htwg.se.gwent.controller.WeatherStatus.{FOG, FROST, SUNSHINE}
 import scala.de.htwg.se.gwent.model.PlayerType.{BOT, TOP}
 
 class Evaluationspecs extends AnyWordSpec with Matchers {

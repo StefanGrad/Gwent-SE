@@ -24,10 +24,8 @@ trait Player{
   override def toString: String = name + " has won " + wins + " times and holds in his Hand: " + handCard
 }
 private case class PlayerTop(override val name:String, override val handCard: HandCard, override val wins: Int, override val playerType: PlayerType.Value, override val playerArea: Vector[Int]) extends Player {
-  //override def updateWins(p: Player): PlayerTop = PlayerTop(p.name,p.handCard,p.wins + 1,playerType,playerArea)
 }
 private case class PlayerBot(override val name:String, override val handCard: HandCard, override val wins: Int,override val playerType: PlayerType.Value, override val playerArea: Vector[Int]) extends Player {
-  //override def updateWins(p: Player): PlayerBot = PlayerBot(p.name,p.handCard,p.wins + 1,playerType,playerArea)
 }
 object Player {
   def apply(kind:PlayerType.Value,name:String,handCard: HandCard, wins: Int): Player = kind match {
