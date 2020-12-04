@@ -2,8 +2,9 @@ package scala.de.htwg.se.gwent.controller
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import scala.de.htwg.se.gwent.controller.GameStatus.{PLAYING,INPUTFAIL}
 
+import scala.de.htwg.se.gwent.controller.GameStatus.{INPUTFAIL, PLAYING}
+import scala.de.htwg.se.gwent.model.PlayerType.{TOP,BOT}
 import scala.de.htwg.se.gwent.model.{Card, Field, HandCard, Player}
 
 class GameLogicSpec extends AnyWordSpec with Matchers {
@@ -12,8 +13,8 @@ class GameLogicSpec extends AnyWordSpec with Matchers {
       val logic = new GameLogic
       val archer = Card("Archer", 0, 3, 1)
       val field = Field(4, 4)
-      val playerTop = Player("Top", HandCard(Vector[Card](archer,archer)),0,true)
-      val playerBot = Player("Bot", HandCard(Vector[Card](archer,archer)),0,false)
+      val playerTop = Player(TOP, "Top", HandCard(Vector[Card](archer,archer,archer)),0)
+      val playerBot = Player(BOT, "Bot", HandCard(Vector[Card](archer,archer)),0)
       "when a card shall be played in the field" in {
         logic.applyLogic(field,1,1,playerTop,0) should be(PLAYING)
       }

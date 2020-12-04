@@ -20,7 +20,10 @@ case class Deck() {
     Card ("Reiter", 0, 4, 0),
     Card ("Pikenier", 1, 2, 0),
     Card ("Musketier", 1, 3, 1),
-    Card ("Hobbit", 2, 0, 0))
+    Card ("Hobbit", 2, 0, 0),
+    Card ("FROST", 3, 0, 3),
+    Card ("FOG", 4, 0, 3),
+    Card ("Sunshine", 5, 0, 3))
   val length = deck.length
 
   def getRandomCard: Card ={
