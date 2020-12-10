@@ -3,6 +3,7 @@ package scala.de.htwg.se.gwent.model
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
+import scala.de.htwg.se.gwent.controller.WeatherState.{Fog, Frost, Sunshine}
 import scala.de.htwg.se.gwent.controller.WeatherStatus.{FOG, FROST, SUNSHINE}
 import scala.de.htwg.se.gwent.model.PlayerType.{BOT, TOP}
 
@@ -10,7 +11,7 @@ class Evaluationspecs extends AnyWordSpec with Matchers {
   "Evaluation compares the Attack Values of both Players and prints out the Winner of the Round" when{
     "Evaluation" should {
       val field = Field(4,4)
-      var weatherState = SUNSHINE
+      var weatherState = new Sunshine
       val p1 = Player(TOP,"Stefan",HandCard(Vector[Card]()),0)
       val p2 = Player(BOT, "Adrian",HandCard(Vector[Card]()),0)
       "have a draw" in {
@@ -28,14 +29,14 @@ class Evaluationspecs extends AnyWordSpec with Matchers {
         Evaluation().eval(field, p1, p2,weatherState) should be(2)
       }
       "Under Weather Frost" in {
-        weatherState = FROST
+        val weather = new Frost
         field.setCard(1,1,Card("Test", 1,1,1))
-        Evaluation().eval(field,p1 ,p2,weatherState) should be (0)
+        Evaluation().eval(field,p1 ,p2,weather) should be (0)
       }
       "Under Weather FOG" in {
-        weatherState = FOG
+        val weather = new Fog
         field.setCard(0,0,Card("Test", 1,1,1))
-        Evaluation().eval(field,p1 ,p2,weatherState) should be (0)
+        Evaluation().eval(field,p1 ,p2,weather) should be (0)
       }
     }
   }

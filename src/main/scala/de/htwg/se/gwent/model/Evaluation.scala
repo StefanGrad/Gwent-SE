@@ -1,15 +1,23 @@
 package scala.de.htwg.se.gwent.model
 
+import scala.de.htwg.se.gwent.controller.WeatherState.State
 import scala.de.htwg.se.gwent.controller.WeatherStatus.{FOG, FROST, SUNSHINE, WeatherState}
 
 
 case class Evaluation() {
-  def eval(field: Field, playerTop: Player, playerBot: Player, weatherstate: WeatherState):Int = {
+  def eval(field: Field, playerTop: Player, playerBot: Player, weatherstate: State):Int = {
     var topC = 0
     var botC = 0
 
-
-
+    for {
+      c <- 0 until field.col
+      index <- 0 until weatherstate.rowTop.length
+    } topC += field.getCard(weatherstate.rowTop(index), c).strength
+    for {
+      c <- 0 until field.col
+      index <- 0 until weatherstate.rowBot.length
+    } botC += field.getCard(weatherstate.rowBot(index), c).strength
+    /*
    if (weatherstate.equals(SUNSHINE)) {
       for {
         r <- 0 until (field.row -2)
@@ -40,7 +48,7 @@ case class Evaluation() {
         c <- 0 until field.col
       } botC += field.getCard(r,c).strength
     }
-
+*/
     if (topC - botC > 0) {
       println("The winner of this round is " + playerTop.name)
       return 1

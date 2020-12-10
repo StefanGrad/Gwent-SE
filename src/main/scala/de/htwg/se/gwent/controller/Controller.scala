@@ -18,7 +18,7 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
   def fieldToString: String = field.toString
 
   def evaluate(fieldPlay: Field, playerTop: Player, playerBot: Player): Unit = {
-    val winner = fieldPlay.evaluator.eval(fieldPlay,playerTop,playerBot,weather.weather)
+    val winner = fieldPlay.evaluator.eval(fieldPlay,playerTop,playerBot,weather)
     gameState = PLAYING
     if (winner == 1) {
       updateWins(TOP)
