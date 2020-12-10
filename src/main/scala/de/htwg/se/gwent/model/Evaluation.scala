@@ -8,15 +8,20 @@ case class Evaluation() {
   def eval(field: Field, playerTop: Player, playerBot: Player, weatherstate: State):Int = {
     var topC = 0
     var botC = 0
-
     for {
-      c <- 0 until field.col
+      c <- 0 until field.size
       index <- 0 until weatherstate.rowTop.length
-    } topC += field.getCard(weatherstate.rowTop(index), c).strength
+    } topC = field.getCard(weatherstate.rowTop(index), c) match {
+        case Some(value) => topC + value.strength
+        case None =>topC
+      }
     for {
-      c <- 0 until field.col
+      c <- 0 until field.size
       index <- 0 until weatherstate.rowBot.length
-    } botC += field.getCard(weatherstate.rowBot(index), c).strength
+    } field.getCard(weatherstate.rowTop(index), c) match {
+        case Some(value) => botC += value.strength
+        case None =>
+      }
     /*
    if (weatherstate.equals(SUNSHINE)) {
       for {

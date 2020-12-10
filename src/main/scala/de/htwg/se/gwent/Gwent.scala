@@ -10,7 +10,8 @@ import scala.io.StdIn.readLine
 object Gwent{
   val playerTop = Player(TOP,"Adrian",HandCard(Vector[Card]()).newDeck(),0)
   val playerBot = Player(BOT,"Stefan",HandCard(Vector[Card]()).newDeck(),0)
-  val controller = new Controller(new Field(4,4),playerTop,playerBot)
+  val field = new Field(Vector[Vector[Option[Card]]]())
+  val controller = new Controller(field.clear,playerTop,playerBot)
   val tui = new Tui(controller)
   controller.notifyObservers
 
@@ -19,7 +20,7 @@ object Gwent{
     var input: String = ""
     var turnFor = 0
     if(args.length != 0) {
-      var input2 = args(0).split('_')
+      val input2 = args(0).split('_')
       for (i <- 0 until input2.length) {
         if(turnFor % 2 == 0) {
           tui.processInputLine(input2(i),TOP)

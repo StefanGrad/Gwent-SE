@@ -15,6 +15,8 @@ class Tui(controller: Controller) extends Observer{
       case "q" =>
       case "c" =>
         controller.passRound()
+      case "z" => controller.undo
+      case "r" => controller.redo
       case _ => {
         input.toList.filter(c => c != ' ').map(c => c.toString.toInt) match {
           case row :: column :: cardIndex :: Nil => controller.playCardAt(controller.field, row, column, playerType, cardIndex)

@@ -20,7 +20,7 @@ class HandCardSpec extends AnyWordSpec with Matchers {
       }
       "play a card in the field" in {
         val hand = HandCard(Vector[Card](Card("Archer",0,3,1)))
-        val field = Field(4,4)
+        val field = Field(Vector[Vector[Option[Card]]]()).clear
         hand.playCard(0,field,0,0)._1 should be (Card("Archer",0,3,1))
       }
       "draw a random Card" in {

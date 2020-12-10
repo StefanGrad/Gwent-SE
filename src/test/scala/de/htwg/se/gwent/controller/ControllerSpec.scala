@@ -11,7 +11,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
   "the Controller acts as a medium between de.htwg.se.de.htwg.se.qwent.qwent.model and de.htwg.se.de.htwg.se.qwent.qwent.aview" when {
     "A Controller " should {
       val archer = Card("Archer", 0, 3, 1)
-      val field = Field(4, 4)
+      val field = Field(Vector[Vector[Option[Card]]]()).clear
       val playerTop = Player(TOP,"Top", HandCard(Vector[Card](archer,archer,archer)),0)
       val playerBot = Player(BOT,"Bot", HandCard(Vector[Card](archer,archer,archer)),0)
       val ctrl = new Controller(field, playerTop, playerBot)
@@ -29,7 +29,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       }
       "convert a Field into a String" in {
         ctrl.createField
-        ctrl.fieldToString should be ("\n+---------------+---------------+\n" + "|(0,0)|(0,1)|(0,2)|(0,3)|\n|(1,0)|(1,1)|(1,2)|(1,3)|\n+---------------+---------------+\n|(2,0)|(2,1)|(2,2)|(2,3)|\n|(3,0)|(3,1)|(3,2)|(3,3)|\n+---------------+---------------+\n")
+        ctrl.fieldToString should be ("\n+---------------+---------------+\n" + "|None|None|None|None|\n|None|None|None|None|\n+---------------+---------------+\n|None|None|None|None|\n|None|None|None|None|\n+---------------+---------------+\n")
       }
       "clear the Field" in {
         ctrl.playCardAt(field, 1,1,TOP,0)

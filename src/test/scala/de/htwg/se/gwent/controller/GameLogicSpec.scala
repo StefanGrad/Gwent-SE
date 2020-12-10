@@ -12,7 +12,7 @@ class GameLogicSpec extends AnyWordSpec with Matchers {
     "A Logic is in place" should {
       val logic = new GameLogic
       val archer = Card("Archer", 0, 3, 1)
-      val field = Field(4, 4)
+      val field = Field(Vector[Vector[Option[Card]]]()).clear
       val playerTop = Player(TOP, "Top", HandCard(Vector[Card](archer,archer,archer)),0)
       val playerBot = Player(BOT, "Bot", HandCard(Vector[Card](archer,archer)),0)
       "when a card shall be played in the field" in {
