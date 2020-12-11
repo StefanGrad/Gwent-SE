@@ -8,6 +8,7 @@ import scala.de.htwg.se.gwent.model.{Card, Field, HandCard, Player, PlayerType}
 import scala.de.htwg.se.gwent.util.{Observable, UndoManager}
 
 class Controller(var field: Field, var playerTop: Player, var playerBot: Player,var weather: WeatherState.State) extends Observable {
+  var gameMessage = ""
   var gameState: GameStatus = PLAYING
   val logic = new GameLogic
   private val undoManager = new UndoManager
@@ -21,12 +22,12 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player,
   def evaluate(fieldPlay: Field, playerTop: Player, playerBot: Player): Unit = {
     val winner = fieldPlay.evaluator.eval(fieldPlay,playerTop,playerBot,weather)
     gameState = PLAYING
-    if (winner == 1) {
+    if (winner.equals("The winner of this round is Top")) {
       updateWins(TOP)
       undoManager.nextRound
       return clearField(fieldPlay)
     }
-    if (winner == 2) {
+    if (winner.equals("The winner of this round is Bot")) {
       updateWins(BOT)
       undoManager.nextRound
       return clearField(fieldPlay)
@@ -65,7 +66,7 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player,
 
   def playCardAt(fieldPlay: Field, row: Int, col:Int, playerType: PlayerType.Value , cardIndex: Int): Unit = {
     val player = choosePlayer.choice(playerType).player(this)
-    gameState = logic.applyTryLogic(fieldPlay,row, col, player, cardIndex)
+    gameState = logic.applyTryLogic(fieldPlay,row, col, player, cardIndex)._1
     if (gameState.equals(INPUTFAIL)) {return notifyObservers}
     undoManager.doStep(new PlayCardCommand(fieldPlay,row,col, playerType, cardIndex, this))
     notifyObservers

@@ -18,51 +18,22 @@ class GameLogic{
     INPUTFAIL
   }
 
-  def applyTryLogic(field: Field, row: Int, col:Int, player: Player, cardIndex: Int): GameStatus = {
+  def applyTryLogic(field: Field, row: Int, col:Int, player: Player, cardIndex: Int): (GameStatus,String) = {
     Try(field.isEmpty(col,row)) match {
       case Success(v) =>
         if (v) {
           if (player.playerArea.contains(row)) {
             Try(player.handCard.show(cardIndex)) match {
-              case Success(v) => return PLAYING
+              case Success(v) => return (PLAYING,"")
               case Failure(exception) =>
-                println("You don't have such a card.")
-                return INPUTFAIL
+                return (INPUTFAIL,"You don't have such a card.")
             }
           }
-          println("You are playing for the enemy.")
-          return INPUTFAIL
+          return (INPUTFAIL,"You are playing for the enemy.")
         }
-        println("The Position is already filled.")
-        return INPUTFAIL
+        return (INPUTFAIL,"The Position is already filled.")
       case Failure(exception) =>
-        println("Please play within the game area")
-        return INPUTFAIL
+        return (INPUTFAIL,"Please play within the game area")
     }
   }
 }
-/*
-val test = applyTryLogic(field, row, col, player, cardIndex)
-    test._1 match {
-      case Success(v) =>
-        if (v) {
-          test._2 match {
-            case Success(v) =>
-              if (v) {
-                test._3 match {
-                case Success(v) =>
-                  if (v) {
-                    return PLAYING
-                  }
-                  return INPUTFAIL
-                case Failure(exception) => return INPUTFAIL
-                }
-              }
-              return INPUTFAIL
-            case Failure(exception) => return INPUTFAIL
-          }
-        }
-        INPUTFAIL
-      case Failure(exception) => return INPUTFAIL
-    }
- */
