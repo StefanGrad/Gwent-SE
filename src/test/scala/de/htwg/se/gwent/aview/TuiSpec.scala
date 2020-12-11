@@ -19,7 +19,6 @@ class TuiSpec extends AnyWordSpec with Matchers {
       val controller = new Controller(field, playerTop, playerBot)
       val tui = new Tui(controller)
 
-
       "have the active player pass on input 'c' and if he's the second one to pass the game is evaluated" in {
         controller.gameState should be (PLAYING)
         tui.processInputLine("c",TOP)
@@ -35,7 +34,14 @@ class TuiSpec extends AnyWordSpec with Matchers {
         tui.processInputLine("2 2 0",BOT)
         //controller.playCardAt(field, 2, 2, playerBot, 0)
         controller.field.isEmpty(2,2) should be (false)
-
+      }
+      "can undo a Turn" in {
+        tui.processInputLine("z",BOT)
+        controller.field.isEmpty(2,2) should be (true)
+      }
+      "can redo a Turn" in {
+        tui.processInputLine("r",BOT)
+        controller.field.isEmpty(2,2) should be (false)
       }
       "error input" in {
         controller.gameState = PLAYING

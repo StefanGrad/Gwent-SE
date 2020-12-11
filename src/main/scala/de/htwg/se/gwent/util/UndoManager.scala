@@ -3,6 +3,11 @@ package scala.de.htwg.se.gwent.util
 class UndoManager {
   private var undoStack: List[Command]= Nil
   private var redoStack: List[Command]= Nil
+  def nextRound:Boolean = {
+    undoStack = Nil
+    redoStack = Nil
+    true
+  }
   def doStep(command: Command) = {
     undoStack = command::undoStack
     command.doStep

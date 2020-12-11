@@ -78,6 +78,13 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         observer.updated should be(true)
         ctrl.field.getCard(1,1).get should be(archer)
       }
+      "can undo and than redo" in {
+        ctrl.field.getCard(1,1).get should be(archer)
+        ctrl.undo
+        ctrl.field.getCard(1,1) should be(None)
+        ctrl.redo
+        ctrl.field.getCard(1,1).get should be(archer)
+      }
     }
   }
 }

@@ -23,14 +23,16 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
     gameState = PLAYING
     if (winner == 1) {
       updateWins(TOP)
+      undoManager.nextRound
       return clearField(fieldPlay)
     }
     if (winner == 2) {
       updateWins(BOT)
+      undoManager.nextRound
       return clearField(fieldPlay)
     }
+    undoManager.nextRound
     clearField(fieldPlay)
-    notifyObservers
   }
 
   def clearField(fieldPlay: Field): Unit = {
@@ -67,18 +69,6 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
     if (gameState.equals(INPUTFAIL)) {return notifyObservers}
     undoManager.doStep(new PlayCardCommand(fieldPlay,row,col, playerType, cardIndex, this))
     notifyObservers
-    /*weather.changeWeather(player.handCard.show(cardIndex))
-    val tuple = player.handCard.playCard(cardIndex,fieldPlay,row,col)
-    field = tuple._3
-    val name = player.name
-    playerType match {
-      case TOP =>
-        playerTop = Player(playerType,name, tuple._2,player.wins)
-        return notifyObservers
-      case BOT =>
-        playerBot = Player(playerType,name, tuple._2,player.wins)
-        return notifyObservers
-    }*/
   }
 
   def passRound():Unit = {
