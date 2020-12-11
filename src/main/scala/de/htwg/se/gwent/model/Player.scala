@@ -9,8 +9,8 @@ object PlayerType extends Enumeration {
 object PlayerArea {
   def handel(t: PlayerType.Value) = {
     t match {
-      case TOP => Vector[Int](0,1)
-      case BOT => Vector[Int](3,2)
+      case TOP => Vector[Int](1,0)
+      case BOT => Vector[Int](2,3)
     }
   }
 }
@@ -33,10 +33,3 @@ object Player {
     case BOT => new PlayerBot(name,handCard,wins,BOT, PlayerArea.handel(BOT))
   }
 }
-
-/*
-case class Player(name:String, handCard: HandCard, wins: Int, whichPlayer:Boolean) {
-  val playArea = PlayerArea.handel(whichPlayer)
-  def updateWins(p: Player): Player = Player(p.name,p.handCard,p.wins + 1,p.whichPlayer)
-  override def toString: String = name + " has won " + wins + " times and holds in his Hand: " + handCard
-}*/

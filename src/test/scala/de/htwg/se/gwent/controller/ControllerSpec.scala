@@ -76,16 +76,16 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       }
       "play a Card at a chosen Cell" in {
         ctrl.clearField(field)
-        ctrl.playCardAt(field, 1,1,TOP,0)
+        ctrl.playCardAt(field, 0,0,TOP,0)
         observer.updated should be(true)
-        ctrl.field.getCard(1,1).get should be(archer)
+        ctrl.field.getCard(0,0).get should be(archer)
       }
       "can undo and than redo" in {
-        ctrl.field.getCard(1,1).get should be(archer)
+        ctrl.field.getCard(0,0).get should be(archer)
         ctrl.undo
-        ctrl.field.getCard(1,1) should be(None)
+        ctrl.field.getCard(0,0) should be(None)
         ctrl.redo
-        ctrl.field.getCard(1,1).get should be(archer)
+        ctrl.field.getCard(0,0).get should be(archer)
       }
       "can change the Weather" in {
         val nF = field.clear
@@ -96,13 +96,13 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         val controller = new Controller(nF,playerTop2,playerBot,new Sunshine)
         controller.add(observer)
         controller.weather.weather should be(SUNSHINE)
-        controller.playCardAt(controller.field,0,0,TOP,0)
-        controller.weather.weather should be(FOG)
         controller.playCardAt(controller.field,1,0,TOP,0)
+        controller.weather.weather should be(FOG)
+        controller.playCardAt(controller.field,1,1,TOP,0)
         controller.weather.weather should be(FROST)
         controller.playCardAt(controller.field,3,3,BOT,0)
         controller.weather.weather should be(FROST)
-        controller.playCardAt(controller.field,0,2,TOP,0)
+        controller.playCardAt(controller.field,1,2,TOP,0)
         controller.weather.weather should be(SUNSHINE)
       }
     }

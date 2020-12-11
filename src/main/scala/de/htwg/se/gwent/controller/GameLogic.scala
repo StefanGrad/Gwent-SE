@@ -21,15 +21,16 @@ class GameLogic{
   def applyTryLogic(field: Field, row: Int, col:Int, player: Player, cardIndex: Int): (GameStatus,String) = {
     Try(field.isEmpty(col,row)) match {
       case Success(v) =>
-        if (v) {
-          if (player.playerArea.contains(row)) {
-            Try(player.handCard.show(cardIndex)) match {
-              case Success(v) => return (PLAYING,"")
-              case Failure(exception) =>
-                return (INPUTFAIL,"You don't have such a card.")
-            }
+        if(v) {
+          Try(player.handCard.show(cardIndex)) match {
+            case Success(v) =>
+              if (player.playerArea(v.range) == row) {
+                return (PLAYING, "")
+              }
+              return (INPUTFAIL, "You are playing for the enemy.")
+            case Failure(exception) =>
+              return (INPUTFAIL, "You don't have such a card.")
           }
-          return (INPUTFAIL,"You are playing for the enemy.")
         }
         return (INPUTFAIL,"The Position is already filled.")
       case Failure(exception) =>

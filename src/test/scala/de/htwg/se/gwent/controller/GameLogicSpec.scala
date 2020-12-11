@@ -17,7 +17,7 @@ class GameLogicSpec extends AnyWordSpec with Matchers {
       val playerTop = Player(TOP, "Top", HandCard(Vector[Card](archer,archer,archer)),0)
       val playerBot = Player(BOT, "Bot", HandCard(Vector[Card](archer,archer)),0)
       "when a card shall be played in the field" in {
-        logic.applyTryLogic(field,1,1,playerTop,0)._1 should be(PLAYING)
+        logic.applyTryLogic(field,0,0,playerTop,0)._1 should be(PLAYING)
         logic.applyLogic(field,1,1,playerTop,0) should be(PLAYING)
       }
       "when a Card is played wrongly" in {
