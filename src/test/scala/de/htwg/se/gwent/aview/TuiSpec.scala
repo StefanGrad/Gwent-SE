@@ -6,7 +6,8 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 import scala.de.htwg.se.gwent.controller.Controller
-import scala.de.htwg.se.gwent.model.PlayerType.{TOP,BOT}
+import scala.de.htwg.se.gwent.controller.WeatherState.Sunshine
+import scala.de.htwg.se.gwent.model.PlayerType.{BOT, TOP}
 
 class TuiSpec extends AnyWordSpec with Matchers {
   val f = new Field(Vector[Vector[Option[Card]]]())
@@ -16,7 +17,7 @@ class TuiSpec extends AnyWordSpec with Matchers {
       val field = f.clear
       val playerTop = Player(TOP,"Top", HandCard(Vector[Card](archer,archer)),0)
       val playerBot = Player(BOT,"Bot", HandCard(Vector[Card](archer,archer)),0)
-      val controller = new Controller(field, playerTop, playerBot)
+      val controller = new Controller(field, playerTop, playerBot,new Sunshine)
       val tui = new Tui(controller)
 
       "have the active player pass on input 'c' and if he's the second one to pass the game is evaluated" in {

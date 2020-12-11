@@ -12,6 +12,7 @@ object WeatherState{
   trait State {
     val rowBot = Vector[Int](0,1,2,3)
     val rowTop = Vector[Int](0,1,2,3)
+    val weather = SUNSHINE
     def changeWeather(card : Card): State =
         card.ability match {
       case 0 => this
@@ -21,17 +22,17 @@ object WeatherState{
     }
   }
   class Frost extends State {
-    val weather = FROST
+    override val weather = FROST
     override val rowTop = Vector[Int](0)
     override val rowBot = Vector[Int](3)
   }
   class Fog extends State {
-    val weather = FOG
+    override val weather = FOG
     override val rowTop = Vector[Int](1)
     override val rowBot = Vector[Int](2)
   }
   class Sunshine extends State {
-    val weather = SUNSHINE
+    override val weather = SUNSHINE
     override val rowTop = Vector[Int](0,1)
     override val rowBot = Vector[Int](2,3)
 

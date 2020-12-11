@@ -2,13 +2,13 @@ package scala.de.htwg.se.gwent.controller
 
 import scala.de.htwg.se.gwent.controller.WeatherStatus.{FROST, SUNSHINE, WeatherState}
 import scala.de.htwg.se.gwent.controller.GameStatus.{GameStatus, INPUTFAIL, PASSED, PLAYING}
+import scala.de.htwg.se.gwent.controller.WeatherState.Sunshine
 import scala.de.htwg.se.gwent.model.PlayerType.{BOT, TOP}
 import scala.de.htwg.se.gwent.model.{Card, Field, HandCard, Player, PlayerType}
 import scala.de.htwg.se.gwent.util.{Observable, UndoManager}
 
-class Controller(var field: Field, var playerTop: Player, var playerBot: Player) extends Observable {
+class Controller(var field: Field, var playerTop: Player, var playerBot: Player,var weather: WeatherState.State) extends Observable {
   var gameState: GameStatus = PLAYING
-  var weather = new WeatherState.Sunshine
   val logic = new GameLogic
   private val undoManager = new UndoManager
   def createField:Unit = {

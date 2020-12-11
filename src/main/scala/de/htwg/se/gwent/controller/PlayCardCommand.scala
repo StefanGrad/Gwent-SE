@@ -10,7 +10,7 @@ class PlayCardCommand(fieldPlay: Field, row: Int, col:Int, playerType: PlayerTyp
   val card = hand.show(cardIndex)
   val weatherState = controller.weather
   override def doStep: Unit = {
-    controller.weather.changeWeather(card)
+    controller.weather = controller.weather.changeWeather(card)
     val tuple1 = hand.playCard(cardIndex,fieldPlay,row,col)
     controller.field = tuple1._3
     playerType match {

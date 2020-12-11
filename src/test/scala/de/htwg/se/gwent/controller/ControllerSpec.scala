@@ -5,7 +5,9 @@ import scala.de.htwg.se.gwent.util.Observer
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-import scala.de.htwg.se.gwent.model.PlayerType.{TOP,BOT}
+import scala.de.htwg.se.gwent.controller.WeatherState.{Fog, Frost, Sunshine}
+import scala.de.htwg.se.gwent.controller.WeatherStatus.{FOG, FROST, SUNSHINE}
+import scala.de.htwg.se.gwent.model.PlayerType.{BOT, TOP}
 
 class ControllerSpec extends AnyWordSpec with Matchers {
   "the Controller acts as a medium between de.htwg.se.de.htwg.se.qwent.qwent.model and de.htwg.se.de.htwg.se.qwent.qwent.aview" when {
@@ -14,7 +16,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       val field = Field(Vector[Vector[Option[Card]]]()).clear
       val playerTop = Player(TOP,"Top", HandCard(Vector[Card](archer,archer,archer)),0)
       val playerBot = Player(BOT,"Bot", HandCard(Vector[Card](archer,archer,archer)),0)
-      val ctrl = new Controller(field, playerTop, playerBot)
+      val ctrl = new Controller(field, playerTop, playerBot, new Sunshine)
       val observer = new Observer {
         var updated: Boolean = false
         def isUpdated: Boolean = updated
@@ -39,7 +41,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         ctrl.field.isEmpty(1,1) should be(true)
       }
       "evaluate the Game" in {
-        val ctrl = new Controller(field,playerTop,playerBot)
+        val ctrl = new Controller(field,playerTop,playerBot, new Sunshine)
         ctrl.playCardAt(ctrl.field,3,3,BOT,0)
         observer.updated should be(true)
         ctrl.evaluate(ctrl.field,ctrl.playerTop,ctrl.playerBot)
@@ -84,6 +86,24 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         ctrl.field.getCard(1,1) should be(None)
         ctrl.redo
         ctrl.field.getCard(1,1).get should be(archer)
+      }
+      "can change the Weather" in {
+        val nF = field.clear
+        val testFog = Card("fog",2,0,0)
+        val testFrost = Card("frost", 1,0,0)
+        val testClear = Card("sunny", 3,0,0)
+        val playerTop2 = Player(TOP,"Top", HandCard(Vector[Card](testFog,testFrost,testClear)),0)
+        val controller = new Controller(nF,playerTop2,playerBot,new Sunshine)
+        controller.add(observer)
+        controller.weather.weather should be(SUNSHINE)
+        controller.playCardAt(controller.field,0,0,TOP,0)
+        controller.weather.weather should be(FOG)
+        controller.playCardAt(controller.field,1,0,TOP,0)
+        controller.weather.weather should be(FROST)
+        controller.playCardAt(controller.field,3,3,BOT,0)
+        controller.weather.weather should be(FROST)
+        controller.playCardAt(controller.field,0,2,TOP,0)
+        controller.weather.weather should be(SUNSHINE)
       }
     }
   }
