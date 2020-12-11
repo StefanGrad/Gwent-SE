@@ -37,7 +37,9 @@ class UndoManagerSpec extends AnyWordSpec with Matchers {
       undoManager.redoStep
       command.state should be(1)
       undoManager.redoStep
-      command.state should be(1)
+      command.state should be(2)
+      undoManager.redoStep
+      command.state should be(2)
     }
     "And can be cleared for a new Round" in {
       val command = new incrCommand
