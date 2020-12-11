@@ -11,14 +11,14 @@ case class Evaluation() {
     for {
       c <- 0 until field.size
       index <- 0 until weatherstate.rowTop.length
-    } topC = field.getCard(weatherstate.rowTop(index), c) match {
-        case Some(value) => topC + value.strength
-        case None =>topC
+    } field.getCard(weatherstate.rowTop(index), c) match {
+        case Some(value) => topC += value.strength
+        case None =>
       }
     for {
       c <- 0 until field.size
       index <- 0 until weatherstate.rowBot.length
-    } field.getCard(weatherstate.rowTop(index), c) match {
+    } field.getCard(weatherstate.rowBot(index), c) match {
         case Some(value) => botC += value.strength
         case None =>
       }
