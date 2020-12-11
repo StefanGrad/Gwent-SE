@@ -9,13 +9,14 @@ import scala.de.htwg.se.gwent.controller.Controller
 import scala.de.htwg.se.gwent.model.PlayerType.{TOP,BOT}
 
 class TuiSpec extends AnyWordSpec with Matchers {
-  val field = new Field(Vector[Vector[Option[Card]]]())
+  val f = new Field(Vector[Vector[Option[Card]]]())
   "Tui works as a Text based User Interface" when {
     "a Tui" should {
       val archer = Card("Archer", 0, 3, 1)
+      val field = f.clear
       val playerTop = Player(TOP,"Top", HandCard(Vector[Card](archer,archer)),0)
       val playerBot = Player(BOT,"Bot", HandCard(Vector[Card](archer,archer)),0)
-      val controller = new Controller(field.clear, playerTop, playerBot)
+      val controller = new Controller(field, playerTop, playerBot)
       val tui = new Tui(controller)
 
 
@@ -30,10 +31,10 @@ class TuiSpec extends AnyWordSpec with Matchers {
       "place the card with the chosen index into the chosen cell" in {
         tui.processInputLine("0 0 0",TOP)
         //controller.playCardAt(field, 0, 0, playerTop, 0)
-        field.isEmpty(0,0) should be (false)
+        controller.field.isEmpty(0,0) should be (false)
         tui.processInputLine("2 2 0",BOT)
         //controller.playCardAt(field, 2, 2, playerBot, 0)
-        field.isEmpty(2,2) should be (false)
+        controller.field.isEmpty(2,2) should be (false)
 
       }
       "error input" in {

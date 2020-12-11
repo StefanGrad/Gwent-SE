@@ -7,7 +7,10 @@ case class Field(field: Vector[Vector[Option[Card]]]) {//col:Int, row:Int) {
   //val field = Array.fill(col,row)(Card("",0,0,0))
   val size = 4
   val blocknum = sqrt(size).toInt
-  def isEmpty(col:Int,row:Int):Boolean = field(col)(row).equals(None)
+  def isEmpty(col:Int,row:Int):Boolean = field(col)(row) match {
+    case Some(value) => false
+    case None => true
+  }
   def isNotFull(fromRow:Int, tillRow:Int): Boolean = {
     var notFull = 0
     for {

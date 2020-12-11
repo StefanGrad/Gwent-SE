@@ -20,7 +20,7 @@ class PlayCardCommand(fieldPlay: Field, row: Int, col:Int, playerType: PlayerTyp
   }
 
   override def undoStep: Unit = {
-    controller.field = controller.field.setCard(col,row, Some(Card("",0,0,0)))
+    controller.field = controller.field.setCard(col,row, None)
     controller.weather = weatherState
     playerType match {
       case TOP => controller.playerTop =  player  //Player(playerType,player.name ,hand ,player.wins)
