@@ -76,7 +76,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         ctrl.clearField(field)
         ctrl.playCardAt(field, 1,1,TOP,0)
         observer.updated should be(true)
-        ctrl.field.getCard(1,1) should be(archer)
+        ctrl.field.getCard(1,1).get should be(archer)
       }
     }
   }

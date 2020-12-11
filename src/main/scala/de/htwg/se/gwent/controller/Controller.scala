@@ -23,13 +23,14 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
     gameState = PLAYING
     if (winner == 1) {
       updateWins(TOP)
-      return fieldPlay.clear
+      return clearField(fieldPlay)
     }
     if (winner == 2) {
       updateWins(BOT)
-      return fieldPlay.clear
+      return clearField(fieldPlay)
     }
-    fieldPlay.clear
+    clearField(fieldPlay)
+    notifyObservers
   }
 
   def clearField(fieldPlay: Field): Unit = {

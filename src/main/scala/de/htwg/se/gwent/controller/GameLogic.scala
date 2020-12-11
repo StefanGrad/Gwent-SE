@@ -9,16 +9,16 @@ class GameLogic{
 /*Try(player.handCard.size > cardIndex && cardIndex >= 0 && 0 <= col && col < 4 && (row == player.playerArea(0)) || (row == player.playerArea(1)) && field.isEmpty(col,row)) match {
   case Success(value) => return PLAYING
   case Failure(exception) => return INPUTFAIL
-}
-*/if (player.handCard.size > cardIndex && cardIndex >= 0){
-  if (0 <= col && col < 4) {
-      if((row == player.playerArea(0)) || (row == player.playerArea(1))) {
-        if(field.isEmpty(col,row)) {
-          return PLAYING
-       }
-     }
+}*/
+  if (player.handCard.size > cardIndex && cardIndex >= 0){
+    if (0 <= col && col < 4) {
+        if((row == player.playerArea(0)) || (row == player.playerArea(1))) {
+         if(field.isEmpty(col,row)) {
+           return PLAYING
+         }
+      }
+      }
     }
-  }
   INPUTFAIL
   }
 }
