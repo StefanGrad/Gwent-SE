@@ -22,22 +22,16 @@ class GameLogic{
     Try(field.isEmpty(col,row)) match {
       case Success(v) =>
         if (v) {
-          Try(player.playerArea.contains(row)) match {
-            case Success(v) =>
-              if (v) {
-                Try(player.handCard.show(cardIndex)) match {
-                  case Success(v) => return PLAYING
-                  case Failure(exception) =>
-                    println("You don't have such a card.")
-                    return INPUTFAIL
-                }
-              }
-              println("You are playing for the enemy.")
-              return INPUTFAIL
-            case Failure(exception) =>
-              println("Your playArea does not contain this row")
-              return INPUTFAIL
+          if (player.playerArea.contains(row)) {
+            Try(player.handCard.show(cardIndex)) match {
+              case Success(v) => return PLAYING
+              case Failure(exception) =>
+                println("You don't have such a card.")
+                return INPUTFAIL
+            }
           }
+          println("You are playing for the enemy.")
+          return INPUTFAIL
         }
         println("The Position is already filled.")
         return INPUTFAIL
