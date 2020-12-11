@@ -14,9 +14,10 @@ object WeatherState{
     val rowTop = Vector[Int](0,1,2,3)
     def changeWeather(card : Card): State =
         card.ability match {
-      case 0 => choice(SUNSHINE)
+      case 0 => this
       case 1 => choice(FROST)
       case 2 => choice(FOG)
+      case 3 => choice(SUNSHINE)
     }
   }
   class Frost extends State {
