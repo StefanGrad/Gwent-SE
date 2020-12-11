@@ -65,7 +65,7 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player)
 
   def playCardAt(fieldPlay: Field, row: Int, col:Int, playerType: PlayerType.Value , cardIndex: Int): Unit = {
     val player = choosePlayer.choice(playerType).player(this)
-    gameState = logic.applyLogic(fieldPlay,row, col, player, cardIndex)
+    gameState = logic.applyTryLogic(fieldPlay,row, col, player, cardIndex)
     if (gameState.equals(INPUTFAIL)) {return notifyObservers}
     undoManager.doStep(new PlayCardCommand(fieldPlay,row,col, playerType, cardIndex, this))
     notifyObservers
