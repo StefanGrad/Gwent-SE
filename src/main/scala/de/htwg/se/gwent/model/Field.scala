@@ -2,9 +2,9 @@ package scala.de.htwg.se.gwent.model
 
 import scala.math.sqrt
 
-case class Field(field: Vector[Vector[Option[Card]]]) {//col:Int, row:Int) {
+case class Field(field: Vector[Vector[Option[Card]]]) {
+
   val evaluator = Evaluation()
-  //val field = Array.fill(col,row)(Card("",0,0,0))
   val size = 4
   val blocknum = sqrt(size).toInt
   def isEmpty(col:Int,row:Int):Boolean = field(col)(row) match {

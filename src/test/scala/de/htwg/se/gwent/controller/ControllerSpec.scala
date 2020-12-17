@@ -22,7 +22,6 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         def isUpdated: Boolean = updated
         override def update:Boolean = {updated = true; true}
       }
-      ctrl.add(observer)
       "create a playing Field" in {
         ctrl.createField
         ctrl.field.size should be(4)
@@ -94,7 +93,6 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         val testClear = Card("sunny", 3,0,0)
         val playerTop2 = Player(TOP,"Top", HandCard(Vector[Card](testFog,testFrost,testClear)),0)
         val controller = new Controller(nF,playerTop2,playerBot,new Sunshine)
-        controller.add(observer)
         controller.weather.weather should be(SUNSHINE)
         controller.playCardAt(controller.field,1,0,TOP,0)
         controller.weather.weather should be(FOG)

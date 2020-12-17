@@ -1,5 +1,8 @@
 package scala.de.htwg.se.gwent
 
+import de.htwg.se.gwent.aview.gui.SwingGUI
+import de.htwg.se.gwent.controller.CellChanged
+
 import scala.de.htwg.se.gwent.aview.Tui
 import scala.de.htwg.se.gwent.model.{Card, Field, HandCard, Player}
 import scala.de.htwg.se.gwent.controller.Controller
@@ -14,7 +17,8 @@ object Gwent{
   val field = new Field(Vector[Vector[Option[Card]]]())
   val controller = new Controller(field.clear,playerTop,playerBot, new Sunshine)
   val tui = new Tui(controller)
-  controller.notifyObservers
+  val gui = new SwingGUI(controller)
+  controller.publish(new CellChanged)
 
   def main(args: Array[String]): Unit = {
     println("Welcome to Gwent")

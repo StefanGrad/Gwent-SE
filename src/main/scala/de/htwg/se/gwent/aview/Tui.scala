@@ -1,13 +1,16 @@
 package scala.de.htwg.se.gwent.aview
 
+import de.htwg.se.gwent.controller.CellChanged
+
 import scala.de.htwg.se.gwent.util.Observer
 import scala.de.htwg.se.gwent.controller.Controller
 import scala.de.htwg.se.gwent.controller.GameStatus.INPUTFAIL
 import scala.de.htwg.se.gwent.model.{Player, PlayerType}
+import scala.swing.Reactor
 
-class Tui(controller: Controller) extends Observer{
+class Tui(controller: Controller) extends Reactor{
 
-  controller.add(this)
+  listenTo(controller)
 
 
   def processInputLine(input: String, playerType: PlayerType.Value):Unit = {
@@ -26,9 +29,8 @@ class Tui(controller: Controller) extends Observer{
     }
   }
 
-   def update: Boolean =  {
-    println(controller.fieldToString)
-    true
+  reactions += {
+    case event: CellChanged => println(controller.field.toString)
   }
 
 }
