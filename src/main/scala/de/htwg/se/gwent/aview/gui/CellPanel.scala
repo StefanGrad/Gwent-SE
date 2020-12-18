@@ -5,31 +5,33 @@ import de.htwg.se.gwent.controller.CellChanged
 import scala.swing._
 import javax.swing.table._
 
-import scala.de.htwg.se.gwent.controller.Controller
 import scala.swing.event._
+import scala.de.htwg.se.gwent.controller.Controller
+import scala.swing.Swing.LineBorder
 
 
-class CellPanel(row: Int, column: Int, controller: Controller) extends FlowPanel {
+
+class CellPanel(row :Int, column :Int ,controller: Controller) extends FlowPanel {
 
   val cellColor = new Color(224, 224, 255)
-  val highlightedCellColor = new Color(192, 255, 192)
 
   def myCell = controller.field.getCard(row, column)
 
-  def cellText(row: Int, col: Int) = if (!controller.field.isEmpty(row, column)) " " + controller.field.getCard(row, column).toString else " "
+  def cellText(row: Int, col: Int) = if (!controller.field.isEmpty(row, column)) " " + myCell.toString.replace("Some(","").replace(")","") else "X"
 
   val label =
     new Label {
       text = cellText(row, column)
-      font = new Font("Verdana", 1, 36)
+      font = new Font("Verdana", 1, 9)
     }
 
   val cell = new BoxPanel(Orientation.Vertical) {
     contents += label
-    preferredSize = new Dimension(51, 51)
+    preferredSize = new Dimension(120, 120)
     border = Swing.BeveledBorder(Swing.Raised)
     listenTo(mouse.clicks)
     listenTo(controller)
+
     reactions += {
       case e: CellChanged => {
         label.text = cellText(row, column)

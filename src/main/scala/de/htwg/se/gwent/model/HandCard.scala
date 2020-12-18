@@ -7,7 +7,7 @@ import scala.collection.immutable.Nil.patch
 
 case class HandCard(hand: Vector[Card]) {
   val deck = Deck()
-  val size: Int = deck.length
+  val size: Int = hand.length
 
 
   def newDeck(): HandCard = {

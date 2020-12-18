@@ -13,6 +13,7 @@ import scala.swing.Publisher
 class Controller(var field: Field, var playerTop: Player, var playerBot: Player,var weather: WeatherState.State) extends Publisher {
   var gameMessage = ""
   var gameState: GameStatus = PLAYING
+  var turn = 0
   val logic = new GameLogic
   private val undoManager = new UndoManager
   def createField:Unit = {
@@ -22,15 +23,21 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player,
   val change = WeatherState.choice(FROST)
   def fieldToString: String = field.toString
 
+  def whoCanPlay: PlayerType.Value = turn % 2 match {
+    case 0 => TOP
+    case 1 => BOT
+  }
+
   def evaluate(fieldPlay: Field, playerTop: Player, playerBot: Player): Unit = {
-    val winner = fieldPlay.evaluator.eval(fieldPlay,playerTop,playerBot,weather)
+    gameMessage = fieldPlay.evaluator.eval(fieldPlay,playerTop,playerBot,weather)
     gameState = PLAYING
-    if (winner.equals("The winner of this round is Top")) {
+    turn = 0
+    if (gameMessage.equals("The winner of this round is Top")) {
       updateWins(TOP)
       undoManager.nextRound
       return clearField(fieldPlay)
     }
-    if (winner.equals("The winner of this round is Bot")) {
+    if (gameMessage.equals("The winner of this round is Bot")) {
       updateWins(BOT)
       undoManager.nextRound
       return clearField(fieldPlay)
@@ -69,6 +76,7 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player,
 
   def playCardAt(fieldPlay: Field, row: Int, col:Int, playerType: PlayerType.Value , cardIndex: Int): Unit = {
     val player = choosePlayer.choice(playerType).player(this)
+    if (playerType != whoCanPlay) return publish(new CellChanged)
     val tuple = logic.applyTryLogic(fieldPlay,row, col, player, cardIndex)
     gameState = tuple._1
     gameMessage = tuple._2
@@ -77,9 +85,32 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player,
     publish(new CellChanged)
   }
 
+  def playCard(fieldPlay: Field, playerType: PlayerType.Value , cardIndex: Int): Unit = {
+    val player = choosePlayer.choice(playerType).player(this)
+    if (playerType != whoCanPlay) return publish(new CellChanged)
+    for {
+      row <- 0 until 4
+      column <- 0 until 4
+    } {
+      var tuple = logic.applyTryLogic(fieldPlay,row, column, player, cardIndex)
+      if (tuple._1.equals(PLAYING)) {
+        if (field.isEmpty(row, column)) {
+          gameState = tuple._1
+          gameMessage = tuple._2
+          undoManager.doStep(new PlayCardCommand(fieldPlay, row, column, playerType, cardIndex, this))
+          return publish(new CellChanged)
+        }
+      }
+    }
+    gameMessage = "No available Spots for this Card"
+    gameState = INPUTFAIL
+    publish(new CellChanged)
+  }
+
   def passRound():Unit = {
     if (gameState.equals(PLAYING)) {
       gameState = PASSED
+      turn += 1
       publish(new CellChanged)
     }
     evaluate(field,playerTop,playerBot)

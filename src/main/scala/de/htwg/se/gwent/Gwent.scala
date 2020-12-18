@@ -34,25 +34,9 @@ object Gwent{
         tui.processInputLine(input2(i),BOT)
         turnFor += 1
       }
-
     }
     else do {
-      if(turnFor % 2 == 0) {
-        println(controller.playerTop)
-        println("May chose his options (q,c,(row,col,cardAt))")
-        input = readLine()//scala.io.StdIn.readLine()//
-        tui.processInputLine(input,TOP)
-      } else {
-        println(controller.playerBot)
-        println("May chose his options (q,c,(row,col,cardAt))")
-        input = readLine()//scala.io.StdIn.readLine()//
-        tui.processInputLine(input,BOT)
-      }
-      turnFor += 1
-      if (controller.gameState.equals(INPUTFAIL)) {
-        println("Your input was incorrect please try again. If you want to pass press 'c'")
-        turnFor -= 1
-      }
+      tui.processInputLine(input, controller.whoCanPlay)
     } while (input != "q")
     println("See you next time")
   }
