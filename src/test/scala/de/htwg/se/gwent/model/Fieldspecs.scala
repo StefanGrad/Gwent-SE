@@ -1,10 +1,13 @@
 package scala.de.htwg.se.gwent.model
 
+import de.htwg.se.gwent.model.cardComponent.CardInterface
+import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.Card
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.Field
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 class Fieldspecs extends AnyWordSpec with Matchers {
-  val f = new Field(Vector[Vector[Option[Card]]]())
+  val f = new Field(Vector[Vector[Option[CardInterface]]]())
   "A Field is a 4x4 Array of Arrays with are then filled with Cards" when {
     "a Field" should {
       val field = f.clear

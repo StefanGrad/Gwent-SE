@@ -1,26 +1,25 @@
-package scala.de.htwg.se.gwent.controller
+package de.htwg.se.gwent.controller.controllerComponent
 
-import de.htwg.se.gwent.controller.controllerComponent.GameStatus.{GameStatus, PLAYING, PASSED, INPUTFAIL}
-import de.htwg.se.gwent.controller.controllerComponent.choosePlayer
-import de.htwg.se.gwent.controller.{CellChanged, PlayerChanged}
-import de.htwg.se.gwent.model.cardComponent.CardInterface
-import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.HandCard
-import de.htwg.se.gwent.model.fieldComponent.Field
 import de.htwg.se.gwent.model.playerComponent
-import de.htwg.se.gwent.model.playerComponent.{Player, PlayerType}
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
+import de.htwg.se.gwent.model.playerComponent.{Player, PlayerType}
+import GameStatus.{GameStatus, INPUTFAIL, PASSED, PLAYING}
+import de.htwg.se.gwent.model.cardComponent.CardInterface
+import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.{Card, HandCard}
+import de.htwg.se.gwent.model.fieldComponent.FieldInterface
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Field, WeatherState}
 
-import scala.de.htwg.se.gwent.util.{Observable, UndoManager}
+import scala.de.htwg.se.gwent.util.UndoManager
 import scala.swing.Publisher
 
-class Controller(var field: Field, var playerTop: Player, var playerBot: Player,var weather: WeatherState.State) extends Publisher {
+class Controller(var field: FieldInterface, var playerTop: Player, var playerBot: Player, var weather: WeatherState.State) extends Publisher {
   var gameMessage = ""
   var gameState: GameStatus = PLAYING
   var turn = 0
   val logic = new GameLogic
   private val undoManager = new UndoManager
   def createField:Unit = {
-    field = Field(Vector[Vector[Option[CardInterface]]]()).clear
+    field = Field(Vector[Vector[Option[Card]]]()).clear
     publish(new CellChanged)
   }
   def fieldToString: String = field.toString
@@ -30,7 +29,7 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player,
     case 1 => BOT
   }
 
-  def evaluate(fieldPlay: Field, playerTop: Player, playerBot: Player): Unit = {
+  def evaluate(fieldPlay: FieldInterface, playerTop: Player, playerBot: Player): Unit = {
     gameMessage = fieldPlay.evaluator.eval(fieldPlay,playerTop,playerBot,weather)
     gameState = PLAYING
     turn = 0
@@ -48,7 +47,7 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player,
     clearField(fieldPlay)
   }
 
-  def clearField(fieldPlay: Field): Unit = {
+  def clearField(fieldPlay: FieldInterface): Unit = {
     field = fieldPlay.clear
     gameState = PLAYING
     publish(new CellChanged)
@@ -76,7 +75,7 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player,
 
   def playerToString(player: Player): String = player.toString
 
-  def playCardAt(fieldPlay: Field, row: Int, col:Int, playerType: PlayerType.Value , cardIndex: Int): Unit = {
+  def playCardAt(fieldPlay: FieldInterface, row: Int, col:Int, playerType: PlayerType.Value , cardIndex: Int): Unit = {
     val player = choosePlayer.choice(playerType).player(this)
     if (playerType != whoCanPlay) {return publish(new CellChanged)}
     val tuple = logic.applyTryLogic(fieldPlay,row, col, player, cardIndex)
@@ -87,7 +86,7 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player,
     publish(new CellChanged)
   }
 
-  def playCard(fieldPlay: Field, playerType: PlayerType.Value , cardIndex: Int): Unit = {
+  def playCard(fieldPlay: FieldInterface, playerType: PlayerType.Value , cardIndex: Int): Unit = {
     val player = choosePlayer.choice(playerType).player(this)
     if (playerType != whoCanPlay) return publish(new CellChanged)
     for {

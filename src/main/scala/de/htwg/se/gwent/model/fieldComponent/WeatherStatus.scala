@@ -1,8 +1,7 @@
-package scala.de.htwg.se.gwent.controller
+package de.htwg.se.gwent.model.fieldComponent
 
-
-
-import scala.de.htwg.se.gwent.controller.WeatherStatus.{FOG, FROST, SUNSHINE, WeatherState}
+import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.Card
+import de.htwg.se.gwent.model.fieldComponent.WeatherStatus.{FOG, FROST, SUNSHINE}
 
 object WeatherStatus extends Enumeration {
   type WeatherState = Value

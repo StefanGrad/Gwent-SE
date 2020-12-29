@@ -1,11 +1,11 @@
-package scala.de.htwg.se.gwent.model
+package de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl
 
-import scala.de.htwg.se.gwent.controller.WeatherState.State
-import scala.de.htwg.se.gwent.controller.WeatherStatus.{FOG, FROST, SUNSHINE, WeatherState}
-
+import de.htwg.se.gwent.model.fieldComponent.FieldInterface
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.State
+import de.htwg.se.gwent.model.playerComponent.Player
 
 case class Evaluation() {
-  def eval(field: Field, playerTop: Player, playerBot: Player, weatherstate: State):String = {
+  def eval(field: FieldInterface, playerTop: Player, playerBot: Player, weatherstate: State):String = {
     var topC = 0
     var botC = 0
     for {

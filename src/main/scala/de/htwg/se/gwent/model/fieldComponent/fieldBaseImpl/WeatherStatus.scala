@@ -1,8 +1,7 @@
-package scala.de.htwg.se.gwent.controller
+package de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl
 
-
-
-import scala.de.htwg.se.gwent.controller.WeatherStatus.{FOG, FROST, SUNSHINE, WeatherState}
+import de.htwg.se.gwent.model.cardComponent.CardInterface
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherStatus.{FOG, FROST, SUNSHINE}
 
 object WeatherStatus extends Enumeration {
   type WeatherState = Value
@@ -14,7 +13,7 @@ object WeatherState{
     val rowBot = Vector[Int](0,1,2,3)
     val rowTop = Vector[Int](0,1,2,3)
     val weather = SUNSHINE
-    def changeWeather(card : Card): State =
+    def changeWeather(card : CardInterface): State =
         card.ability match {
       case 0 => this
       case 1 => choice(FROST)

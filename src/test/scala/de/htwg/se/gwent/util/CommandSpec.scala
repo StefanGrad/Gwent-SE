@@ -1,7 +1,5 @@
 package de.htwg.se.gwent.util
 
-package de.htwg.se.sudoku.util
-
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 

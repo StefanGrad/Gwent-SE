@@ -1,8 +1,10 @@
-package scala.de.htwg.se.gwent.model
+package de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl
 
+import de.htwg.se.gwent.model.cardComponent.CardInterface
+import de.htwg.se.gwent.model.fieldComponent.FieldInterface
 import scala.math.sqrt
 
-case class Field(field: Vector[Vector[Option[Card]]]) {
+case class Field(field: Vector[Vector[Option[CardInterface]]]) extends FieldInterface{
 
   val evaluator = Evaluation()
   val size = 4
@@ -19,7 +21,7 @@ case class Field(field: Vector[Vector[Option[Card]]]) {
     } if (field(row)(col).isEmpty) {notFull += 1}
     notFull > 0
   }
-  def setCard(col:Int, row:Int, op: Option[Card]):Field = {
+  def setCard(col:Int, row:Int, op: Option[CardInterface]):FieldInterface = {
     row match {
       case 0 => Field(Vector(field(0).updated(col, op),field(1),field(2),field(3)))
       case 1 => Field(Vector(field(0),field(1).updated(col, op),field(2),field(3)))
@@ -43,9 +45,9 @@ case class Field(field: Vector[Vector[Option[Card]]]) {
     box
   }
 
-  def getCard(col:Int, row:Int): Option[Card] = field(col)(row)
+  def getCard(col:Int, row:Int): Option[CardInterface] = field(col)(row)
 
-  def clear: Field = {
-    Field(Vector[Vector[Option[Card]]](Vector(None,None,None,None),Vector(None,None,None,None),Vector(None,None,None,None),Vector(None,None,None,None)))
+  def clear: FieldInterface = {
+    Field(Vector[Vector[Option[CardInterface]]](Vector(None,None,None,None),Vector(None,None,None,None),Vector(None,None,None,None),Vector(None,None,None,None)))
   }
 }

@@ -1,12 +1,11 @@
 package scala.de.htwg.se.gwent.aview.gui
 
-import de.htwg.se.gwent.controller.CellChanged
+import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, Controller}
 
 import scala.swing._
 import javax.swing.table._
 
 import scala.swing.event._
-import scala.de.htwg.se.gwent.controller.Controller
 import scala.swing.Swing.LineBorder
 
 

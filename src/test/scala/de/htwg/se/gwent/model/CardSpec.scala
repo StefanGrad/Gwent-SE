@@ -1,5 +1,6 @@
 package scala.de.htwg.se.gwent.model
 
+import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.Card
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
