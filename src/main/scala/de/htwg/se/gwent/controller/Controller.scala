@@ -1,12 +1,15 @@
 package scala.de.htwg.se.gwent.controller
 
 import de.htwg.se.gwent.controller.{CellChanged, PlayerChanged}
+import de.htwg.se.gwent.model.playerComponent
+import de.htwg.se.gwent.model.playerComponent.{Player, PlayerType, choosePlayer}
 
 import scala.de.htwg.se.gwent.controller.WeatherStatus.{FROST, SUNSHINE, WeatherState}
 import scala.de.htwg.se.gwent.controller.GameStatus.{GameStatus, INPUTFAIL, PASSED, PLAYING}
 import scala.de.htwg.se.gwent.controller.WeatherState.Sunshine
-import scala.de.htwg.se.gwent.model.PlayerType.{BOT, TOP}
-import scala.de.htwg.se.gwent.model.{Card, Field, HandCard, Player, PlayerType}
+import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
+
+import scala.de.htwg.se.gwent.model.{Card, Field, HandCard}
 import scala.de.htwg.se.gwent.util.{Observable, UndoManager}
 import scala.swing.Publisher
 
@@ -20,7 +23,6 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player,
     field = Field(Vector[Vector[Option[Card]]]()).clear
     publish(new CellChanged)
   }
-  val change = WeatherState.choice(FROST)
   def fieldToString: String = field.toString
 
   def whoCanPlay: PlayerType.Value = turn % 2 match {
@@ -64,10 +66,10 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player,
   def createPlayer(name:String,playerType: PlayerType.Value):Unit = {
     playerType match {
       case TOP =>
-        playerTop = Player(playerType,name, HandCard(Vector[Card]()).newDeck(),0)
+        playerTop = playerComponent.Player(playerType,name, HandCard(Vector[Card]()).newDeck(),0)
         publish(new PlayerChanged)
       case BOT =>
-        playerBot = Player(playerType,name, HandCard(Vector[Card]()).newDeck(),0)
+        playerBot = playerComponent.Player(playerType,name, HandCard(Vector[Card]()).newDeck(),0)
         publish(new PlayerChanged)
     }
   }
@@ -76,7 +78,7 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player,
 
   def playCardAt(fieldPlay: Field, row: Int, col:Int, playerType: PlayerType.Value , cardIndex: Int): Unit = {
     val player = choosePlayer.choice(playerType).player(this)
-    if (playerType != whoCanPlay) return publish(new CellChanged)
+    if (playerType != whoCanPlay) {return publish(new CellChanged)}
     val tuple = logic.applyTryLogic(fieldPlay,row, col, player, cardIndex)
     gameState = tuple._1
     gameMessage = tuple._2
@@ -108,12 +110,13 @@ class Controller(var field: Field, var playerTop: Player, var playerBot: Player,
   }
 
   def passRound():Unit = {
-    if (gameState.equals(PLAYING)) {
-      gameState = PASSED
-      turn += 1
-      publish(new CellChanged)
+    if (gameState.equals(PASSED)) {
+      evaluate(field,playerTop,playerBot)
+      return publish(new CellChanged)
     }
-    evaluate(field,playerTop,playerBot)
+    gameState = PASSED
+    turn += 1
+    publish(new CellChanged)
   }
 
   def undo: Unit = {

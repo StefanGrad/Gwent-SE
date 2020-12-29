@@ -1,23 +1,21 @@
 package scala.de.htwg.se.gwent.aview
 
 import de.htwg.se.gwent.controller.CellChanged
+import de.htwg.se.gwent.model.playerComponent.PlayerType
 
 import scala.de.htwg.se.gwent.util.Observer
 import scala.de.htwg.se.gwent.controller.Controller
 import scala.de.htwg.se.gwent.controller.GameStatus.INPUTFAIL
-import scala.de.htwg.se.gwent.model.{Player, PlayerType}
 import scala.swing.Reactor
 
 class Tui(controller: Controller) extends Reactor{
 
   listenTo(controller)
 
-
   def processInputLine(input: String, playerType: PlayerType.Value):Unit = {
     input match {
       case "q" =>
-      case "c" =>
-        controller.passRound()
+      case "c" => controller.passRound()
       case "z" => controller.undo
       case "r" => controller.redo
       case _ => {

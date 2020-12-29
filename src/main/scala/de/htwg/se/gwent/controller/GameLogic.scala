@@ -1,7 +1,9 @@
 package scala.de.htwg.se.gwent.controller
 
+import de.htwg.se.gwent.model.playerComponent.Player
+
 import scala.de.htwg.se.gwent.controller.GameStatus.{GameStatus, INPUTFAIL, PLAYING}
-import scala.de.htwg.se.gwent.model.{Field, Player}
+import scala.de.htwg.se.gwent.model.Field
 import scala.util.{Failure, Success, Try}
 
 class GameLogic{
@@ -35,6 +37,7 @@ class GameLogic{
         return (INPUTFAIL,"The Position is already filled.")
       case Failure(exception) =>
         return (INPUTFAIL,"Please play within the game area")
+      case _ => return (INPUTFAIL,"Please play within the game area")
     }
   }
 }

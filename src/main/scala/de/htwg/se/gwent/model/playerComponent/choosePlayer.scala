@@ -1,7 +1,8 @@
-package scala.de.htwg.se.gwent.controller
+package de.htwg.se.gwent.model.playerComponent
 
-import scala.de.htwg.se.gwent.model.PlayerType.{BOT, TOP}
-import scala.de.htwg.se.gwent.model.{Player, PlayerType}
+import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
+
+import scala.de.htwg.se.gwent.controller.Controller
 
 object choosePlayer{
   trait Chooser {
@@ -18,5 +19,3 @@ object choosePlayer{
     case BOT => new chooseBot
   }
 }
-
-

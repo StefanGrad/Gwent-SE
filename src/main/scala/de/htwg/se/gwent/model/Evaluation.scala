@@ -1,5 +1,7 @@
 package scala.de.htwg.se.gwent.model
 
+import de.htwg.se.gwent.model.playerComponent.Player
+
 import scala.de.htwg.se.gwent.controller.WeatherState.State
 import scala.de.htwg.se.gwent.controller.WeatherStatus.{FOG, FROST, SUNSHINE, WeatherState}
 

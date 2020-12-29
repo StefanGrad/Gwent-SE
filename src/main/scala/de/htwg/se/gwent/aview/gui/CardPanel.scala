@@ -1,13 +1,12 @@
 package de.htwg.se.gwent.aview.gui
 import de.htwg.se.gwent.controller.CellChanged
+import de.htwg.se.gwent.model.playerComponent.{PlayerType, choosePlayer}
 
 import scala.swing._
 import javax.swing.table._
 
 import scala.swing.event._
-import scala.de.htwg.se.gwent.controller.{Controller, choosePlayer}
-import scala.de.htwg.se.gwent.model.PlayerType
-
+import scala.de.htwg.se.gwent.controller.Controller
 
 
 class CardPanel(playerType: PlayerType.Value, cardIndex: Int,controller: Controller) extends FlowPanel {

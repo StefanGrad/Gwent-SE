@@ -1,7 +1,9 @@
 package scala.de.htwg.se.gwent.controller
 
-import scala.de.htwg.se.gwent.model.PlayerType.{BOT, TOP}
-import scala.de.htwg.se.gwent.model.{Card, Field, Player, PlayerType}
+import de.htwg.se.gwent.model.playerComponent.{Player, PlayerType, choosePlayer}
+import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
+
+import scala.de.htwg.se.gwent.model.{Card, Field}
 import scala.de.htwg.se.gwent.util.Command
 
 class PlayCardCommand(fieldPlay: Field, row: Int, col:Int, playerType: PlayerType.Value, cardIndex: Int, controller: Controller) extends Command{

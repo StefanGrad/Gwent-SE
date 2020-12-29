@@ -1,9 +1,9 @@
 package scala.de.htwg.se.gwent.model
 
+import de.htwg.se.gwent.model.playerComponent.{Player, PlayerArea}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-
-import scala.de.htwg.se.gwent.model.PlayerType.{TOP,BOT}
+import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 
 class PlayerSpec extends AnyWordSpec with Matchers {
   "A Player" when {
@@ -23,8 +23,8 @@ class PlayerSpec extends AnyWordSpec with Matchers {
         //playerBot.toString should be("Your Name has won 0 times and holds in his Hand: Archer A0 S3 R1")
       }
       "get the Topside Area" in {
-        PlayerArea.handel(TOP) should be (Vector[Int](0,1))
-        PlayerArea.handel(BOT) should be (Vector[Int](3,2))
+        PlayerArea.handel(TOP) should be (Vector[Int](1,0))
+        PlayerArea.handel(BOT) should be (Vector[Int](2,3))
       }
     }
   }

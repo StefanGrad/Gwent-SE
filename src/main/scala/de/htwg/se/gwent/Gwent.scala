@@ -2,18 +2,21 @@ package scala.de.htwg.se.gwent
 
 import de.htwg.se.gwent.aview.gui.SwingGUI
 import de.htwg.se.gwent.controller.CellChanged
+import de.htwg.se.gwent.model.playerComponent
+import de.htwg.se.gwent.model.playerComponent.Player
 
 import scala.de.htwg.se.gwent.aview.Tui
-import scala.de.htwg.se.gwent.model.{Card, Field, HandCard, Player}
+import scala.de.htwg.se.gwent.model.{Card, Field, HandCard}
 import scala.de.htwg.se.gwent.controller.Controller
 import scala.de.htwg.se.gwent.controller.GameStatus.INPUTFAIL
 import scala.de.htwg.se.gwent.controller.WeatherState.Sunshine
-import scala.de.htwg.se.gwent.model.PlayerType.{BOT, TOP}
+import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
+
 import scala.io.StdIn.readLine
 
 object Gwent{
   val playerTop = Player(TOP,"Adrian",HandCard(Vector[Card]()).newDeck(),0)
-  val playerBot = Player(BOT,"Stefan",HandCard(Vector[Card]()).newDeck(),0)
+  val playerBot = playerComponent.Player(BOT,"Stefan",HandCard(Vector[Card]()).newDeck(),0)
   val field = new Field(Vector[Vector[Option[Card]]]())
   val controller = new Controller(field.clear,playerTop,playerBot, new Sunshine)
   val tui = new Tui(controller)

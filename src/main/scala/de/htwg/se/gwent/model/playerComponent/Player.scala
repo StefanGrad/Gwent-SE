@@ -1,6 +1,8 @@
-package scala.de.htwg.se.gwent.model
+package de.htwg.se.gwent.model.playerComponent
 
-import scala.de.htwg.se.gwent.model.PlayerType.{BOT, TOP}
+import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
+
+import scala.de.htwg.se.gwent.model.{Card, HandCard}
 
 object PlayerType extends Enumeration {
   type player = Value
