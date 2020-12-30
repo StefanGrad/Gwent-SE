@@ -1,16 +1,14 @@
 package scala.de.htwg.se.gwent.aview.gui
 
-import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, Controller}
-
+import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, ControllerInterface}
 import scala.swing._
 import javax.swing.table._
-
 import scala.swing.event._
 import scala.swing.Swing.LineBorder
 
 
 
-class CellPanel(row :Int, column :Int ,controller: Controller) extends FlowPanel {
+class CellPanel(row :Int, column :Int ,controller: ControllerInterface) extends FlowPanel {
 
   val cellColor = new Color(224, 224, 255)
 

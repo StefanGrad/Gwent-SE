@@ -1,26 +1,14 @@
-package scala.de.htwg.se.gwent.controller
-
-import de.htwg.se.gwent.model.fieldComponent.Field
-import de.htwg.se.gwent.model.playerComponent.Player
+package de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl
 
 import de.htwg.se.gwent.controller.controllerComponent.GameStatus.{GameStatus, INPUTFAIL, PLAYING}
+import de.htwg.se.gwent.model.fieldComponent.FieldInterface
+import de.htwg.se.gwent.model.playerComponent.Player
+
 import scala.util.{Failure, Success, Try}
 
 class GameLogic{
-  def applyLogic(field: Field, row: Int, col:Int, player: Player, cardIndex: Int):GameStatus = {
-    if (player.handCard.size > cardIndex && cardIndex >= 0) {
-      if (0 <= col && col < 4) {
-        if ((row == player.playerArea(0)) || (row == player.playerArea(1))) {
-          if (field.isEmpty(col, row)) {
-            return PLAYING
-          }
-        }
-      }
-    }
-    INPUTFAIL
-  }
 
-  def applyTryLogic(field: Field, row: Int, col:Int, player: Player, cardIndex: Int): (GameStatus,String) = {
+  def applyTryLogic(field: FieldInterface, row: Int, col:Int, player: Player, cardIndex: Int): (GameStatus,String) = {
     Try(field.isEmpty(col,row)) match {
       case Success(v) =>
         if(v) {

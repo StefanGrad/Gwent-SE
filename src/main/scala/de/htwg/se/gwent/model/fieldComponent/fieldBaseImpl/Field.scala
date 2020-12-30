@@ -2,13 +2,18 @@ package de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl
 
 import de.htwg.se.gwent.model.cardComponent.CardInterface
 import de.htwg.se.gwent.model.fieldComponent.FieldInterface
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.{State, Sunshine}
+
 import scala.math.sqrt
 
 case class Field(field: Vector[Vector[Option[CardInterface]]]) extends FieldInterface{
-
+  val weather = new Sunshine
   val evaluator = Evaluation()
   val size = 4
   val blocknum = sqrt(size).toInt
+
+  def changeWeather(card: CardInterface): State = weather.changeWeather(card)
+
   def isEmpty(col:Int,row:Int):Boolean = field(col)(row) match {
     case Some(value) => false
     case None => true

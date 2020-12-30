@@ -1,6 +1,6 @@
 package scala.de.htwg.se.gwent.controller
 
-import de.htwg.se.gwent.controller.controllerComponent.Controller
+import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.Controller
 import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.{Card, HandCard}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.Field
 import de.htwg.se.gwent.model.playerComponent
@@ -20,7 +20,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       val field = Field(Vector[Vector[Option[Card]]]()).clear
       val playerTop = Player(TOP,"Top", HandCard(Vector[Card](archer,archer,archer)),0)
       val playerBot = playerComponent.Player(BOT,"Bot", HandCard(Vector[Card](archer,archer,archer)),0)
-      val ctrl = new Controller(field, playerTop, playerBot, new Sunshine)
+      val ctrl = new Controller(field, playerTop, playerBot)
 
       "create a playing Field" in {
         ctrl.createField
@@ -37,12 +37,12 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         ctrl.field.isEmpty(1,1) should be(true)
       }
       "evaluate the Game" in {
-        val ctrl = new Controller(field,playerTop,playerBot, new Sunshine)
+        val ctrl = new Controller(field,playerTop,playerBot)
         ctrl.playCardAt(ctrl.field,0,0,TOP,0)
         ctrl.evaluate(ctrl.field,ctrl.playerTop,ctrl.playerBot)
         ctrl.playerTop.wins should be(1)
         ctrl.playerBot.wins should be(0)
-        ctrl.turn = 1
+        //ctrl.turnLogic = 1
         ctrl.playCardAt(ctrl.field,3,3,BOT,0)
         ctrl.evaluate(ctrl.field,ctrl.playerTop,ctrl.playerBot)
         ctrl.playerTop.wins should be(1)
@@ -82,14 +82,14 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         val testClear = Card("sunny", 3,0,0)
         val playerTop2 = playerComponent.Player(TOP,"Top", HandCard(Vector[Card](testFog,archer,testClear)),0)
         val playerBot2 = playerComponent.Player(BOT,"Bot", HandCard(Vector[Card](archer,testFrost,testClear)),0)
-        val controller = new Controller(nF,playerTop2,playerBot2,new Sunshine)
-        controller.weather.weather should be(SUNSHINE)
+        val controller = new Controller(nF,playerTop2,playerBot2)
+        controller.field.weather.weather should be(SUNSHINE)
         controller.playCardAt(controller.field,1,0,TOP,0)
-        controller.weather.weather should be(FOG)
+        controller.field.weather.weather should be(FOG)
         controller.playCardAt(controller.field,2,1,BOT,1)
-        controller.weather.weather should be(FROST)
+        controller.field.weather.weather should be(FROST)
         controller.playCardAt(controller.field,1,1,TOP,1)
-        controller.weather.weather should be(SUNSHINE)
+        controller.field.weather.weather should be(SUNSHINE)
       }
     }
   }

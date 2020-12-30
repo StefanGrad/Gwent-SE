@@ -1,13 +1,12 @@
 package scala.de.htwg.se.gwent.aview
 
-import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, Controller}
+import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, ControllerInterface}
 import de.htwg.se.gwent.model.playerComponent.PlayerType
-
-import scala.de.htwg.se.gwent.util.Observer
 import de.htwg.se.gwent.controller.controllerComponent.GameStatus.INPUTFAIL
+
 import scala.swing.Reactor
 
-class Tui(controller: Controller) extends Reactor{
+class Tui(controller: ControllerInterface) extends Reactor{
 
   listenTo(controller)
 
@@ -20,7 +19,7 @@ class Tui(controller: Controller) extends Reactor{
       case _ => {
         input.toList.filter(c => c != ' ').map(c => c.toString.toInt) match {
           case row :: column :: cardIndex :: Nil => controller.playCardAt(controller.field, row, column, playerType, cardIndex)
-          case _ => controller.gameState = INPUTFAIL
+          case _ => controller.changeGameStatus(INPUTFAIL)
         }
       }
     }

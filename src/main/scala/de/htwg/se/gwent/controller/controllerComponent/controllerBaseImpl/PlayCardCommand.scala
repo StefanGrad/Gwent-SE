@@ -1,5 +1,6 @@
-package de.htwg.se.gwent.controller.controllerComponent
+package de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl
 
+import de.htwg.se.gwent.controller.controllerComponent.{ControllerInterface, choosePlayer}
 import de.htwg.se.gwent.model.fieldComponent.FieldInterface
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 import de.htwg.se.gwent.model.playerComponent.{Player, PlayerType}
@@ -10,12 +11,12 @@ class PlayCardCommand(fieldPlay: FieldInterface, row: Int, col:Int, playerType: 
   val player = choosePlayer.choice(playerType).player(controller)
   val hand = player.handCard
   val card = hand.show(cardIndex)
-  val weatherState = controller.weather
+  val weather = controller.field.weather.weather
   override def doStep: Unit = {
-    controller.weather = controller.weather.changeWeather(card)
+    controller.field.weather.changeWeather(card)
     val tuple1 = hand.playCard(cardIndex,fieldPlay,row,col)
     controller.field = tuple1._3
-    controller.turn += 1
+    controller.turnLogic.doTurn
     playerType match {
       case TOP => controller.playerTop = Player(playerType,player.name,tuple1._2,player.wins)
       case BOT => controller.playerBot = Player(playerType,player.name,tuple1._2,player.wins)
@@ -24,8 +25,8 @@ class PlayCardCommand(fieldPlay: FieldInterface, row: Int, col:Int, playerType: 
 
   override def undoStep: Unit = {
     controller.field = controller.field.setCard(col,row, None)
-    controller.weather = weatherState
-    controller.turn = controller.turn
+    controller.field.weather.changeWeather(weather)
+    controller.turnLogic.undoTurn
     playerType match {
       case TOP => controller.playerTop =  player  //Player(playerType,player.name ,hand ,player.wins)
       case BOT => controller.playerBot =  player

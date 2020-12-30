@@ -1,5 +1,6 @@
 package de.htwg.se.gwent.aview.gui
-import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, Controller, choosePlayer}
+
+import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, ControllerInterface, choosePlayer}
 import de.htwg.se.gwent.model.playerComponent.PlayerType
 
 import scala.swing._
@@ -8,7 +9,7 @@ import javax.swing.table._
 import scala.swing.event._
 
 
-class CardPanel(playerType: PlayerType.Value, cardIndex: Int,controller: Controller) extends FlowPanel {
+class CardPanel(playerType: PlayerType.Value, cardIndex: Int,controller: ControllerInterface) extends FlowPanel {
 
   val cellColor = new Color(224, 224, 255)
   //val highlightedCellColor = new Color(192, 255, 192)
@@ -35,9 +36,9 @@ class CardPanel(playerType: PlayerType.Value, cardIndex: Int,controller: Control
         repaint
       }
       case MouseClicked(src, pt, mod, clicks, pops) => {
-        val turnCange = controller.turn
+        val turnChange = controller.turnLogic.getTurn
         controller.playCard(controller.field,playerType,cardIndex)
-        if (turnCange +1  == controller.turn) {
+        if (turnChange +1  == controller.turnLogic.getTurn) {
           this.visible = false
         }
         repaint

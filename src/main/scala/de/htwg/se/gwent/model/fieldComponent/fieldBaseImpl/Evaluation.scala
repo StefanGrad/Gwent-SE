@@ -2,10 +2,9 @@ package de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl
 
 import de.htwg.se.gwent.model.fieldComponent.FieldInterface
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.State
-import de.htwg.se.gwent.model.playerComponent.Player
 
 case class Evaluation() {
-  def eval(field: FieldInterface, playerTop: Player, playerBot: Player, weatherstate: State):String = {
+  def eval(field: FieldInterface, weatherstate: State):Int = {
     var topC = 0
     var botC = 0
     for {
@@ -23,13 +22,13 @@ case class Evaluation() {
         case None =>
       }
     if (topC - botC > 0) {
-      return "The winner of this round is Top"
+      return 0
     }
     if(topC - botC < 0){
 
-      return "The winner of this round is Bot"
+      return 1
     }
-    "The game ended with a tie"
+    2
   }
 
 }

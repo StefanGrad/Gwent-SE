@@ -20,6 +20,7 @@ object WeatherState{
       case 2 => choice(FOG)
       case 3 => choice(SUNSHINE)
     }
+    def changeWeather(weatherStatus: WeatherStatus.Value): State = choice(weatherStatus)
   }
   class Frost extends State {
     override val weather = FROST

@@ -1,21 +1,20 @@
 package de.htwg.se.gwent.aview.gui
-import de.htwg.se.gwent.model.playerComponent.PlayerType
 
-import scala.de.htwg.se.gwent.Gwent.controller
+import de.htwg.se.gwent.model.playerComponent.PlayerType
 import scala.de.htwg.se.gwent.aview.gui.CellPanel
 import scala.swing._
 import scala.swing.Swing.LineBorder
 import scala.swing.event._
 import scala.io.Source._
 import PlayerType.{BOT, TOP}
-import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, Controller, PlayerChanged, choosePlayer}
+import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, ControllerInterface, PlayerChanged, choosePlayer}
 
-class SwingGUI(c :Controller) extends Frame {
+class SwingGUI(c :ControllerInterface) extends Frame {
   listenTo(c)
 
   title = "Gwent"
 
-  var cells = Array.ofDim[CellPanel](controller.field.size, controller.field.size)
+  var cells = Array.ofDim[CellPanel](c.field.size, c.field.size)
   var topHand = Array.ofDim[CardPanel](c.playerTop.handCard.size)
   var botHand = Array.ofDim[CardPanel](c.playerBot.handCard.size)
 
@@ -27,14 +26,14 @@ class SwingGUI(c :Controller) extends Frame {
       row <- 0 until 4
       column <- 0 until 4
     } {
-      val cellPanel = new CellPanel(row, column, controller)
+      val cellPanel = new CellPanel(row, column, c)
       cells(row)(column) = cellPanel
       contents += cellPanel
       cellPanel.border = LineBorder(java.awt.Color.YELLOW,1)
       listenTo(cellPanel)
     }
   }
-  val gameMessage = new TextField(controller.gameMessage, 20)
+  val gameMessage = new TextField(c.gameMessage, 20)
 
   def handcardPanel(playerType: PlayerType.Value) = {
     val handSize = choosePlayer.choice(playerType).player(c).handCard.size
@@ -46,7 +45,7 @@ class SwingGUI(c :Controller) extends Frame {
       for {
         index <- 0 until handSize
       } {
-        val cardPanel = new CardPanel(playerType,index,controller)
+        val cardPanel = new CardPanel(playerType,index,c)
         playerType match {
           case TOP => topHand(index) = cardPanel
           case BOT => botHand(index) = cardPanel
@@ -71,12 +70,12 @@ class SwingGUI(c :Controller) extends Frame {
     }
     contents += new Menu("Edit") {
       mnemonic = Key.E
-      contents += new MenuItem(Action("Undo") { controller.undo })
-      contents += new MenuItem(Action("Redo") { controller.redo })
+      contents += new MenuItem(Action("Undo") { c.undo })
+      contents += new MenuItem(Action("Redo") { c.redo })
     }
     contents += new Menu("End Round") {
       mnemonic = Key.P
-      contents += new MenuItem(Action("Pass") { controller.passRound() })
+      contents += new MenuItem(Action("Pass") { c.passRound() })
     }
   }
 
@@ -95,7 +94,7 @@ class SwingGUI(c :Controller) extends Frame {
     } cells(row)(column).redraw
     for (index <- 0 until c.playerTop.handCard.size) topHand(index).redraw
     for (index <- 0 until botHand.length) botHand(index).redraw
-    gameMessage.text = controller.gameMessage
+    gameMessage.text = c.gameMessage
     repaint
   }
 }

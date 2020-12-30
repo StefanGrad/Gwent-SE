@@ -1,12 +1,8 @@
 package scala.de.htwg.se.gwent.util
-import de.htwg.se.gwent.util.de.htwg.se.sudoku.util.incrCommand
+
+import de.htwg.se.gwent.util.incrCommand
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-
-import scala.de.htwg.se.gwent.controller.WeatherState.Sunshine
-import scala.de.htwg.se.gwent.controller.{Controller, PlayCardCommand}
-import scala.de.htwg.se.gwent.model.{Field, Player}
-import scala.de.htwg.se.gwent.model.PlayerType.{BOT, TOP}
 
 class UndoManagerSpec extends AnyWordSpec with Matchers {
   "An UndoManager" should {
