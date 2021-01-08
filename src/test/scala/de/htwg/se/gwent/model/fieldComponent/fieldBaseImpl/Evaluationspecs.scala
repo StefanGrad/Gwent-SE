@@ -1,13 +1,11 @@
 package scala.de.htwg.se.gwent.model
 
 import de.htwg.se.gwent.model.cardComponent.CardInterface
-import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.{Card, HandCard}
+import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.{Card}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Evaluation, Field}
-import de.htwg.se.gwent.model.playerComponent.Player
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.{Fog, Frost, Sunshine}
-import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 
 class Evaluationspecs extends AnyWordSpec with Matchers {
   val f = Field(Vector[Vector[Option[CardInterface]]]())
@@ -16,30 +14,30 @@ class Evaluationspecs extends AnyWordSpec with Matchers {
       val field = f.clear
       var weatherState = new Sunshine
       "have a draw" in {
-        Evaluation().eval(field,weatherState) should be ("The game ended with a tie")
+        Evaluation().eval(field,weatherState) should be (2)
       }
       "have playerTop win" in {
         //Player("Stefan").hand.playCard(0, field, 0, 0)
         var field = f.clear
         field = field.setCard(0,0,Some(Card("Test", 1,1,1)))
-        Evaluation().eval(field,weatherState) should be("The winner of this round is Top")
+        Evaluation().eval(field,weatherState) should be(0)
       }
       "have playerBot win" in {
         //Player("Adrian").hand.playCard(0, field, 2, 2)
         var field = f.clear
         field = field.setCard(2,2,Some(Card("Test", 3,3,1)))
-        Evaluation().eval(field,weatherState) should be("The winner of this round is Bot")
+        Evaluation().eval(field,weatherState) should be(1)
       }
       "Under Weather Frost" in {
         val weather = new Frost
         var field = f.clear
         field = field.setCard(1,1,Some(Card("Test", 1,1,1)))
-        Evaluation().eval(field,weather) should be ( "The game ended with a tie")
+        Evaluation().eval(field,weather) should be (2)
       }
       "Under Weather FOG" in {
         val weather = new Fog
         field.setCard(0,0,Some(Card("Test", 1,1,1)))
-        Evaluation().eval(field,weather) should be ( "The game ended with a tie")
+        Evaluation().eval(field,weather) should be (2)
       }
     }
   }

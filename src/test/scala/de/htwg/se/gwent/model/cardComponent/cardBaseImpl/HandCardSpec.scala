@@ -1,7 +1,6 @@
-package scala.de.htwg.se.gwent.model
+package de.htwg.se.gwent.model.cardComponent.cardBaseImpl
 
 import de.htwg.se.gwent.model.cardComponent.CardInterface
-import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.{Card, HandCard}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.Field
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec

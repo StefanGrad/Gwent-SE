@@ -6,7 +6,7 @@ import de.htwg.se.gwent.controller.controllerComponent._
 import de.htwg.se.gwent.model.cardComponent.CardInterface
 import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.{Card, HandCard}
 import de.htwg.se.gwent.model.fieldComponent.FieldInterface
-import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Field, TurnLogic, WeatherState}
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Field, WeatherState}
 import de.htwg.se.gwent.model.playerComponent
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 import de.htwg.se.gwent.model.playerComponent.{Player, PlayerType}
@@ -14,10 +14,9 @@ import de.htwg.se.gwent.model.playerComponent.{Player, PlayerType}
 import scala.de.htwg.se.gwent.util.UndoManager
 import scala.swing.Publisher
 
-class Controller(var field: FieldInterface, var playerTop: Player, var playerBot: Player) extends ControllerInterface with Publisher {
+class Controller(var field: FieldInterface, var playerTop: Player, var playerBot: Player, var turnLogic: TurnLogic) extends ControllerInterface with Publisher {
   var gameMessage = ""
   var gameState: GameStatus = PLAYING
-  val turnLogic = new TurnLogic(0,0)
   val logic = new GameLogic
   private val undoManager = new UndoManager
   def createField:Unit = {
@@ -31,19 +30,17 @@ class Controller(var field: FieldInterface, var playerTop: Player, var playerBot
   def evaluate(fieldPlay: FieldInterface, playerTop: Player, playerBot: Player): Unit = {
     val winner = fieldPlay.evaluator.eval(fieldPlay,fieldPlay.weather)
     gameState = PLAYING
-    turnLogic.nextRound
+    turnLogic = turnLogic.nextRound
+    undoManager.nextRound
     if (winner == 0) {
       updateWins(TOP)
-      undoManager.nextRound
       gameMessage = "Winner Top"
       return clearField(fieldPlay)
     }
     if (winner == 1) {
       updateWins(BOT)
-      undoManager.nextRound
       return clearField(fieldPlay)
     }
-    undoManager.nextRound
     clearField(fieldPlay)
   }
 
@@ -114,7 +111,7 @@ class Controller(var field: FieldInterface, var playerTop: Player, var playerBot
       return publish(new CellChanged)
     }
     gameState = PASSED
-    turnLogic.doTurn
+    turnLogic = turnLogic.doTurn
     publish(new CellChanged)
   }
 

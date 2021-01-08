@@ -2,7 +2,7 @@ package scala.de.htwg.se.gwent
 
 import de.htwg.se.gwent.aview.gui.SwingGUI
 import de.htwg.se.gwent.controller.controllerComponent.CellChanged
-import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.Controller
+import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.{Controller, TurnLogic}
 import de.htwg.se.gwent.model.playerComponent
 import de.htwg.se.gwent.model.playerComponent.Player
 
@@ -17,7 +17,7 @@ object Gwent{
   val playerTop = Player(TOP,"Adrian",HandCard(Vector[Card]()).newDeck(),0)
   val playerBot = playerComponent.Player(BOT,"Stefan",HandCard(Vector[Card]()).newDeck(),0)
   val field = new Field(Vector[Vector[Option[Card]]]())
-  val controller = new Controller(field.clear,playerTop,playerBot)
+  val controller = new Controller(field.clear,playerTop,playerBot, TurnLogic(1,1))
   val tui = new Tui(controller)
   val gui = new SwingGUI(controller)
   controller.publish(new CellChanged)

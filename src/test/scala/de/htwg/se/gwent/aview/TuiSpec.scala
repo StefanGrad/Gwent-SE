@@ -3,12 +3,11 @@ package scala.de.htwg.se.gwent.aview
 import de.htwg.se.gwent.model.playerComponent
 import de.htwg.se.gwent.model.playerComponent.Player
 import de.htwg.se.gwent.controller.controllerComponent.GameStatus.{INPUTFAIL, PASSED, PLAYING}
-import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.Controller
+import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.{Controller, TurnLogic}
 import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.{Card, HandCard}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.Field
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.Sunshine
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 
 class TuiSpec extends AnyWordSpec with Matchers {
@@ -19,7 +18,7 @@ class TuiSpec extends AnyWordSpec with Matchers {
       val field = f.clear
       val playerTop = Player(TOP,"Top", HandCard(Vector[Card](archer,archer)),0)
       val playerBot = playerComponent.Player(BOT,"Bot", HandCard(Vector[Card](archer,archer)),0)
-      val controller = new Controller(field, playerTop, playerBot)
+      val controller = new Controller(field, playerTop, playerBot,TurnLogic(1,1))
       val tui = new Tui(controller)
 
       "have the active player pass on input 'c' and if he's the second one to pass the game is evaluated" in {

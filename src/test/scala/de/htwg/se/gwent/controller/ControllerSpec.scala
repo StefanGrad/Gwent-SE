@@ -1,15 +1,12 @@
 package scala.de.htwg.se.gwent.controller
 
-import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.Controller
+import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.{Controller, TurnLogic}
 import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.{Card, HandCard}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.Field
 import de.htwg.se.gwent.model.playerComponent
 import de.htwg.se.gwent.model.playerComponent.Player
-
-import scala.de.htwg.se.gwent.util.Observer
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.{Fog, Frost, Sunshine}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherStatus.{FOG, FROST, SUNSHINE}
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 
@@ -20,7 +17,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       val field = Field(Vector[Vector[Option[Card]]]()).clear
       val playerTop = Player(TOP,"Top", HandCard(Vector[Card](archer,archer,archer)),0)
       val playerBot = playerComponent.Player(BOT,"Bot", HandCard(Vector[Card](archer,archer,archer)),0)
-      val ctrl = new Controller(field, playerTop, playerBot)
+      val ctrl = new Controller(field, playerTop, playerBot,TurnLogic(0,1))
 
       "create a playing Field" in {
         ctrl.createField
@@ -37,12 +34,12 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         ctrl.field.isEmpty(1,1) should be(true)
       }
       "evaluate the Game" in {
-        val ctrl = new Controller(field,playerTop,playerBot)
+        val ctrl = new Controller(field,playerTop,playerBot, TurnLogic(0,0))
         ctrl.playCardAt(ctrl.field,0,0,TOP,0)
         ctrl.evaluate(ctrl.field,ctrl.playerTop,ctrl.playerBot)
         ctrl.playerTop.wins should be(1)
         ctrl.playerBot.wins should be(0)
-        //ctrl.turnLogic = 1
+        ctrl.turnLogic = ctrl.turnLogic.doTurn
         ctrl.playCardAt(ctrl.field,3,3,BOT,0)
         ctrl.evaluate(ctrl.field,ctrl.playerTop,ctrl.playerBot)
         ctrl.playerTop.wins should be(1)
@@ -82,7 +79,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         val testClear = Card("sunny", 3,0,0)
         val playerTop2 = playerComponent.Player(TOP,"Top", HandCard(Vector[Card](testFog,archer,testClear)),0)
         val playerBot2 = playerComponent.Player(BOT,"Bot", HandCard(Vector[Card](archer,testFrost,testClear)),0)
-        val controller = new Controller(nF,playerTop2,playerBot2)
+        val controller = new Controller(nF,playerTop2,playerBot2, TurnLogic(0,1))
         controller.field.weather.weather should be(SUNSHINE)
         controller.playCardAt(controller.field,1,0,TOP,0)
         controller.field.weather.weather should be(FOG)

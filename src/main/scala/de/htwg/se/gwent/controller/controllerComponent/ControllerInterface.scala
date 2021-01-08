@@ -1,7 +1,7 @@
 package de.htwg.se.gwent.controller.controllerComponent
 
+import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.TurnLogic
 import de.htwg.se.gwent.model.fieldComponent.FieldInterface
-import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.TurnLogic
 import de.htwg.se.gwent.model.playerComponent.{Player, PlayerType}
 
 import scala.swing.Publisher

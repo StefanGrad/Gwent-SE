@@ -1,10 +1,10 @@
-package scala.de.htwg.se.gwent.model
+package de.htwg.se.gwent.model.playerCxomponent
 
 import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.{Card, HandCard}
+import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 import de.htwg.se.gwent.model.playerComponent.{Player, PlayerArea}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 
 class PlayerSpec extends AnyWordSpec with Matchers {
   "A Player" when {
