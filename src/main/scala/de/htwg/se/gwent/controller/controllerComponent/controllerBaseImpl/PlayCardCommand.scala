@@ -13,9 +13,9 @@ class PlayCardCommand(fieldPlay: FieldInterface, row: Int, col:Int, playerType: 
   val card = hand.show(cardIndex)
   val weather = controller.field.weather.weather
   override def doStep: Unit = {
-    controller.field.changeWeather(card)
     val tuple1 = hand.playCard(cardIndex,fieldPlay,row,col)
     controller.field = tuple1._3
+    controller.field = controller.field.changeWeather(card)
     controller.turnLogic = controller.turnLogic.doTurn
     playerType match {
       case TOP => controller.playerTop = Player(playerType,player.name,tuple1._2,player.wins)
@@ -25,7 +25,7 @@ class PlayCardCommand(fieldPlay: FieldInterface, row: Int, col:Int, playerType: 
 
   override def undoStep: Unit = {
     controller.field = controller.field.setCard(col,row, None)
-    controller.field.weather.changeWeather(weather)
+    controller.field = controller.field.changeWeather(weather)
     controller.turnLogic = controller.turnLogic.undoTurn
     playerType match {
       case TOP => controller.playerTop =  player  //Player(playerType,player.name ,hand ,player.wins)

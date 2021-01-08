@@ -1,4 +1,4 @@
-package de.htwg.se.gwent.model.playerCxomponent
+package de.htwg.se.gwent.model.playerComponent
 
 import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.{Card, HandCard}
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}

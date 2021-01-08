@@ -2,17 +2,24 @@ package de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl
 
 import de.htwg.se.gwent.model.cardComponent.CardInterface
 import de.htwg.se.gwent.model.fieldComponent.FieldInterface
-import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.{State, Sunshine}
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.{Fog, Frost, State, Sunshine}
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherStatus.{FOG, FROST, SUNSHINE}
 
 import scala.math.sqrt
 
-case class Field(field: Vector[Vector[Option[CardInterface]]]) extends FieldInterface{
-  val weather = new Sunshine
+case class Field(field: Vector[Vector[Option[CardInterface]]],weather: State) extends FieldInterface{
   val evaluator = Evaluation()
   val size = 4
   val blocknum = sqrt(size).toInt
 
-  def changeWeather(card: CardInterface): State = weather.changeWeather(card)
+
+  def changeWeather(card: CardInterface): FieldInterface = {
+    Field(this.field,weather.changeWeather(card))
+  }
+
+  def changeWeather(weatherStatus: WeatherStatus.Value): FieldInterface = {
+    Field(this.field,weather.changeWeather(weatherStatus))
+  }
 
   def isEmpty(col:Int,row:Int):Boolean = field(col)(row) match {
     case Some(value) => false
@@ -28,10 +35,10 @@ case class Field(field: Vector[Vector[Option[CardInterface]]]) extends FieldInte
   }
   def setCard(col:Int, row:Int, op: Option[CardInterface]):FieldInterface = {
     row match {
-      case 0 => Field(Vector(field(0).updated(col, op),field(1),field(2),field(3)))
-      case 1 => Field(Vector(field(0),field(1).updated(col, op),field(2),field(3)))
-      case 2 => Field(Vector(field(0),field(1),field(2).updated(col, op),field(3)))
-      case 3 => Field(Vector(field(0),field(1),field(2),field(3).updated(col, op)))
+      case 0 => Field(Vector(field(0).updated(col, op),field(1),field(2),field(3)),weather)
+      case 1 => Field(Vector(field(0),field(1).updated(col, op),field(2),field(3)),weather)
+      case 2 => Field(Vector(field(0),field(1),field(2).updated(col, op),field(3)),weather)
+      case 3 => Field(Vector(field(0),field(1),field(2),field(3).updated(col, op)),weather)
     }
   }
 
@@ -53,6 +60,7 @@ case class Field(field: Vector[Vector[Option[CardInterface]]]) extends FieldInte
   def getCard(col:Int, row:Int): Option[CardInterface] = field(col)(row)
 
   def clear: FieldInterface = {
-    Field(Vector[Vector[Option[CardInterface]]](Vector(None,None,None,None),Vector(None,None,None,None),Vector(None,None,None,None),Vector(None,None,None,None)))
+    Field(Vector[Vector[Option[CardInterface]]](Vector(None,None,None,None),Vector(None,None,None,None),Vector(None,None,None,None),Vector(None,None,None,None)),weather.changeWeather(SUNSHINE))
   }
+
 }

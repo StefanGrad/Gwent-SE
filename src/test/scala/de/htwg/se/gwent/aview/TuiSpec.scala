@@ -6,12 +6,13 @@ import de.htwg.se.gwent.controller.controllerComponent.GameStatus.{INPUTFAIL, PA
 import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.{Controller, TurnLogic}
 import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.{Card, HandCard}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.Field
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.Sunshine
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 
 class TuiSpec extends AnyWordSpec with Matchers {
-  val f = new Field(Vector[Vector[Option[Card]]]())
+  val f = new Field(Vector[Vector[Option[Card]]](),new Sunshine)
   "Tui works as a Text based User Interface" when {
     "a Tui" should {
       val archer = Card("Archer", 0, 3, 1)
@@ -48,19 +49,19 @@ class TuiSpec extends AnyWordSpec with Matchers {
       "error input" in {
         controller.gameState = PLAYING
         //Wrong col
-        tui.processInputLine("5 0 0",BOT)
+        tui.processInputLine("5 0 0",TOP)
         controller.gameState should be (INPUTFAIL)
         controller.gameState = PLAYING
         //Wrong row
-        tui.processInputLine("0 5 0",BOT)
+        tui.processInputLine("0 5 0",TOP)
         controller.gameState should be (INPUTFAIL)
         controller.gameState = PLAYING
         //Wrong card
-        tui.processInputLine("1 0 11",BOT)
+        tui.processInputLine("1 0 11",TOP)
         controller.gameState should be (INPUTFAIL)
         controller.gameState = PLAYING
         //Already set
-        tui.processInputLine("0 0 0",BOT)
+        tui.processInputLine("0 0 0",TOP)
         controller.gameState should be (INPUTFAIL)
       }
     }

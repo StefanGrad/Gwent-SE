@@ -8,7 +8,7 @@ import org.scalatest.wordspec.AnyWordSpec
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.{Fog, Frost, Sunshine}
 
 class Evaluationspecs extends AnyWordSpec with Matchers {
-  val f = Field(Vector[Vector[Option[CardInterface]]]())
+  val f = Field(Vector[Vector[Option[CardInterface]]](),new Sunshine)
   "Evaluation compares the Attack Values of both Players and prints out the Winner of the Round" when{
     "Evaluation" should {
       val field = f.clear

@@ -39,9 +39,9 @@ object WeatherState{
 
   }
   def choice(weatherType: WeatherStatus.Value):State = weatherType match {
-    case FROST => new Frost
-    case FOG => new Fog
-    case SUNSHINE => new Sunshine
+    case FROST =>new Frost
+    case FOG =>new Fog
+    case SUNSHINE =>new Sunshine
   }
   var state: State = new Sunshine
 }

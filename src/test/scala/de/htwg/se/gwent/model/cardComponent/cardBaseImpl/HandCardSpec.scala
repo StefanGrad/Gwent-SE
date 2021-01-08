@@ -2,6 +2,7 @@ package de.htwg.se.gwent.model.cardComponent.cardBaseImpl
 
 import de.htwg.se.gwent.model.cardComponent.CardInterface
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.Field
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.Sunshine
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
@@ -22,7 +23,7 @@ class HandCardSpec extends AnyWordSpec with Matchers {
       }
       "play a card in the field" in {
         val hand = HandCard(Vector[CardInterface](Card("Archer",0,3,1)))
-        val field = Field(Vector[Vector[Option[Card]]]()).clear
+        val field = Field(Vector[Vector[Option[Card]]](),new Sunshine).clear
         hand.playCard(0,field,0,0)._1 should be (Card("Archer",0,3,1))
       }
       "draw a random Card" in {

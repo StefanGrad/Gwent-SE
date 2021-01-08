@@ -1,20 +1,20 @@
-package scala.de.htwg.se.gwent.controller
+package de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl
 
-import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.{Controller, TurnLogic}
 import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.{Card, HandCard}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.Field
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.Sunshine
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherStatus.{FOG, FROST, SUNSHINE}
 import de.htwg.se.gwent.model.playerComponent
 import de.htwg.se.gwent.model.playerComponent.Player
+import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherStatus.{FOG, FROST, SUNSHINE}
-import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 
 class ControllerSpec extends AnyWordSpec with Matchers {
   "the Controller acts as a medium between de.htwg.se.de.htwg.se.qwent.qwent.model and de.htwg.se.de.htwg.se.qwent.qwent.aview" when {
     "A Controller " should {
       val archer = Card("Archer", 0, 3, 1)
-      val field = Field(Vector[Vector[Option[Card]]]()).clear
+      val field = Field(Vector[Vector[Option[Card]]](),new Sunshine).clear
       val playerTop = Player(TOP,"Top", HandCard(Vector[Card](archer,archer,archer)),0)
       val playerBot = playerComponent.Player(BOT,"Bot", HandCard(Vector[Card](archer,archer,archer)),0)
       val ctrl = new Controller(field, playerTop, playerBot,TurnLogic(0,1))
@@ -81,11 +81,11 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         val playerBot2 = playerComponent.Player(BOT,"Bot", HandCard(Vector[Card](archer,testFrost,testClear)),0)
         val controller = new Controller(nF,playerTop2,playerBot2, TurnLogic(0,1))
         controller.field.weather.weather should be(SUNSHINE)
-        controller.playCardAt(controller.field,1,0,TOP,0)
+        controller.playCard(controller.field,TOP,0)
         controller.field.weather.weather should be(FOG)
-        controller.playCardAt(controller.field,2,1,BOT,1)
+        controller.playCard(controller.field,BOT,1)
         controller.field.weather.weather should be(FROST)
-        controller.playCardAt(controller.field,1,1,TOP,1)
+        controller.playCard(controller.field,TOP,1)
         controller.field.weather.weather should be(SUNSHINE)
       }
     }

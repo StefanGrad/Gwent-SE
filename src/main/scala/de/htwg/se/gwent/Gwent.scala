@@ -9,6 +9,7 @@ import de.htwg.se.gwent.model.playerComponent.Player
 import scala.de.htwg.se.gwent.aview.Tui
 import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.{Card, HandCard}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.Field
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.Sunshine
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 
 import scala.io.StdIn.readLine
@@ -16,8 +17,8 @@ import scala.io.StdIn.readLine
 object Gwent{
   val playerTop = Player(TOP,"Adrian",HandCard(Vector[Card]()).newDeck(),0)
   val playerBot = playerComponent.Player(BOT,"Stefan",HandCard(Vector[Card]()).newDeck(),0)
-  val field = new Field(Vector[Vector[Option[Card]]]())
-  val controller = new Controller(field.clear,playerTop,playerBot, TurnLogic(1,1))
+  val field = new Field(Vector[Vector[Option[Card]]](),new Sunshine)
+  val controller = new Controller(field.clear,playerTop,playerBot, TurnLogic(0,1))
   val tui = new Tui(controller)
   val gui = new SwingGUI(controller)
   controller.publish(new CellChanged)
