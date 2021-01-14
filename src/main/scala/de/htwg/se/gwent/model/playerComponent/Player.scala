@@ -1,6 +1,7 @@
 package de.htwg.se.gwent.model.playerComponent
 
-import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.{Card, HandCard}
+import de.htwg.se.gwent.model.cardComponent.CardInterface
+import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.{HandCard}
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 
 object PlayerType extends Enumeration {
@@ -17,7 +18,7 @@ object PlayerArea {
 }
 trait Player{
   val name = "Name"
-  val handCard = HandCard(Vector[Card]())
+  val handCard = HandCard(Vector[CardInterface]())
   val wins = 0
   val playerType = TOP
   val playerArea = Vector[Int]()

@@ -1,7 +1,9 @@
 package scala.de.htwg.se.gwent
 
+import com.google.inject.Guice
+import de.htwg.se.gwent.GwentModule
 import de.htwg.se.gwent.aview.gui.SwingGUI
-import de.htwg.se.gwent.controller.controllerComponent.CellChanged
+import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, ControllerInterface}
 import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.{Controller, TurnLogic}
 import de.htwg.se.gwent.model.playerComponent
 import de.htwg.se.gwent.model.playerComponent.Player
@@ -15,6 +17,8 @@ import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 import scala.io.StdIn.readLine
 
 object Gwent{
+  val injector = Guice.createInjector(new GwentModule)
+  val ctrl = injector.getInstance(classOf[ControllerInterface])
   val playerTop = Player(TOP,"Adrian",HandCard(Vector[Card]()).newDeck(),0)
   val playerBot = playerComponent.Player(BOT,"Stefan",HandCard(Vector[Card]()).newDeck(),0)
   val field = new Field(Vector[Vector[Option[Card]]](),new Sunshine)

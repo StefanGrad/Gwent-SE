@@ -1,6 +1,7 @@
 package de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl
 
-import de.htwg.se.gwent.controller.controllerComponent
+import com.google.inject.{Guice, Inject}
+import de.htwg.se.gwent.GwentModule
 import de.htwg.se.gwent.controller.controllerComponent.GameStatus.{GameStatus, INPUTFAIL, PASSED, PLAYING}
 import de.htwg.se.gwent.controller.controllerComponent._
 import de.htwg.se.gwent.model.cardComponent.CardInterface
@@ -15,10 +16,11 @@ import de.htwg.se.gwent.model.playerComponent.{Player, PlayerType}
 import scala.de.htwg.se.gwent.util.UndoManager
 import scala.swing.Publisher
 
-class Controller(var field: FieldInterface, var playerTop: Player, var playerBot: Player, var turnLogic: TurnLogic) extends ControllerInterface with Publisher {
+class Controller @Inject() (var field: FieldInterface, var playerTop: Player, var playerBot: Player, var turnLogic: TurnLogic) extends ControllerInterface with Publisher {
   var gameMessage = ""
   var gameState: GameStatus = PLAYING
   val logic = new GameLogic
+  val injector = Guice.createInjector(new GwentModule)
   private val undoManager = new UndoManager
   def createField:Unit = {
     field = Field(Vector[Vector[Option[Card]]](),new Sunshine).clear
