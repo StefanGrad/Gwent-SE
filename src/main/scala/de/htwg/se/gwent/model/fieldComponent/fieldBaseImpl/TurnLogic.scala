@@ -1,4 +1,4 @@
-package de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl
+package de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl
 
 import de.htwg.se.gwent.model.playerComponent.PlayerType
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}

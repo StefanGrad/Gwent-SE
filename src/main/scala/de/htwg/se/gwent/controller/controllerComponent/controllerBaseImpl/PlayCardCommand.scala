@@ -2,6 +2,7 @@ package de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl
 
 import de.htwg.se.gwent.controller.controllerComponent.{ControllerInterface, choosePlayer}
 import de.htwg.se.gwent.model.fieldComponent.FieldInterface
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.Field
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 import de.htwg.se.gwent.model.playerComponent.{Player, PlayerType}
 
@@ -14,22 +15,18 @@ class PlayCardCommand(fieldPlay: FieldInterface, row: Int, col:Int, playerType: 
   val weather = controller.field.weather.weather
   override def doStep: Unit = {
     val tuple1 = hand.playCard(cardIndex,fieldPlay,row,col)
-    controller.field = tuple1._3
-    controller.field = controller.field.changeWeather(card)
-    controller.turnLogic = controller.turnLogic.doTurn
+    controller.field = tuple1._3.changeWeather(card).doTurn
     playerType match {
-      case TOP => controller.playerTop = Player(playerType,player.name,tuple1._2,player.wins)
-      case BOT => controller.playerBot = Player(playerType,player.name,tuple1._2,player.wins)
+      case TOP => controller.field = Field(controller.field.field,controller.field.weather,Player(playerType,player.name,tuple1._2,player.wins),controller.field.playerBot,controller.field.turnLogic)
+      case BOT => controller.field = Field(controller.field.field,controller.field.weather,controller.field.playerTop,Player(playerType,player.name,tuple1._2,player.wins),controller.field.turnLogic)
     }
   }
 
   override def undoStep: Unit = {
-    controller.field = controller.field.setCard(col,row, None)
-    controller.field = controller.field.changeWeather(weather)
-    controller.turnLogic = controller.turnLogic.undoTurn
+    controller.field = controller.field.setCard(col,row, None).changeWeather(weather).undoTurn
     playerType match {
-      case TOP => controller.playerTop =  player  //Player(playerType,player.name ,hand ,player.wins)
-      case BOT => controller.playerBot =  player
+      case TOP => controller.field =  Field(controller.field.field,controller.field.weather,player,controller.field.playerBot,controller.field.turnLogic)
+      case BOT => controller.field =  Field(controller.field.field,controller.field.weather,controller.field.playerTop,player,controller.field.turnLogic)
     }
   }
 

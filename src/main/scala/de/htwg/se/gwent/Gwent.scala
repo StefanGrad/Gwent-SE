@@ -4,12 +4,12 @@ import com.google.inject.Guice
 import de.htwg.se.gwent.GwentModule
 import de.htwg.se.gwent.aview.gui.SwingGUI
 import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, ControllerInterface}
-import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.{Controller, TurnLogic}
+import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.Controller
 import de.htwg.se.gwent.model.playerComponent
 import de.htwg.se.gwent.model.playerComponent.Player
 
 import scala.de.htwg.se.gwent.aview.Tui
-import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Field, HandCard}
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Field, HandCard, TurnLogic}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.Sunshine
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 

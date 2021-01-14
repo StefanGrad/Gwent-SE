@@ -1,24 +1,38 @@
 package de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl
 
+import de.htwg.se.gwent.controller.controllerComponent.PlayerChanged
 import de.htwg.se.gwent.model.fieldComponent.{CardInterface, FieldInterface}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.{Fog, Frost, State, Sunshine}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherStatus.{FOG, FROST, SUNSHINE}
+import de.htwg.se.gwent.model.playerComponent.{Player, PlayerType}
+import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 
 import scala.math.sqrt
 
-case class Field(field: Vector[Vector[Option[CardInterface]]],weather: State) extends FieldInterface{
+case class Field (field: Vector[Vector[Option[CardInterface]]],weather: State, playerTop: Player, playerBot: Player, turnLogic: TurnLogic) extends FieldInterface{
   val evaluator = Evaluation()
   val size = 4
   val blocknum = sqrt(size).toInt
 
-  def this() = this(Vector[Vector[Option[Card]]](),new Sunshine)
+  def this() = this(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newDeck(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newDeck(),0),TurnLogic(0,0))
+
+  def nextRound: FieldInterface = Field(field, weather, playerTop, playerBot, turnLogic.nextRound)
+
+  def doTurn: FieldInterface = Field(field, weather, playerTop, playerBot, turnLogic.doTurn)
+
+  def undoTurn: FieldInterface = Field(field, weather, playerTop, playerBot, turnLogic.undoTurn)
+
+  def updateWins(playerType: PlayerType.Value) : FieldInterface = playerType match {
+    case TOP => Field(field, weather, playerTop.updateWins(playerTop), playerBot, turnLogic)
+    case BOT => Field(field, weather, playerTop, playerBot.updateWins(playerBot), turnLogic)
+  }
 
   def changeWeather(card: CardInterface): FieldInterface = {
-    Field(this.field,weather.changeWeather(card))
+    Field(this.field,weather.changeWeather(card),this.playerTop,this.playerBot,this.turnLogic)
   }
 
   def changeWeather(weatherStatus: WeatherStatus.Value): FieldInterface = {
-    Field(this.field,weather.changeWeather(weatherStatus))
+    Field(this.field,weather.changeWeather(weatherStatus),this.playerTop,this.playerBot,this.turnLogic)
   }
 
   def isEmpty(col:Int,row:Int):Boolean = field(col)(row) match {
@@ -35,10 +49,10 @@ case class Field(field: Vector[Vector[Option[CardInterface]]],weather: State) ex
   }
   def setCard(col:Int, row:Int, op: Option[CardInterface]):FieldInterface = {
     row match {
-      case 0 => Field(Vector(field(0).updated(col, op),field(1),field(2),field(3)),weather)
-      case 1 => Field(Vector(field(0),field(1).updated(col, op),field(2),field(3)),weather)
-      case 2 => Field(Vector(field(0),field(1),field(2).updated(col, op),field(3)),weather)
-      case 3 => Field(Vector(field(0),field(1),field(2),field(3).updated(col, op)),weather)
+      case 0 => Field(Vector(field(0).updated(col, op),field(1),field(2),field(3)),weather,this.playerTop,this.playerBot,this.turnLogic)
+      case 1 => Field(Vector(field(0),field(1).updated(col, op),field(2),field(3)),weather,this.playerTop,this.playerBot,this.turnLogic)
+      case 2 => Field(Vector(field(0),field(1),field(2).updated(col, op),field(3)),weather,this.playerTop,this.playerBot,this.turnLogic)
+      case 3 => Field(Vector(field(0),field(1),field(2),field(3).updated(col, op)),weather,this.playerTop,this.playerBot,this.turnLogic)
     }
   }
 
@@ -60,7 +74,7 @@ case class Field(field: Vector[Vector[Option[CardInterface]]],weather: State) ex
   def getCard(col:Int, row:Int): Option[CardInterface] = field(col)(row)
 
   def clear: FieldInterface = {
-    Field(Vector[Vector[Option[CardInterface]]](Vector(None,None,None,None),Vector(None,None,None,None),Vector(None,None,None,None),Vector(None,None,None,None)),weather.changeWeather(SUNSHINE))
+    Field(Vector[Vector[Option[CardInterface]]](Vector(None,None,None,None),Vector(None,None,None,None),Vector(None,None,None,None),Vector(None,None,None,None)),weather.changeWeather(SUNSHINE),this.playerTop,this.playerBot,this.turnLogic)
   }
 
 }

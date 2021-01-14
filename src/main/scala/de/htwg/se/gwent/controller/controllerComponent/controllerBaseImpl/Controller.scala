@@ -6,7 +6,7 @@ import de.htwg.se.gwent.controller.controllerComponent.GameStatus.{GameStatus, I
 import de.htwg.se.gwent.controller.controllerComponent._
 import de.htwg.se.gwent.model.fieldComponent.{CardInterface, FieldInterface}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.Sunshine
-import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Field, HandCard, WeatherState}
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Field, HandCard, TurnLogic, WeatherState}
 import de.htwg.se.gwent.model.playerComponent
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 import de.htwg.se.gwent.model.playerComponent.{Player, PlayerType}
@@ -14,27 +14,25 @@ import de.htwg.se.gwent.model.playerComponent.{Player, PlayerType}
 import scala.de.htwg.se.gwent.util.UndoManager
 import scala.swing.Publisher
 
-class Controller @Inject() (var field: FieldInterface, var playerTop: Player, var playerBot: Player, var turnLogic: TurnLogic) extends ControllerInterface with Publisher {
+class Controller @Inject() (var field: FieldInterface) extends ControllerInterface with Publisher {
   var gameMessage = ""
   var gameState: GameStatus = PLAYING
   val logic = new GameLogic
   val injector = Guice.createInjector(new GwentModule)
 
-  def this(fieldInterface: FieldInterface) = this(fieldInterface,Player(TOP,"Adrian",HandCard(Vector[Card]()).newDeck(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newDeck(),0),TurnLogic(0,0))
-
   private val undoManager = new UndoManager
   def createField:Unit = {
-    field = Field(Vector[Vector[Option[Card]]](),new Sunshine).clear
+    field = Field(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newDeck(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newDeck(),0),TurnLogic(0,0)).clear
     publish(new CellChanged)
   }
   def fieldToString: String = field.toString
 
   def changeGameStatus(gameStatus: GameStatus.Value): Unit = gameState = gameStatus
 
-  def evaluate(fieldPlay: FieldInterface, playerTop: Player, playerBot: Player): Unit = {
+  def evaluate(fieldPlay: FieldInterface): Unit = {
     val winner = fieldPlay.evaluator.eval(fieldPlay,fieldPlay.weather)
     gameState = PLAYING
-    turnLogic = turnLogic.nextRound
+    field = field.nextRound
     if (winner == 0) {
       updateWins(TOP)
       undoManager.nextRound
@@ -57,30 +55,15 @@ class Controller @Inject() (var field: FieldInterface, var playerTop: Player, va
   }
 
   def updateWins(playerType: PlayerType.Value):Unit = {
-    playerType match {
-      case TOP => playerTop = playerTop.updateWins(playerTop)
-        publish(new PlayerChanged)
-      case BOT => playerBot = playerBot.updateWins(playerBot)
-        publish(new PlayerChanged)
-    }
-  }
-
-  def createPlayer(name:String,playerType: PlayerType.Value):Unit = {
-    playerType match {
-      case TOP =>
-        playerTop = playerComponent.Player(playerType,name, HandCard(Vector[CardInterface]()).newDeck(),0)
-        publish(new PlayerChanged)
-      case BOT =>
-        playerBot = playerComponent.Player(playerType,name, HandCard(Vector[CardInterface]()).newDeck(),0)
-        publish(new PlayerChanged)
-    }
+    field = field.updateWins(playerType)
+    publish(new CellChanged)
   }
 
   def playerToString(player: Player): String = player.toString
 
   def playCardAt(fieldPlay: FieldInterface, row: Int, col:Int, playerType: PlayerType.Value , cardIndex: Int): Unit = {
     val player = choosePlayer.choice(playerType).player(this)
-    if (playerType != turnLogic.whoCanPlay) {return publish(new CellChanged)}
+    if (playerType != field.turnLogic.whoCanPlay) {return publish(new CellChanged)}
     val tuple = logic.applyTryLogic(fieldPlay,row, col, player, cardIndex)
     gameState = tuple._1
     gameMessage = tuple._2
@@ -91,7 +74,7 @@ class Controller @Inject() (var field: FieldInterface, var playerTop: Player, va
 
   def playCard(fieldPlay: FieldInterface, playerType: PlayerType.Value , cardIndex: Int): Unit = {
     val player = choosePlayer.choice(playerType).player(this)
-    if (playerType != turnLogic.whoCanPlay) return publish(new CellChanged)
+    if (playerType != field.turnLogic.whoCanPlay) return publish(new CellChanged)
     for {
       row <- 0 until 4
       column <- 0 until 4
@@ -113,11 +96,11 @@ class Controller @Inject() (var field: FieldInterface, var playerTop: Player, va
 
   def passRound():Unit = {
     if (gameState.equals(PASSED)) {
-      evaluate(field,playerTop,playerBot)
+      evaluate(field)
       return publish(new CellChanged)
     }
     gameState = PASSED
-    turnLogic.doTurn
+    field = field.doTurn
     publish(new CellChanged)
   }
 

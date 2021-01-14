@@ -1,5 +1,6 @@
 package de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl
 
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.TurnLogic
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 

@@ -3,8 +3,8 @@ package scala.de.htwg.se.gwent.aview
 import de.htwg.se.gwent.model.playerComponent
 import de.htwg.se.gwent.model.playerComponent.Player
 import de.htwg.se.gwent.controller.controllerComponent.GameStatus.{INPUTFAIL, PASSED, PLAYING}
-import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.{Controller, TurnLogic}
-import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Field, HandCard}
+import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.Controller
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Field, HandCard, TurnLogic}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.Sunshine
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
