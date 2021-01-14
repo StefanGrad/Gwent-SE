@@ -38,7 +38,7 @@ object Gwent{
       }
     }
     else do {
-      tui.processInputLine(input, controller.turnLogic.whoCanPlay)
+      tui.processInputLine(input, controller.field.turnLogic.whoCanPlay)
     } while (input != "q")
     println("See you next time")
   }
