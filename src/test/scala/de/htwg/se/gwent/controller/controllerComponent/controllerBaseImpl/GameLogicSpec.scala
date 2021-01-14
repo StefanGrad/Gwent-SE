@@ -1,7 +1,7 @@
 package de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl
 
 import de.htwg.se.gwent.controller.controllerComponent.GameStatus.{INPUTFAIL, PLAYING}
-import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Field, HandCard}
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Field, HandCard, TurnLogic}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.Sunshine
 import de.htwg.se.gwent.model.playerComponent
 import de.htwg.se.gwent.model.playerComponent.Player
@@ -14,10 +14,11 @@ class GameLogicSpec extends AnyWordSpec with Matchers {
     "A Logic is in place" should {
       val logic = new GameLogic
       val archer = Card("Archer", 0, 3, 1)
-      val f = Field(Vector[Vector[Option[Card]]](),new Sunshine).clear
-      val field = f.setCard(3,3,Some(archer))
       val playerTop = Player(TOP, "Top", HandCard(Vector[Card](archer,archer,archer)),0)
       val playerBot = playerComponent.Player(BOT, "Bot", HandCard(Vector[Card](archer,archer)),0)
+      val f = Field(Vector[Vector[Option[Card]]](),new Sunshine,playerTop,playerBot,TurnLogic(0,0)).clear
+      val field = f.setCard(3,3,Some(archer))
+
       "when a card shall be played in the field" in {
         logic.applyTryLogic(field,0,0,playerTop,0)._1 should be(PLAYING)
       }

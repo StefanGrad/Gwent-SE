@@ -3,11 +3,13 @@ package de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl
 import de.htwg.se.gwent.model.fieldComponent.CardInterface
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.Sunshine
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherStatus.FOG
+import de.htwg.se.gwent.model.playerComponent.Player
+import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 class Fieldspecs extends AnyWordSpec with Matchers {
-  val f = new Field(Vector[Vector[Option[CardInterface]]](), new Sunshine)
+  val f = new Field(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newDeck(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newDeck(),0),TurnLogic(0,0))
   "A Field is a 4x4 Array of Arrays with are then filled with Cards" when {
     "a Field" should {
       val field = f.clear

@@ -17,11 +17,7 @@ import scala.io.StdIn.readLine
 
 object Gwent{
   val injector = Guice.createInjector(new GwentModule)
-  val ctrl = injector.getInstance(classOf[ControllerInterface])
-  val playerTop = Player(TOP,"Adrian",HandCard(Vector[Card]()).newDeck(),0)
-  val playerBot = Player(BOT,"Stefan",HandCard(Vector[Card]()).newDeck(),0)
-  val field = new Field(Vector[Vector[Option[Card]]](),new Sunshine)
-  val controller = new Controller(field.clear,playerTop,playerBot, TurnLogic(0,1))
+  val controller = injector.getInstance(classOf[ControllerInterface])
   val tui = new Tui(controller)
   val gui = new SwingGUI(controller)
   controller.publish(new CellChanged)
