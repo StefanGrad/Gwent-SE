@@ -19,6 +19,7 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
   var gameState: GameStatus = PLAYING
   val logic = new GameLogic
   val injector = Guice.createInjector(new GwentModule)
+  clearField(field)
 
   private val undoManager = new UndoManager
   def createField:Unit = {
