@@ -11,14 +11,14 @@ import org.scalatest.wordspec.AnyWordSpec
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 
 class TuiSpec extends AnyWordSpec with Matchers {
-  val f = new Field(Vector[Vector[Option[Card]]](),new Sunshine)
+  val f = new Field(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newDeck(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newDeck(),0),TurnLogic(0,0))
   "Tui works as a Text based User Interface" when {
     "a Tui" should {
       val archer = Card("Archer", 0, 3, 1)
       val field = f.clear
       val playerTop = Player(TOP,"Top", HandCard(Vector[Card](archer,archer)),0)
       val playerBot = playerComponent.Player(BOT,"Bot", HandCard(Vector[Card](archer,archer)),0)
-      val controller = new Controller(field, playerTop, playerBot,TurnLogic(1,1))
+      val controller = new Controller(field)
       val tui = new Tui(controller)
 
       "have the active player pass on input 'c' and if he's the second one to pass the game is evaluated" in {

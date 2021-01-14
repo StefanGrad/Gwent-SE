@@ -13,10 +13,10 @@ class ControllerSpec extends AnyWordSpec with Matchers {
   "the Controller acts as a medium between de.htwg.se.de.htwg.se.qwent.qwent.model and de.htwg.se.de.htwg.se.qwent.qwent.aview" when {
     "A Controller " should {
       val archer = Card("Archer", 0, 3, 1)
-      val field = Field(Vector[Vector[Option[Card]]](),new Sunshine).clear
+      val field = Field(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newDeck(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newDeck(),0),TurnLogic(0,0)).clear
       val playerTop = Player(TOP,"Top", HandCard(Vector[Card](archer,archer,archer)),0)
       val playerBot = playerComponent.Player(BOT,"Bot", HandCard(Vector[Card](archer,archer,archer)),0)
-      val ctrl = new Controller(field, playerTop, playerBot,TurnLogic(0,1))
+      val ctrl = new Controller(field)
 
       "create a playing Field" in {
         ctrl.createField
@@ -33,31 +33,22 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         ctrl.field.isEmpty(1,1) should be(true)
       }
       "evaluate the Game" in {
-        val ctrl = new Controller(field,playerTop,playerBot, TurnLogic(0,0))
+        val ctrl = new Controller(field)
         ctrl.playCardAt(ctrl.field,0,0,TOP,0)
-        ctrl.evaluate(ctrl.field,ctrl.playerTop,ctrl.playerBot)
-        ctrl.playerTop.wins should be(1)
-        ctrl.playerBot.wins should be(0)
-        ctrl.turnLogic = ctrl.turnLogic.doTurn
+        ctrl.evaluate(ctrl.field)
+        ctrl.field.playerTop.wins should be(1)
+        ctrl.field.playerBot.wins should be(0)
+        ctrl.field = ctrl.field.doTurn
         ctrl.playCardAt(ctrl.field,3,3,BOT,0)
-        ctrl.evaluate(ctrl.field,ctrl.playerTop,ctrl.playerBot)
-        ctrl.playerTop.wins should be(1)
-        ctrl.playerBot.wins should be(1)
-        ctrl.evaluate(ctrl.field,ctrl.playerTop,ctrl.playerBot)
-        ctrl.playerTop.wins should be(1)
-        ctrl.playerBot.wins should be(1)
-      }
-      "create the Top Player" in {
-        ctrl.createPlayer("Stefan",TOP)
-        ctrl.playerTop.name should be("Stefan")
-      }
-      "create the Bot Player" in {
-        ctrl.createPlayer("Stefan",BOT)
-        ctrl.playerBot.name should be("Stefan")
+        ctrl.evaluate(ctrl.field)
+        ctrl.field.playerTop.wins should be(1)
+        ctrl.field.playerBot.wins should be(1)
+        ctrl.evaluate(ctrl.field)
+        ctrl.field.playerTop.wins should be(1)
+        ctrl.field.playerBot.wins should be(1)
       }
       "turn a player into a String" in {
-        ctrl.playerTop = playerComponent.Player(TOP,"Adrian", HandCard(Vector[Card](archer)),0)
-        ctrl.playerToString(ctrl.playerTop) should be("Adrian has won 0 times and holds in his Hand: Archer A0 S3 R1")
+        ctrl.playerToString(ctrl.field.playerTop) should be("Adrian has won 0 times and holds in his Hand: Archer A0 S3 R1")
       }
       "play a Card at a chosen Cell" in {
         ctrl.clearField(field)
@@ -72,13 +63,13 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         ctrl.field.getCard(0,0).get should be(archer)
       }
       "can change the Weather" in {
-        val nF = field.clear
         val testFog = Card("fog",2,0,0)
         val testFrost = Card("frost", 1,0,0)
         val testClear = Card("sunny", 3,0,0)
         val playerTop2 = playerComponent.Player(TOP,"Top", HandCard(Vector[Card](testFog,archer,testClear)),0)
         val playerBot2 = playerComponent.Player(BOT,"Bot", HandCard(Vector[Card](archer,testFrost,testClear)),0)
-        val controller = new Controller(nF,playerTop2,playerBot2, TurnLogic(0,1))
+        val newField = Field(Vector[Vector[Option[Card]]](),new Sunshine,playerTop2,playerBot2,TurnLogic(0,0))
+        val controller = new Controller(newField)
         controller.field.weather.weather should be(SUNSHINE)
         controller.playCard(controller.field,TOP,0)
         controller.field.weather.weather should be(FOG)
