@@ -1,13 +1,15 @@
 package scala.de.htwg.se.gwent.model
 
 import de.htwg.se.gwent.model.fieldComponent.CardInterface
-import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Evaluation, Field}
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Evaluation, Field, HandCard, TurnLogic}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.{Fog, Frost, Sunshine}
+import de.htwg.se.gwent.model.playerComponent.Player
+import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 
 class Evaluationspecs extends AnyWordSpec with Matchers {
-  val f = Field(Vector[Vector[Option[CardInterface]]](),new Sunshine)
+  val f = Field(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newDeck(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newDeck(),0),TurnLogic(0,0))
   "Evaluation compares the Attack Values of both Players and prints out the Winner of the Round" when{
     "Evaluation" should {
       val field = f.clear

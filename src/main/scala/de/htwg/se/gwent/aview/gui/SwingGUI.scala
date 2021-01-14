@@ -15,8 +15,8 @@ class SwingGUI(c :ControllerInterface) extends Frame {
   title = "Gwent"
 
   var cells = Array.ofDim[CellPanel](c.field.size, c.field.size)
-  var topHand = Array.ofDim[CardPanel](c.playerTop.handCard.size)
-  var botHand = Array.ofDim[CardPanel](c.playerBot.handCard.size)
+  var topHand = Array.ofDim[CardPanel](c.field.playerTop.handCard.size)
+  var botHand = Array.ofDim[CardPanel](c.field.playerBot.handCard.size)
 
   def gridPanel = new GridPanel(4, 4) {
     preferredSize = new Dimension(105*4, 65*4)
@@ -92,7 +92,7 @@ class SwingGUI(c :ControllerInterface) extends Frame {
       row <- 0 until 4
       column <- 0 until 4
     } cells(row)(column).redraw
-    for (index <- 0 until c.playerTop.handCard.size) topHand(index).redraw
+    for (index <- 0 until c.field.playerTop.handCard.size) topHand(index).redraw
     for (index <- 0 until botHand.length) botHand(index).redraw
     gameMessage.text = c.gameMessage
     repaint

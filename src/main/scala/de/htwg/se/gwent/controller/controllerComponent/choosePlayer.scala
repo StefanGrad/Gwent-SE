@@ -7,10 +7,10 @@ object choosePlayer{
     def player(controller: ControllerInterface): Player
   }
   class chooseTop extends Chooser {
-    override def player(controller: ControllerInterface) =  controller.playerTop
+    override def player(controller: ControllerInterface) =  controller.field.playerTop
   }
   class chooseBot extends Chooser {
-    override def player(controller: ControllerInterface) = controller.playerBot
+    override def player(controller: ControllerInterface) = controller.field.playerBot
   }
   def choice(playerType:PlayerType.Value):Chooser = playerType match {
     case TOP => new chooseTop
