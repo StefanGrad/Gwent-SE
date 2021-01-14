@@ -11,6 +11,7 @@ case class Field(field: Vector[Vector[Option[CardInterface]]],weather: State) ex
   val size = 4
   val blocknum = sqrt(size).toInt
 
+  def this() = this(Vector[Vector[Option[Card]]](),new Sunshine)
 
   def changeWeather(card: CardInterface): FieldInterface = {
     Field(this.field,weather.changeWeather(card))

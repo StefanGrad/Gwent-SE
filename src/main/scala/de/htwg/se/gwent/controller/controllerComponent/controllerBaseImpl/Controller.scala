@@ -19,6 +19,9 @@ class Controller @Inject() (var field: FieldInterface, var playerTop: Player, va
   var gameState: GameStatus = PLAYING
   val logic = new GameLogic
   val injector = Guice.createInjector(new GwentModule)
+
+  def this(fieldInterface: FieldInterface) = this(fieldInterface,Player(TOP,"Adrian",HandCard(Vector[Card]()).newDeck(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newDeck(),0),TurnLogic(0,0))
+
   private val undoManager = new UndoManager
   def createField:Unit = {
     field = Field(Vector[Vector[Option[Card]]](),new Sunshine).clear
