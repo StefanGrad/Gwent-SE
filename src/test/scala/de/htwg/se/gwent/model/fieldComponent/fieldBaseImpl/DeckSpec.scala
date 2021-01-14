@@ -1,4 +1,4 @@
-package de.htwg.se.gwent.model.cardComponent.cardBaseImpl
+package de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec

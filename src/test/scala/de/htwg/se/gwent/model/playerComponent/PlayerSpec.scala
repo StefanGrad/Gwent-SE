@@ -1,8 +1,7 @@
 package de.htwg.se.gwent.model.playerComponent
 
-import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.{Card, HandCard}
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, HandCard}
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
-import de.htwg.se.gwent.model.playerComponent.{Player, PlayerArea}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 

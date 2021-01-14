@@ -4,11 +4,9 @@ import com.google.inject.{Guice, Inject}
 import de.htwg.se.gwent.GwentModule
 import de.htwg.se.gwent.controller.controllerComponent.GameStatus.{GameStatus, INPUTFAIL, PASSED, PLAYING}
 import de.htwg.se.gwent.controller.controllerComponent._
-import de.htwg.se.gwent.model.cardComponent.CardInterface
-import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.{Card, HandCard}
-import de.htwg.se.gwent.model.fieldComponent.FieldInterface
+import de.htwg.se.gwent.model.fieldComponent.{CardInterface, FieldInterface}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.Sunshine
-import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Field, WeatherState}
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Field, HandCard, WeatherState}
 import de.htwg.se.gwent.model.playerComponent
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 import de.htwg.se.gwent.model.playerComponent.{Player, PlayerType}

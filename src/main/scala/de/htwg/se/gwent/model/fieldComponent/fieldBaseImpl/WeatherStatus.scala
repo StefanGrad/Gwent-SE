@@ -1,6 +1,6 @@
 package de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl
 
-import de.htwg.se.gwent.model.cardComponent.CardInterface
+import de.htwg.se.gwent.model.fieldComponent.CardInterface
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherStatus.{FOG, FROST, SUNSHINE}
 
 object WeatherStatus extends Enumeration {

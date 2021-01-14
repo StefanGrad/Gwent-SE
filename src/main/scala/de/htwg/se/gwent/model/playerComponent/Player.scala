@@ -1,7 +1,7 @@
 package de.htwg.se.gwent.model.playerComponent
 
-import de.htwg.se.gwent.model.cardComponent.CardInterface
-import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.{HandCard}
+import de.htwg.se.gwent.model.fieldComponent.CardInterface
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.HandCard
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 
 object PlayerType extends Enumeration {

@@ -1,6 +1,6 @@
-package de.htwg.se.gwent.model.cardComponent.cardBaseImpl
+package de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl
 
-import de.htwg.se.gwent.model.cardComponent.CardInterface
+import de.htwg.se.gwent.model.fieldComponent.CardInterface
 
 case class Deck() {
   val r = scala.util.Random

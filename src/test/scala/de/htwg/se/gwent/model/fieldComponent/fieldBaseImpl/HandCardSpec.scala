@@ -1,7 +1,6 @@
-package de.htwg.se.gwent.model.cardComponent.cardBaseImpl
+package de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl
 
-import de.htwg.se.gwent.model.cardComponent.CardInterface
-import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.Field
+import de.htwg.se.gwent.model.fieldComponent.CardInterface
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.Sunshine
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec

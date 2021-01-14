@@ -1,8 +1,6 @@
-package de.htwg.se.gwent.model.cardComponent.cardBaseImpl
+package de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl
 
-import de.htwg.se.gwent.model.cardComponent.CardInterface
-import de.htwg.se.gwent.model.fieldComponent.FieldInterface
-import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.Field
+import de.htwg.se.gwent.model.fieldComponent.{CardInterface, FieldInterface}
 
 case class HandCard(hand: Vector[CardInterface]) {
   val deck = Deck()

@@ -1,6 +1,5 @@
 package de.htwg.se.gwent.model.fieldComponent
 
-import de.htwg.se.gwent.model.cardComponent.CardInterface
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Evaluation, WeatherStatus}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.State
 

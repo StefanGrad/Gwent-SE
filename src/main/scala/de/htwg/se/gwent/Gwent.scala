@@ -9,8 +9,7 @@ import de.htwg.se.gwent.model.playerComponent
 import de.htwg.se.gwent.model.playerComponent.Player
 
 import scala.de.htwg.se.gwent.aview.Tui
-import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.{Card, HandCard}
-import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.Field
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Field, HandCard}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.Sunshine
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 

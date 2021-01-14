@@ -1,5 +1,4 @@
 package de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl
-import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.Card
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.Sunshine
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherStatus.FOG
 import org.scalatest.matchers.should.Matchers

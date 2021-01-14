@@ -1,8 +1,7 @@
 package scala.de.htwg.se.gwent.model
 
-import de.htwg.se.gwent.model.cardComponent.CardInterface
-import de.htwg.se.gwent.model.cardComponent.cardBaseImpl.{Card}
-import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Evaluation, Field}
+import de.htwg.se.gwent.model.fieldComponent.CardInterface
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Evaluation, Field}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.{Fog, Frost, Sunshine}
