@@ -7,9 +7,10 @@ import de.htwg.se.gwent.controller.controllerComponent._
 import de.htwg.se.gwent.model.fieldComponent.{CardInterface, FieldInterface}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.Sunshine
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Field, HandCard, TurnLogic, WeatherState}
-import de.htwg.se.gwent.model.playerComponent
+import de.htwg.se.gwent.model.fileIOComponent.FileIOInterface
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 import de.htwg.se.gwent.model.playerComponent.{Player, PlayerType}
+import net.codingwell.scalaguice.InjectorExtensions.ScalaInjector
 
 import scala.de.htwg.se.gwent.util.UndoManager
 import scala.swing.Publisher
@@ -19,6 +20,7 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
   var gameState: GameStatus = PLAYING
   val logic = new GameLogic
   val injector = Guice.createInjector(new GwentModule)
+  val fileIo = injector.instance[FileIOInterface]
   clearField(field)
 
   private val undoManager = new UndoManager
@@ -92,6 +94,16 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
     }
     gameMessage = "No available Spots for this Card"
     gameState = INPUTFAIL
+    publish(new CellChanged)
+  }
+
+  def safe: Unit = {
+    fileIo.save(field)
+    publish(new CellChanged)
+  }
+
+  def load: Unit = {
+    field = fileIo.load
     publish(new CellChanged)
   }
 

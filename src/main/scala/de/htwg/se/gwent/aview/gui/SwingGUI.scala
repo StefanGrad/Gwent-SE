@@ -5,7 +5,6 @@ import scala.de.htwg.se.gwent.aview.gui.CellPanel
 import scala.swing._
 import scala.swing.Swing.LineBorder
 import scala.swing.event._
-import scala.io.Source._
 import PlayerType.{BOT, TOP}
 import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, ControllerInterface, PlayerChanged, choosePlayer}
 
@@ -67,6 +66,8 @@ class SwingGUI(c :ControllerInterface) extends Frame {
     contents += new Menu("File") {
       mnemonic = Key.F
       contents += new MenuItem(Action("Quit") {System.exit(0)})
+      contents += new MenuItem(Action("Safe") {c.safe})
+      contents += new MenuItem(Action("Load") {c.load})
     }
     contents += new Menu("Edit") {
       mnemonic = Key.E

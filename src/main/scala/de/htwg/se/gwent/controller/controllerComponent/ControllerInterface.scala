@@ -18,6 +18,8 @@ trait ControllerInterface extends Publisher{
   def playCard(fieldPlay: FieldInterface, playerType: PlayerType.Value , cardIndex: Int): Unit
   def passRound():Unit
   def changeGameStatus(gameStatus: GameStatus.Value): Unit
+  def load: Unit
+  def safe: Unit
   def undo: Unit
   def redo: Unit
 }
