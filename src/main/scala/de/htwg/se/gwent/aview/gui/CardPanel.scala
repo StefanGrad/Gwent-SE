@@ -36,9 +36,9 @@ class CardPanel(playerType: PlayerType.Value, cardIndex: Int,controller: Control
         repaint
       }
       case MouseClicked(src, pt, mod, clicks, pops) => {
-        val turnChange = controller.field.turnLogic.getTurn
+        val turnChange = controller.field.turn
         controller.playCard(controller.field,playerType,cardIndex)
-        if (turnChange +1  == controller.field.turnLogic.getTurn) {
+        if (turnChange +1  == controller.field.turn) {
           this.visible = false
         }
         repaint

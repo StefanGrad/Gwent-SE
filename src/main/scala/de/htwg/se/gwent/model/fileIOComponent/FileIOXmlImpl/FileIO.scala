@@ -100,13 +100,14 @@ class FileIO extends FileIOInterface {
   }
 
   def playerToXml(player: Player) = {
-    <player name={player.name} wins={player.wins.toString}
-            type={player.playerType match {
-              case TOP => "TOP"
-              case BOT => "BOT"
-            }}
-            hand={for {i <- 0 until player.handCard.size}cardToXml(player.handCard.show(i))
-            }></player>
+    <player name={player.name} wins={player.wins.toString} type = {
+      player.playerType match {
+        case TOP => "TOP"
+        case BOT => "BOT"
+      }
+    }> {
+      for {i <- 0 until player.handCard.size} cardToXml(player.handCard.show(i))
+    }</player>
   }
 
   def fieldToXml(field: Vector[Vector[Option[CardInterface]]]) = {
