@@ -9,9 +9,11 @@ trait FieldInterface {
   def weather: State
   def playerTop: Player
   def playerBot: Player
-  def turnLogic: TurnLogic
+  def turn: Int
+  def round: Int
   def size: Int
   def evaluator: Evaluation
+  def whoCanPlay: PlayerType.Value
   def nextRound: FieldInterface
   def doTurn: FieldInterface
   def undoTurn: FieldInterface

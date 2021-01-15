@@ -16,7 +16,7 @@ class GameLogicSpec extends AnyWordSpec with Matchers {
       val archer = Card("Archer", 0, 3, 1)
       val playerTop = Player(TOP, "Top", HandCard(Vector[Card](archer,archer,archer)),0)
       val playerBot = playerComponent.Player(BOT, "Bot", HandCard(Vector[Card](archer,archer)),0)
-      val f = Field(Vector[Vector[Option[Card]]](),new Sunshine,playerTop,playerBot,TurnLogic(0,0)).clear
+      val f = Field(Vector[Vector[Option[Card]]](),new Sunshine,playerTop,playerBot,0,0).clear
       val field = f.setCard(3,3,Some(archer))
 
       "when a card shall be played in the field" in {

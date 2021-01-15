@@ -23,7 +23,7 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
 
   private val undoManager = new UndoManager
   def createField:Unit = {
-    field = Field(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newDeck(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newDeck(),0),TurnLogic(0,0)).clear
+    field = Field(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newDeck(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newDeck(),0),0,0).clear
     publish(new CellChanged)
   }
   def fieldToString: String = field.toString
@@ -64,7 +64,7 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
 
   def playCardAt(fieldPlay: FieldInterface, row: Int, col:Int, playerType: PlayerType.Value , cardIndex: Int): Unit = {
     val player = choosePlayer.choice(playerType).player(this)
-    if (playerType != field.turnLogic.whoCanPlay) {return publish(new CellChanged)}
+    if (playerType != field.whoCanPlay) {return publish(new CellChanged)}
     val tuple = logic.applyTryLogic(fieldPlay,row, col, player, cardIndex)
     gameState = tuple._1
     gameMessage = tuple._2
@@ -75,7 +75,7 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
 
   def playCard(fieldPlay: FieldInterface, playerType: PlayerType.Value , cardIndex: Int): Unit = {
     val player = choosePlayer.choice(playerType).player(this)
-    if (playerType != field.turnLogic.whoCanPlay) return publish(new CellChanged)
+    if (playerType != field.whoCanPlay) return publish(new CellChanged)
     for {
       row <- 0 until 4
       column <- 0 until 4

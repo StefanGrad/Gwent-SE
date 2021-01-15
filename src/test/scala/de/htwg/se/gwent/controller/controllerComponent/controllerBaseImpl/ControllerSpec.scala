@@ -13,7 +13,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
   "the Controller acts as a medium between de.htwg.se.de.htwg.se.qwent.qwent.model and de.htwg.se.de.htwg.se.qwent.qwent.aview" when {
     "A Controller " should {
       val archer = Card("Archer", 0, 3, 1)
-      val field = Field(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newDeck(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newDeck(),0),TurnLogic(0,0)).clear
+      val field = Field(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newDeck(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newDeck(),0),0,0).clear
       val playerTop = Player(TOP,"Top", HandCard(Vector[Card](archer,archer,archer)),0)
       val playerBot = playerComponent.Player(BOT,"Bot", HandCard(Vector[Card](archer,archer,archer)),0)
       val ctrl = new Controller(field)
@@ -68,7 +68,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         val testClear = Card("sunny", 3,0,0)
         val playerTop2 = playerComponent.Player(TOP,"Top", HandCard(Vector[Card](testFog,archer,testClear)),0)
         val playerBot2 = playerComponent.Player(BOT,"Bot", HandCard(Vector[Card](archer,testFrost,testClear)),0)
-        val newField = Field(Vector[Vector[Option[Card]]](),new Sunshine,playerTop2,playerBot2,TurnLogic(0,0))
+        val newField = Field(Vector[Vector[Option[Card]]](),new Sunshine,playerTop2,playerBot2,0,0)
         val controller = new Controller(newField)
         controller.field.weather.weather should be(SUNSHINE)
         controller.playCard(controller.field,TOP,0)
