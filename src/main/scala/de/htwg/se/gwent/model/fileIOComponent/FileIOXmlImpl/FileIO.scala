@@ -19,7 +19,9 @@ class FileIO extends FileIOInterface {
 
 
   override def load: FieldInterface = {
+    var field: FieldInterface = null
     val file = scala.xml.XML.loadFile("field.xml")
+    val injector = Guice.createInjector(new GwentModule)
     val nPlayer = (file \\ "player")
     var playerTop = Player(TOP,"",HandCard(Vector[CardInterface]()),0)
     var playerBot = Player(TOP,"",HandCard(Vector[CardInterface]()),0)
