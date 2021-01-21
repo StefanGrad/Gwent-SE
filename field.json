@@ -1,0 +1,200 @@
+{
+  "weather" : 2,
+  "players" : [ {
+    "name" : "Adrian",
+    "wins" : 0,
+    "type" : "TOP",
+    "handsize" : 9,
+    "hands" : {
+      "hand" : [ {
+        "name" : "Kreuzbogenschütze",
+        "ability" : 0,
+        "strength" : 4,
+        "range" : 1
+      }, {
+        "name" : "Berserker",
+        "ability" : 0,
+        "strength" : 4,
+        "range" : 0
+      }, {
+        "name" : "Kanonier",
+        "ability" : 0,
+        "strength" : 5,
+        "range" : 1
+      }, {
+        "name" : "Infanterie",
+        "ability" : 0,
+        "strength" : 1,
+        "range" : 0
+      }, {
+        "name" : "Infanterie",
+        "ability" : 0,
+        "strength" : 1,
+        "range" : 0
+      }, {
+        "name" : "Infanterie",
+        "ability" : 0,
+        "strength" : 1,
+        "range" : 0
+      }, {
+        "name" : "Heiler",
+        "ability" : 0,
+        "strength" : 0,
+        "range" : 1
+      }, {
+        "name" : "Fußsoldat",
+        "ability" : 0,
+        "strength" : 1,
+        "range" : 0
+      }, {
+        "name" : "Junger Gesandter",
+        "ability" : 1,
+        "strength" : 5,
+        "range" : 0
+      } ]
+    }
+  }, {
+    "name" : "Stefan",
+    "wins" : 0,
+    "type" : "BOT",
+    "handsize" : 10,
+    "hands" : {
+      "hand" : [ {
+        "name" : "Reiter",
+        "ability" : 0,
+        "strength" : 4,
+        "range" : 0
+      }, {
+        "name" : "Einschüchterer",
+        "ability" : 0,
+        "strength" : 4,
+        "range" : 0
+      }, {
+        "name" : "Scharfschütze",
+        "ability" : 0,
+        "strength" : 2,
+        "range" : 1
+      }, {
+        "name" : "Kreuzbogenschütze",
+        "ability" : 0,
+        "strength" : 4,
+        "range" : 1
+      }, {
+        "name" : "Junger Gesandter",
+        "ability" : 1,
+        "strength" : 5,
+        "range" : 0
+      }, {
+        "name" : "Scharfschütze",
+        "ability" : 0,
+        "strength" : 2,
+        "range" : 1
+      }, {
+        "name" : "Kanonier",
+        "ability" : 0,
+        "strength" : 5,
+        "range" : 1
+      }, {
+        "name" : "Junger Gesandter",
+        "ability" : 1,
+        "strength" : 5,
+        "range" : 0
+      }, {
+        "name" : "Infanterie",
+        "ability" : 0,
+        "strength" : 1,
+        "range" : 0
+      }, {
+        "name" : "Infanterie",
+        "ability" : 0,
+        "strength" : 1,
+        "range" : 0
+      } ]
+    }
+  } ],
+  "turn" : 1,
+  "round" : 0,
+  "fields" : {
+    "field" : [ {
+      "name" : "0",
+      "ability" : 0,
+      "strength" : 0,
+      "range" : 0
+    }, {
+      "name" : "0",
+      "ability" : 0,
+      "strength" : 0,
+      "range" : 0
+    }, {
+      "name" : "0",
+      "ability" : 0,
+      "strength" : 0,
+      "range" : 0
+    }, {
+      "name" : "0",
+      "ability" : 0,
+      "strength" : 0,
+      "range" : 0
+    }, {
+      "name" : "Junger Gesandter",
+      "ability" : 1,
+      "strength" : 5,
+      "range" : 0
+    }, {
+      "name" : "0",
+      "ability" : 0,
+      "strength" : 0,
+      "range" : 0
+    }, {
+      "name" : "0",
+      "ability" : 0,
+      "strength" : 0,
+      "range" : 0
+    }, {
+      "name" : "0",
+      "ability" : 0,
+      "strength" : 0,
+      "range" : 0
+    }, {
+      "name" : "0",
+      "ability" : 0,
+      "strength" : 0,
+      "range" : 0
+    }, {
+      "name" : "0",
+      "ability" : 0,
+      "strength" : 0,
+      "range" : 0
+    }, {
+      "name" : "0",
+      "ability" : 0,
+      "strength" : 0,
+      "range" : 0
+    }, {
+      "name" : "0",
+      "ability" : 0,
+      "strength" : 0,
+      "range" : 0
+    }, {
+      "name" : "0",
+      "ability" : 0,
+      "strength" : 0,
+      "range" : 0
+    }, {
+      "name" : "0",
+      "ability" : 0,
+      "strength" : 0,
+      "range" : 0
+    }, {
+      "name" : "0",
+      "ability" : 0,
+      "strength" : 0,
+      "range" : 0
+    }, {
+      "name" : "0",
+      "ability" : 0,
+      "strength" : 0,
+      "range" : 0
+    } ]
+  }
+}

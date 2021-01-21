@@ -9,10 +9,7 @@ import de.htwg.se.gwent.model.fileIOComponent.FileIOInterface
 import de.htwg.se.gwent.model.playerComponent.Player
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 import play.api.libs.json._
-import scala.xml.{NodeSeq, PrettyPrinter}
-import net.codingwell.scalaguice.InjectorExtensions._
 import scala.io.Source
-import scala.collection.immutable.VectorBuilder
 import scala.collection.mutable.ListBuffer
 
 class FileIO extends FileIOInterface {
@@ -46,11 +43,11 @@ class FileIO extends FileIOInterface {
     }
     val turn = (json \ "turn").get.toString.toInt
     val round = (json \ "round").get.toString.toInt
-    val fWeather = (json \ "weather").get
+    val fWeather = (json \ "weather").get.toString.toInt
     val weather = fWeather match {
-      case "FROST" => new Frost
-      case "SUNSHINE"  => new Sunshine
-      case "FOG" => new Fog
+      case 2 => new Frost
+      case 0  => new Sunshine
+      case 1 => new Fog
     }
     val nVecArr = (json \\ "field")
     val firstRow = rowFiller(nVecArr,0)
@@ -65,13 +62,13 @@ class FileIO extends FileIOInterface {
     var s = start
     val end = start + 4
     val list = new ListBuffer[Option[CardInterface]]
-    while (s < end){
-      if((field(s) \ "name").get.toString.equals("0")) {
-        list.append(None)
-        s += 1
-      } else {
-        list.append(Some(Card((field(s) \ "name").get.toString,(field(s)\"ability").get.toString.toInt,(field(s) \ "strength").get.toString.toInt,(field(s) \ "range").get.toString.toInt)))
-        s += 1
+    for (n <- field) {
+      for (x <- start until end) {
+        if((n(x)\"ability").get.toString.toInt == 0 && (n(x) \ "strength").get.toString.toInt == 0 && (n(x) \ "range").get.toString.toInt == 0) {
+          list.append(None)
+        } else {
+          list.append(Some(Card((n(x) \ "name").get.toString,(n(x)\"ability").get.toString.toInt,(n(x) \ "strength").get.toString.toInt,(n(x) \ "range").get.toString.toInt)))
+        }
       }
     }
     list.toVector
@@ -135,7 +132,11 @@ class FileIO extends FileIOInterface {
 
   def fieldToJson(field: FieldInterface) = {
     Json.obj(
-        "weather" -> field.weather.weather.toString,
+        "weather" -> Json.toJson(field.weather.weather.toString match {
+          case "FROST" => JsNumber(2)
+          case "SUNSHINE"  => JsNumber(0)
+          case "FOG" => JsNumber(1)
+        }),
         "players" -> Json.toJson(for{
           p <- 0 to 1
         } yield {Json.toJson(p match {
@@ -145,7 +146,7 @@ class FileIO extends FileIOInterface {
         }),
         "turn" -> JsNumber(field.turn),
         "round" -> JsNumber(field.round),
-        "field" -> Json.toJson(field.field)
+        "fields" -> Json.toJson(field.field)
     )
   }
 
