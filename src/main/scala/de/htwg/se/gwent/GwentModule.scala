@@ -6,7 +6,7 @@ import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.Contro
 import de.htwg.se.gwent.model.fieldComponent.FieldInterface
 import de.htwg.se.gwent.model.fieldComponent.realFieldImpl.Field
 import de.htwg.se.gwent.model.fileIOComponent.FileIOInterface
-import de.htwg.se.gwent.model.fileIOComponent.FileIOJsonImpl.FileIO
+import de.htwg.se.gwent.model.fileIOComponent.FileIOXmlImpl.FileIO
 import net.codingwell.scalaguice.ScalaModule
 
 class GwentModule extends AbstractModule with ScalaModule {

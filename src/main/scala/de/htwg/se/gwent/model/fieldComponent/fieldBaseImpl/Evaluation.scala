@@ -25,10 +25,8 @@ case class Evaluation() {
       return 0
     }
     if(topC - botC < 0){
-
       return 1
     }
     2
   }
-
 }
