@@ -4,15 +4,9 @@ import com.google.inject.Guice
 import de.htwg.se.gwent.GwentModule
 import de.htwg.se.gwent.aview.gui.SwingGUI
 import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, ControllerInterface}
-import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.Controller
-import de.htwg.se.gwent.model.playerComponent
-import de.htwg.se.gwent.model.playerComponent.Player
+import de.htwg.se.gwent.model.playerComponent.PlayerType.{TOP,BOT}
 
 import scala.de.htwg.se.gwent.aview.Tui
-import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Field, HandCard, TurnLogic}
-import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.Sunshine
-import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
-
 import scala.io.StdIn.readLine
 
 object Gwent{
@@ -24,7 +18,12 @@ object Gwent{
 
   def main(args: Array[String]): Unit = {
     println("Welcome to Gwent")
+    controller.field.whoCanPlay match {
+      case TOP => println(controller.field.playerTop)
+      case BOT => println(controller.field.playerBot)
+    }
     var input: String = ""
+    /*
     var turnFor = 0
     if(args.length != 0) {
       val input2 = args(0).split('_')
@@ -37,8 +36,14 @@ object Gwent{
         turnFor += 1
       }
     }
-    else do {
+    else */
+    do {
+      input = readLine()
       tui.processInputLine(input, controller.field.whoCanPlay)
+      controller.field.whoCanPlay match {
+        case TOP => println(controller.field.playerTop)
+        case BOT => println(controller.field.playerBot)
+      }
     } while (input != "q")
     println("See you next time")
   }

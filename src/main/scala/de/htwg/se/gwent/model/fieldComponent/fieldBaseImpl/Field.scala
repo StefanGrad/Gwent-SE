@@ -44,6 +44,7 @@ case class Field (field: Vector[Vector[Option[CardInterface]]],weather: State, p
     case Some(value) => false
     case None => true
   }
+
   def isNotFull(fromRow:Int, tillRow:Int): Boolean = {
     var notFull = 0
     for {

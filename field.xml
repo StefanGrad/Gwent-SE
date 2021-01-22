@@ -1,16 +1,16 @@
 <game>
     <field>
         <card>
-            <name> Kreuzbogenschütze </name>
+            <name> Bogenschütze </name>
             <ability> 0 </ability>
             <strength> 1 </strength>
             <range> 1 </range>
         </card>
         <card>
-            <name> 0 </name>
+            <name> Musketier </name>
             <ability> 0 </ability>
-            <strength> 0 </strength>
-            <range> 0 </range>
+            <strength> 1 </strength>
+            <range> 1 </range>
         </card>
         <card>
             <name> 0 </name>
@@ -98,7 +98,7 @@
         </card>
     </field>
     <weather> SUNSHINE </weather>
-    <turn> 2 </turn>
+    <turn> 3 </turn>
     <round> 0 </round>
     <players>
         <player>
@@ -107,10 +107,10 @@
             <type> TOP </type>
             <hand>
                 <card>
-                    <name> Scharfschütze </name>
-                    <ability> 0 </ability>
-                    <strength> 1 </strength>
-                    <range> 1 </range>
+                    <name> Junger Gesandter </name>
+                    <ability> 1 </ability>
+                    <strength> 0 </strength>
+                    <range> 0 </range>
                 </card>
                 <card>
                     <name> Einschüchterer </name>
@@ -119,25 +119,56 @@
                     <range> 0 </range>
                 </card>
                 <card>
+                    <name> Berserker </name>
+                    <ability> 0 </ability>
+                    <strength> 0 </strength>
+                    <range> 0 </range>
+                </card>
+                <card>
+                    <name> Berserker </name>
+                    <ability> 0 </ability>
+                    <strength> 0 </strength>
+                    <range> 0 </range>
+                </card>
+                <card>
+                    <name> Junger Gesandter </name>
+                    <ability> 1 </ability>
+                    <strength> 0 </strength>
+                    <range> 0 </range>
+                </card>
+                <card>
+                    <name> Junger Gesandter </name>
+                    <ability> 1 </ability>
+                    <strength> 0 </strength>
+                    <range> 0 </range>
+                </card>
+                <card>
+                    <name> Scharfschütze </name>
+                    <ability> 0 </ability>
+                    <strength> 1 </strength>
+                    <range> 1 </range>
+                </card>
+                <card>
+                    <name> Zwergen-Scharmützler </name>
+                    <ability> 2 </ability>
+                    <strength> 0 </strength>
+                    <range> 0 </range>
+                </card>
+            </hand>
+        </player>
+        <player>
+            <name> Stefan </name>
+            <wins> 0 </wins>
+            <type> BOT </type>
+            <hand>
+                <card>
                     <name> Zwergen-Scharmützler </name>
                     <ability> 2 </ability>
                     <strength> 0 </strength>
                     <range> 0 </range>
                 </card>
                 <card>
-                    <name> Infanterie </name>
-                    <ability> 0 </ability>
-                    <strength> 0 </strength>
-                    <range> 0 </range>
-                </card>
-                <card>
-                    <name> Pikenier </name>
-                    <ability> 0 </ability>
-                    <strength> 0 </strength>
-                    <range> 0 </range>
-                </card>
-                <card>
-                    <name> Scharfschütze </name>
+                    <name> Musketier </name>
                     <ability> 0 </ability>
                     <strength> 1 </strength>
                     <range> 1 </range>
@@ -149,74 +180,37 @@
                     <range> 0 </range>
                 </card>
                 <card>
-                    <name> Scharfschütze </name>
-                    <ability> 0 </ability>
-                    <strength> 1 </strength>
-                    <range> 1 </range>
-                </card>
-                <card>
-                    <name> Kreuzbogenschütze </name>
-                    <ability> 0 </ability>
-                    <strength> 1 </strength>
-                    <range> 1 </range>
-                </card>
-            </hand>
-        </player>
-        <player>
-            <name> Stefan </name>
-            <wins> 0 </wins>
-            <type> BOT </type>
-            <hand>
-                <card>
-                    <name> Einschüchterer </name>
-                    <ability> 0 </ability>
-                    <strength> 0 </strength>
-                    <range> 0 </range>
-                </card>
-                <card>
-                    <name> Infanterie </name>
-                    <ability> 0 </ability>
-                    <strength> 0 </strength>
-                    <range> 0 </range>
-                </card>
-                <card>
-                    <name> Scharfschütze </name>
-                    <ability> 0 </ability>
-                    <strength> 1 </strength>
-                    <range> 1 </range>
-                </card>
-                <card>
-                    <name> Einschüchterer </name>
-                    <ability> 0 </ability>
-                    <strength> 0 </strength>
-                    <range> 0 </range>
-                </card>
-                <card>
-                    <name> Hobbit </name>
-                    <ability> 0 </ability>
-                    <strength> 0 </strength>
-                    <range> 0 </range>
-                </card>
-                <card>
-                    <name> Bogenschütze </name>
-                    <ability> 0 </ability>
-                    <strength> 1 </strength>
-                    <range> 1 </range>
-                </card>
-                <card>
-                    <name> Steinwerfer </name>
-                    <ability> 0 </ability>
-                    <strength> 1 </strength>
-                    <range> 1 </range>
-                </card>
-                <card>
-                    <name> Scharfschütze </name>
+                    <name> Kanonier </name>
                     <ability> 0 </ability>
                     <strength> 1 </strength>
                     <range> 1 </range>
                 </card>
                 <card>
                     <name> Reiter </name>
+                    <ability> 0 </ability>
+                    <strength> 0 </strength>
+                    <range> 0 </range>
+                </card>
+                <card>
+                    <name> Berserker </name>
+                    <ability> 0 </ability>
+                    <strength> 0 </strength>
+                    <range> 0 </range>
+                </card>
+                <card>
+                    <name> Reiter </name>
+                    <ability> 0 </ability>
+                    <strength> 0 </strength>
+                    <range> 0 </range>
+                </card>
+                <card>
+                    <name> Brigade </name>
+                    <ability> 0 </ability>
+                    <strength> 0 </strength>
+                    <range> 0 </range>
+                </card>
+                <card>
+                    <name> Berserker </name>
                     <ability> 0 </ability>
                     <strength> 0 </strength>
                     <range> 0 </range>
