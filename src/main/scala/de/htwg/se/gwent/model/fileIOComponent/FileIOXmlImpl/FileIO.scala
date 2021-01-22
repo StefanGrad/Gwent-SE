@@ -9,65 +9,58 @@ import de.htwg.se.gwent.model.fileIOComponent.FileIOInterface
 import de.htwg.se.gwent.model.playerComponent.Player
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 
-import scala.xml.{NodeSeq, PrettyPrinter}
-import net.codingwell.scalaguice.InjectorExtensions._
-
-import scala.collection.immutable.VectorBuilder
-import scala.collection.mutable.ListBuffer
+import scala.xml.PrettyPrinter
 
 class FileIO extends FileIOInterface {
 
 
   override def load: FieldInterface = {
-    var field: FieldInterface = null
     val file = scala.xml.XML.loadFile("field.xml")
     val injector = Guice.createInjector(new GwentModule)
-    val nPlayer = (file \\ "player")
-    var playerTop = Player(TOP,"",HandCard(Vector[CardInterface]()),0)
-    var playerBot = Player(TOP,"",HandCard(Vector[CardInterface]()),0)
-    nPlayer.foreach{player =>
-      val name = (player \ "@name").text.toString
-      val nHand = (player \ "@hand")
-      val hand = new ListBuffer[CardInterface]
-      nHand.foreach{n => hand.append(Card((n \ "@name").text.toString,(n\"@ability").text.toInt,(n \ "@strength").text.toInt,(n \ "@range").text.toInt))}
-      val wins = (player \ "@wins").text.toInt
-      val nType = (player \ "@type").text.toString
-      nType match {
-        case "TOP" => playerTop = Player(TOP,name,HandCard(hand.toVector),wins)
-        case "BOT" => playerBot = Player(BOT,name,HandCard(hand.toVector),wins)
-      }
-    }
-    val turn = (file \ "@turn").text.toInt
-    val round = (file \ "@round").text.toInt
-    val fWeather = (file \ "@weather").text.toString
+    val turn = (file \\ "game" \ "turn").text.trim.toInt
+    val round = (file \\ "game" \ "round").text.trim.toInt
+    val fWeather = (file \\ "game" \ "weather").text.trim
     val weather = fWeather match {
       case "FROST" => new Frost
       case "SUNSHINE"  => new Sunshine
       case "FOG" => new Fog
     }
-    val nVecArr = (file \\ "field")
-    val firstRow = rowFiller(nVecArr,0)
-    val secondRow = rowFiller(nVecArr,4)
-    val thirdRow = rowFiller(nVecArr,8)
-    val fourthRow = rowFiller(nVecArr,12)
-
-    Field(Vector(firstRow,secondRow,thirdRow,fourthRow),weather,playerTop,playerBot,turn,round)
-  }
-
-  def rowFiller(field: NodeSeq, start: Int): Vector[Option[CardInterface]] = {
-    var s = start
-    val end = start + 4
-    val list = new ListBuffer[Option[CardInterface]]
-    while (s < end){
-      if((field(s) \ "@name").text.equals("0")) {
-        list.append(None)
-        s += 1
-      } else {
-        list.append(Some(Card((field(s) \ "@name").text.toString,(field(s)\"@ability").text.toInt,(field(s) \ "@strength").text.toInt,(field(s) \ "@range").text.toInt)))
-        s += 1
+    val playerVector = (file \\ "game" \ "players")
+    var playerTop = Player(TOP,"",HandCard(Vector[CardInterface]()),0)
+    var playerBot = Player(BOT,"",HandCard(Vector[CardInterface]()),0)
+    for (player <- playerVector \ "player") {
+      val name = (player \ "name").text.trim
+      val wins = (player \ "wins").text.trim.toInt
+      val handVector = (player \ "hand")
+      val handBuilder = Vector.newBuilder[CardInterface]
+      for (card <- handVector \ "card") {
+        val name = (card \ "name").text.trim
+        val ability = (card \ "ability").text.trim.toInt
+        val strength = (card \ "strength").text.trim.toInt
+        val range = (card \ "range").text.trim.toInt
+        handBuilder.+=(Card(name,ability,strength,range))
+      }
+      val nType = (player \ "type").text.trim
+      nType match {
+        case "TOP" => playerTop = Player(TOP,name,HandCard(handBuilder.result()),wins)
+        case "BOT" => playerBot = Player(BOT,name,HandCard(handBuilder.result()),wins)
       }
     }
-    list.toVector
+    val fieldMatrix = file \\ "game" \ "field"
+    val vectorBuilder = Vector.newBuilder[Vector[Option[CardInterface]]]
+    for (row <- (fieldMatrix \ "card").sliding(4, 4)) {
+      val rowBuilder = Vector.newBuilder[Option[CardInterface]]
+      for (card <- row) {
+        val name = (card \ "name").text.trim
+        val ability = (card \ "ability").text.trim.toInt
+        val strength = (card \ "strength").text.trim.toInt
+        val range = (card \ "range").text.trim.toInt
+        if (!name.equals("0")) rowBuilder.+=(Some(Card(name,ability,strength,range))) else rowBuilder.+=(None)
+      }
+      vectorBuilder.+=(rowBuilder.result)
+    }
+
+    Field(vectorBuilder.result,weather,playerTop,playerBot,turn,round)
   }
 
   override def save(field: FieldInterface): Unit = {
@@ -84,30 +77,68 @@ class FileIO extends FileIOInterface {
   }
 
   def getXml(field: FieldInterface) = {
-    <fields field={fieldToXml(field.field)} weather={field.weather.weather.toString} turn={field.turn.toString} round={field.round.toString}>
+    <game>
+        {fieldToXml(field.field)}
+      <weather>
+        {field.weather.weather.toString}
+      </weather>
+      <turn>
+        {field.turn.toString}
+      </turn>
+      <round>
+        {field.round.toString}
+      </round>
       <players>
-        {
-          playerToXml(field.playerTop)
-          playerToXml(field.playerBot)
+        {for {
+        pl <- 0 to 1
+      } yield {
+        pl match {
+          case 0 => playerToXml(field.playerTop)
+          case 1 => playerToXml(field.playerBot)
         }
+      }}
       </players>
-    </fields>
+    </game>
   }
 
   def cardToXml(card: CardInterface) = {
-    <card name={card.name} ability={card.ability.toString} strength={card.range.toString} range={card.range.toString}>
+    <card>
+      <name>
+        {card.name}
+      </name>
+      <ability>
+        {card.ability.toString}
+      </ability>
+      <strength>
+        {card.range.toString}
+      </strength>
+      <range>
+        {card.range.toString}
+      </range>
     </card>
   }
 
   def playerToXml(player: Player) = {
-    <player name={player.name} wins={player.wins.toString} type = {
-      player.playerType match {
-        case TOP => "TOP"
-        case BOT => "BOT"
-      }
-    }> {
-      for {i <- 0 until player.handCard.size} cardToXml(player.handCard.show(i))
-    }</player>
+    <player>
+      <name>
+        {player.name}
+      </name>
+      <wins>
+        {player.wins.toString}
+      </wins>
+      <type>
+        {player.playerType match {
+          case TOP => "TOP"
+          case BOT => "BOT"
+          }
+        }
+      </type>
+      <hand>
+        {
+        for {i <- 0 until player.handCard.size} yield {cardToXml(player.handCard.show(i))}
+        }
+      </hand>
+    </player>
   }
 
   def fieldToXml(field: Vector[Vector[Option[CardInterface]]]) = {
@@ -115,7 +146,7 @@ class FileIO extends FileIOInterface {
       {for {
       row <- 0 until 4
       col <- 0 until 4
-    } {
+    } yield {
       if (field(row)(col).equals(None)) {
         cardToXml(Card("0", 0, 0, 0))
       } else {

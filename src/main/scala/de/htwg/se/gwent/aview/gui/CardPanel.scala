@@ -4,7 +4,6 @@ import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, ControllerI
 import de.htwg.se.gwent.model.playerComponent.PlayerType
 
 import scala.swing._
-import javax.swing.table._
 
 import scala.swing.event._
 
