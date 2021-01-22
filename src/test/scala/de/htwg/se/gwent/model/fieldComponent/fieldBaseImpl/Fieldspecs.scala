@@ -10,10 +10,10 @@ import org.scalatest.wordspec.AnyWordSpec
 
 class Fieldspecs extends AnyWordSpec with Matchers {
   val f = new Field(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newHandCard(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newHandCard(),0),0,0)
-  "A Field is a 4x4 Array of Arrays with are then filled with Cards" when {
-    "a Field" should {
+  "A Field is a 4x4 Array of Arrays" when {
+    "it gets used in the game it will transform the given array to its right form" should {
       val field = f.clear
-      "initially be filled with empty Cards" in {
+      "initially be filled with None from Option[CardInterface]" in {
         field.getCard(0, 0) should be(None)
         field.getCard(0, 1) should be(None)
         field.getCard(0, 2) should be(None)
