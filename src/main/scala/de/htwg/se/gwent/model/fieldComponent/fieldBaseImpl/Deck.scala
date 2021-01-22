@@ -2,6 +2,7 @@ package de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl
 
 import de.htwg.se.gwent.model.fieldComponent.CardInterface
 
+//do we need case class?
 case class Deck() {
   val r = scala.util.Random
   val deck = Vector(Card("Archer", 0, 3, 1),
@@ -22,10 +23,10 @@ case class Deck() {
     Card("Reiter", 0, 4, 0),
     Card("Pikenier", 0, 2, 0),
     Card("Musketier", 0, 3, 1),
-    Card("Hobbit", 0, 0, 0))
-  // Card ("FROST", 0, 0, 3),
-  // Card ("FOG", 2, 0, 3),
-  // Card ("Sunshine", 3, 0, 3))
+    Card("Hobbit", 0, 0, 0),
+    Card ("FROST", 1, 0, 3),
+    Card ("FOG", 2, 0, 3),
+    Card ("SUNSHINE", 3, 0, 3))
   val length = deck.length
 
   def getRandomCard: CardInterface = {

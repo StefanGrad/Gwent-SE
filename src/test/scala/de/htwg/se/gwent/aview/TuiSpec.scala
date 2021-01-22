@@ -4,14 +4,14 @@ import de.htwg.se.gwent.model.playerComponent
 import de.htwg.se.gwent.model.playerComponent.Player
 import de.htwg.se.gwent.controller.controllerComponent.GameStatus.{INPUTFAIL, PASSED, PLAYING}
 import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.Controller
-import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Field, HandCard, TurnLogic}
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Field, HandCard}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.Sunshine
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 
 class TuiSpec extends AnyWordSpec with Matchers {
-  val f = new Field(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newDeck(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newDeck(),0),0,0)
+  val f = new Field(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newHandCard(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newHandCard(),0),0,0)
   "Tui works as a Text based User Interface" when {
     "a Tui" should {
       val archer = Card("Archer", 0, 3, 1)

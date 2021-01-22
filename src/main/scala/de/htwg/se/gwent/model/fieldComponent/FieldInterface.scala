@@ -1,6 +1,6 @@
 package de.htwg.se.gwent.model.fieldComponent
 
-import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Evaluation, TurnLogic, WeatherStatus}
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Evaluation, WeatherStatus}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.State
 import de.htwg.se.gwent.model.playerComponent.{Player, PlayerType}
 

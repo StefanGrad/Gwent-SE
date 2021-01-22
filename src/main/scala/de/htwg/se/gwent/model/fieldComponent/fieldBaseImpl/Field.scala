@@ -14,7 +14,7 @@ case class Field (field: Vector[Vector[Option[CardInterface]]],weather: State, p
   val size = 4
   val blocknum = sqrt(size).toInt
 
-  def this() = this(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newDeck(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newDeck(),0),0,0)
+  def this() = this(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newHandCard(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newHandCard(),0),0,0)
 
   def nextRound: FieldInterface = Field(field, weather, playerTop, playerBot, turn, round + 1)
 

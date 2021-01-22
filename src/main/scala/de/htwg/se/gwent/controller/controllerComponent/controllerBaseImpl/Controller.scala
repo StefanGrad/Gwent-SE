@@ -6,7 +6,7 @@ import de.htwg.se.gwent.controller.controllerComponent.GameStatus.{GameStatus, I
 import de.htwg.se.gwent.controller.controllerComponent._
 import de.htwg.se.gwent.model.fieldComponent.{CardInterface, FieldInterface}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.Sunshine
-import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Field, HandCard, TurnLogic, WeatherState}
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Field, HandCard, WeatherState}
 import de.htwg.se.gwent.model.fileIOComponent.FileIOInterface
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 import de.htwg.se.gwent.model.playerComponent.{Player, PlayerType}
@@ -25,7 +25,7 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
 
   private val undoManager = new UndoManager
   def createField:Unit = {
-    field = Field(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newDeck(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newDeck(),0),0,0).clear
+    field = Field(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newHandCard(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newHandCard(),0),0,0).clear
     publish(new CellChanged)
   }
   def fieldToString: String = field.toString

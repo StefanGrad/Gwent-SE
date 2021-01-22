@@ -7,7 +7,7 @@ case class HandCard(hand: Vector[CardInterface]) {
   val size: Int = hand.length
 
 
-  def newDeck(): HandCard = {
+  def newHandCard(): HandCard = {
     val newDeck = Vector[CardInterface](deck.getRandomCard, deck.getRandomCard, deck.getRandomCard, deck.getRandomCard, deck.getRandomCard, deck.getRandomCard, deck.getRandomCard, deck.getRandomCard, deck.getRandomCard, deck.getRandomCard)
     HandCard(newDeck)
   }
