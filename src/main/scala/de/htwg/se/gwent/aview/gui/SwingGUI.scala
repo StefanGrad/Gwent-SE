@@ -28,7 +28,7 @@ class SwingGUI(c :ControllerInterface) extends Frame {
       column <- 0 until 4
     } {
       val cellPanel = new CellPanel(row, column, c)
-      cells(row)(column) = cellPanel
+      cells(column)(row) = cellPanel
       contents += cellPanel
       cellPanel.border = LineBorder(java.awt.Color.YELLOW,1)
       listenTo(cellPanel)
@@ -60,8 +60,8 @@ class SwingGUI(c :ControllerInterface) extends Frame {
   contents = new BorderPanel {
     add(handcardPanel(TOP), BorderPanel.Position.North)
     add(gridPanel, BorderPanel.Position.Center)
-    add(handcardPanel(BOT), BorderPanel.Position.South)
     add(gameMessage, BorderPanel.Position.East)
+    add(handcardPanel(BOT), BorderPanel.Position.South)
   }
 
   menuBar = new MenuBar {
@@ -94,9 +94,9 @@ class SwingGUI(c :ControllerInterface) extends Frame {
     for {
       row <- 0 until 4
       column <- 0 until 4
-    } cells(row)(column).redraw
-    for (index <- 0 until c.field.playerTop.handCard.size) topHand(index).redraw
-    for (index <- 0 until botHand.length) botHand(index).redraw
+    } cells(column)(row).redraw
+    for (index <- 0 until topHand.size) topHand(index).redraw
+    for (index <- 0 until botHand.size) botHand(index).redraw
     gameMessage.text = c.gameMessage
     repaint
   }

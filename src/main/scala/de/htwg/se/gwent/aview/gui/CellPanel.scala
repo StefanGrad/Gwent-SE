@@ -14,7 +14,12 @@ class CellPanel(row :Int, column :Int ,controller: ControllerInterface) extends 
 
   def myCell = controller.field.getCard(row, column)
 
-  def cellText(row: Int, col: Int) = if (!controller.field.isEmpty(row, column)) " " + myCell.toString.replace("Some(","").replace(")","") else "X"
+  def cellText(row: Int, column: Int):String = {
+    if (!controller.field.isEmpty(row, column)) {
+      return myCell.toString.replace("Some(","").replace(")","")
+    }
+    ""
+  }
 
   val label =
     new Label {

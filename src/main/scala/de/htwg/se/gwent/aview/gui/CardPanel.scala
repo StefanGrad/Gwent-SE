@@ -12,7 +12,6 @@ import scala.swing.event._
 class CardPanel(playerType: PlayerType.Value, cardIndex: Int,controller: ControllerInterface) extends FlowPanel {
 
   val cellColor = new Color(224, 224, 255)
-  //val highlightedCellColor = new Color(192, 255, 192)
   val player = choosePlayer.choice(playerType).player(controller)
   def myCard = player.handCard.show(cardIndex)
 
@@ -37,7 +36,7 @@ class CardPanel(playerType: PlayerType.Value, cardIndex: Int,controller: Control
       }
       case MouseClicked(src, pt, mod, clicks, pops) => {
         val turnChange = controller.field.turn
-        controller.playCard(controller.field,playerType,cardIndex)
+        controller.playCard(playerType,choosePlayer.choice(playerType).player(controller).handCard.getCardIndex(myCard))
         if (turnChange +1  == controller.field.turn) {
           this.visible = false
         }
