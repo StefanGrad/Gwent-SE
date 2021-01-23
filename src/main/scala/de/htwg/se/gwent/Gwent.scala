@@ -10,13 +10,13 @@ import scala.de.htwg.se.gwent.aview.Tui
 import scala.io.StdIn.readLine
 
 object Gwent{
-  val injector = Guice.createInjector(new GwentModule)
-  val controller = injector.getInstance(classOf[ControllerInterface])
-  val tui = new Tui(controller)
-  val gui = new SwingGUI(controller)
-  controller.publish(new CellChanged)
-
   def main(args: Array[String]): Unit = {
+    val injector = Guice.createInjector(new GwentModule)
+    val controller = injector.getInstance(classOf[ControllerInterface])
+    val tui = new Tui(controller)
+    val gui = new SwingGUI(controller)
+    controller.publish(new CellChanged)
+
     println("Welcome to Gwent")
     var input: String = ""
 
