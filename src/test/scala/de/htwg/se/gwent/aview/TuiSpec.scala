@@ -19,7 +19,10 @@ class TuiSpec extends AnyWordSpec with Matchers {
       val f = new Field(Vector[Vector[Option[Card]]](),new Sunshine,playerTop,playerBot,0,0)
       val controller = new Controller(f.clear)
       val tui = new Tui(controller)
-
+      "not trow an error when entering 'q' it is needed to break the do-while" in {
+        tui.processInputLine("q",TOP)
+        controller.gameState should be (PLAYING)
+      }
       "have the active player pass on input 'c' and if he's the second one to pass the game is evaluated" in {
         controller.gameState should be (PLAYING)
         tui.processInputLine("c",TOP)

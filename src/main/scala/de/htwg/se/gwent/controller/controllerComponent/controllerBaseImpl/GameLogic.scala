@@ -17,7 +17,7 @@ class GameLogic{
               if (player.playerArea(v.range) == row) {
                 return (PLAYING, "")
               }
-              return (INPUTFAIL, "You are playing for the enemy.")
+              return (INPUTFAIL, "You cannot Play a Card in this row.")
             case Failure(exception) =>
               return (INPUTFAIL, "You don't have such a card.")
           }

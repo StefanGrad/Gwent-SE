@@ -37,6 +37,10 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
     gameState = PLAYING
     field = fieldPlay.nextRound
     undoManager.nextRound
+    if (field.round == 4) {
+      gameMessage = "The Game ended with " + field.playerTop.wins + " wins for " + field.playerTop.name + "\n and" + field.playerBot.wins + " wins for " + field.playerBot.name
+      return createField
+    }
     if (winner == 0) {
       updateWins(TOP)
       gameMessage = "Winner Top"
@@ -67,34 +71,37 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
 
   def playerToString(player: Player): String = player.toString
 
-  def playCardAt(fieldPlay: FieldInterface, row: Int, col:Int, playerType: PlayerType.Value , cardIndex: Int): Unit = {
+  def playCardAt(row: Int, col:Int, playerType: PlayerType.Value , cardIndex: Int): Unit = {
     val player = choosePlayer.choice(playerType).player(this)
     if (playerType != field.whoCanPlay) {return publish(new CellChanged)}
-    val tuple = logic.applyTryLogic(fieldPlay,row, col, player, cardIndex)
+    val tuple = logic.applyTryLogic(this.field,row, col, player, cardIndex)
     gameState = tuple._1
     gameMessage = tuple._2
-    if (gameState.equals(INPUTFAIL)) {return publish(new CellChanged)}
-    undoManager.doStep(new PlayCardCommand(fieldPlay,row,col, playerType, cardIndex, this))
+    if (gameState.equals(PLAYING)) {
+      undoManager.doStep(new PlayCardCommand(this.field, row, col, playerType, cardIndex, this))
+    }
     publish(new CellChanged)
   }
 
-  def playCard(fieldPlay: FieldInterface, playerType: PlayerType.Value , cardIndex: Int): Unit = {
+  def playCard(playerType: PlayerType.Value , cardIndex: Int): Unit = {
     val player = choosePlayer.choice(playerType).player(this)
-    if (playerType != field.whoCanPlay) return publish(new CellChanged)
+    if (playerType != this.field.whoCanPlay) {return publish(new CellChanged)}
     for {
       row <- 0 until 4
       column <- 0 until 4
     } {
-      val tuple = logic.applyTryLogic(fieldPlay,row, column, player, cardIndex)
-      if (tuple._1.equals(PLAYING)) {
-        if (field.isEmpty(row, column)) {
-          gameState = tuple._1
-          gameMessage = tuple._2
-          undoManager.doStep(new PlayCardCommand(fieldPlay, row, column, playerType, cardIndex, this))
-          return publish(new CellChanged)
-        }
-      }
+      playCardAt(row, column,playerType,cardIndex)
+      if(gameState.equals(PLAYING)) return publish(new CellChanged)
     }
+      /*val tuple = logic.applyTryLogic(this.field,row, column, player, cardIndex)
+      if (tuple._1.equals(PLAYING)) {
+        gameState = tuple._1
+        gameMessage = tuple._2
+        undoManager.doStep(new PlayCardCommand(this.field, row, column, playerType, cardIndex, this))
+        return publish(new CellChanged)
+      }
+
+    }*/
     gameMessage = "No available Spots for this Card"
     gameState = INPUTFAIL
     publish(new CellChanged)

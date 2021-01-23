@@ -13,8 +13,8 @@ trait ControllerInterface extends Publisher{
   def clearField(fieldPlay: FieldInterface): Unit
   def evaluate(fieldPlay: FieldInterface): Unit
   def updateWins(playerType: PlayerType.Value):Unit
-  def playCardAt(fieldPlay: FieldInterface, row: Int, col:Int, playerType: PlayerType.Value , cardIndex: Int): Unit
-  def playCard(fieldPlay: FieldInterface, playerType: PlayerType.Value , cardIndex: Int): Unit
+  def playCardAt(row: Int, col:Int, playerType: PlayerType.Value , cardIndex: Int): Unit
+  def playCard(playerType: PlayerType.Value , cardIndex: Int): Unit
   def passRound():Unit
   def changeGameStatus(gameStatus: GameStatus.Value): Unit
   def load: Unit

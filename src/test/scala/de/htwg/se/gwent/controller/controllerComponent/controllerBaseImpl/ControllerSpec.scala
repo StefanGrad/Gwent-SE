@@ -1,6 +1,6 @@
 package de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl
 
-import de.htwg.se.gwent.controller.controllerComponent.GameStatus.{LOADED, PASSED, PLAYING, SAVED}
+import de.htwg.se.gwent.controller.controllerComponent.GameStatus.{INPUTFAIL, LOADED, PASSED, PLAYING, SAVED}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Field, HandCard}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.Sunshine
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherStatus.{FOG, FROST, SUNSHINE}
@@ -41,7 +41,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       }
       "clear the Field" in {
         val ctrl = new Controller(field)
-        ctrl.playCardAt(field, 0,0,TOP,0)
+        ctrl.playCardAt(0,0,TOP,0)
         ctrl.field.isEmpty(0,0) should be(false)
 
         ctrl.clearField(field)
@@ -58,14 +58,14 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       "evaluate the Game" in {
         val ctrl = new Controller(field)
 
-        ctrl.playCardAt(ctrl.field,0,0,TOP,0)
+        ctrl.playCardAt(0,0,TOP,0)
         ctrl.evaluate(ctrl.field)
 
         ctrl.field.playerTop.wins should be(1)
         ctrl.field.playerBot.wins should be(0)
 
         ctrl.field = ctrl.field.doTurn
-        ctrl.playCardAt(ctrl.field,3,3,BOT,2)
+        ctrl.playCardAt(3,3,BOT,2)
         ctrl.evaluate(ctrl.field)
 
         ctrl.field.playerTop.wins should be(1)
@@ -80,16 +80,94 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         ctrl.playerToString(ctrl.field.playerTop) should be("Adrian has won 0 times and holds in his Hand: Archer A0 S1 R1")
       }
       "play a Card at a chosen Cell" in {
-        val ctrl = new Controller(field)
-        ctrl.clearField(field)
-        ctrl.playCardAt(field, 0,0,TOP,0)
+        val player1 = Player(TOP,"Adrian",HandCard(Vector[Card](testRanged,testRanged,testRanged,testRanged,testCloseCombat,testCloseCombat,testCloseCombat,testCloseCombat,testCloseCombat)),0)
+        val player2 = Player(BOT,"Stefan",HandCard(Vector[Card](testRanged,testRanged,testRanged,testRanged,testCloseCombat,testCloseCombat,testCloseCombat,testCloseCombat,testCloseCombat)),0)
+        val field2 = Field(Vector[Vector[Option[Card]]](),new Sunshine,player1,player2,0,0)
+        val ctrl = new Controller(field2)
+        ctrl.playCardAt( 0,0,TOP,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCardAt( 3,0,BOT,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCardAt( 0,1,TOP,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCardAt( 3,1,BOT,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCardAt( 0,2,TOP,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCardAt( 3,2,BOT,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.field.isEmpty(3,0) should be (true)
+        ctrl.playCardAt( 0,3,TOP,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCardAt( 3,3,BOT,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCardAt( 1,0,TOP,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCardAt( 2,0,BOT,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCardAt( 1,1,TOP,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCardAt( 2,1,BOT,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCardAt( 1,2,TOP,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCardAt( 2,2,BOT,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCardAt( 1,3,TOP,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCardAt( 2,3,BOT,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCardAt( 1,0,TOP,0)
+        ctrl.gameState should be(INPUTFAIL)
+
         ctrl.field.getCard(0,0).get should be(testRanged)
-
-
+      }
+      "play a Card into the next empty Cell" in {
+        val player1 = Player(TOP,"Adrian",HandCard(Vector[Card](testRanged,testRanged,testRanged,testRanged,testCloseCombat,testCloseCombat,testCloseCombat,testCloseCombat,testCloseCombat)),0)
+        val player2 = Player(BOT,"Stefan",HandCard(Vector[Card](testRanged,testRanged,testRanged,testRanged,testCloseCombat,testCloseCombat,testCloseCombat,testCloseCombat,testCloseCombat)),0)
+        val field2 = Field(Vector[Vector[Option[Card]]](),new Sunshine,player1,player2,0,0)
+        val ctrl = new Controller(field2)
+        ctrl.playCard(TOP,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCard(BOT,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCard(TOP,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCard(BOT,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCard(TOP,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCard(BOT,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCard(TOP,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCard(BOT,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCard(BOT,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCard(TOP,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCard(BOT,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCard(TOP,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCard(BOT,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCard(TOP,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCard(BOT,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCard(TOP,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCard(BOT,0)
+        ctrl.gameState should be(PLAYING)
+        ctrl.playCard(TOP,0)
+        ctrl.gameState should be(INPUTFAIL)
       }
       "can undo and then redo" in {
         val ctrl = new Controller(field)
-        ctrl.playCardAt(field, 0,0,TOP,0)
+        ctrl.playCardAt( 0,0,TOP,0)
         ctrl.field.getCard(0,0).get should be(testRanged)
         ctrl.undo
         ctrl.field.getCard(0,0) should be(None)
@@ -105,11 +183,11 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         val newField = Field(Vector[Vector[Option[Card]]](),new Sunshine,playerTop2,playerBot2,0,0)
         val controller = new Controller(newField)
         controller.field.weather.weather should be(SUNSHINE)
-        controller.playCard(controller.field,TOP,0)
+        controller.playCard(TOP,0)
         controller.field.weather.weather should be(FOG)
-        controller.playCard(controller.field,BOT,1)
+        controller.playCard(BOT,1)
         controller.field.weather.weather should be(FROST)
-        controller.playCard(controller.field,TOP,1)
+        controller.playCard(TOP,1)
         controller.field.weather.weather should be(SUNSHINE)
       }
 

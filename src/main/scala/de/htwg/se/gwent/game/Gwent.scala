@@ -17,6 +17,8 @@ object Gwent{
     controller.publish(new CellChanged)
 
     println("Welcome to Gwent")
+    println(controller.field.playerTop.handCard)
+    println(controller.field.playerBot.handCard)
     var input: String = ""
 
     if(args.length != 0) {
