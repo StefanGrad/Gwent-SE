@@ -1,10 +1,9 @@
-package scala.de.htwg.se.gwent
+package de.htwg.se.gwent.game
 
 import com.google.inject.Guice
 import de.htwg.se.gwent.GwentModule
 import de.htwg.se.gwent.aview.gui.SwingGUI
 import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, ControllerInterface}
-import de.htwg.se.gwent.model.playerComponent.PlayerType.{TOP,BOT}
 
 import scala.de.htwg.se.gwent.aview.Tui
 import scala.io.StdIn.readLine
