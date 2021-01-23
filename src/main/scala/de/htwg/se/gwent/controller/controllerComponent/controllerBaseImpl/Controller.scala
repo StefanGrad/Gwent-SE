@@ -36,21 +36,19 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
     val winner = fieldPlay.evaluator.eval(fieldPlay,fieldPlay.weather)
     gameState = PLAYING
     field = fieldPlay.nextRound
+    undoManager.nextRound
     if (winner == 0) {
       updateWins(TOP)
-      undoManager.nextRound
       gameMessage = "Winner Top"
       clearField(field)
       return publish(new CellChanged)
     }
     if (winner == 1) {
       updateWins(BOT)
-      undoManager.nextRound
       gameMessage = "Winner Bot"
       clearField(field)
       return publish(new CellChanged)
     }
-    undoManager.nextRound
     gameMessage = "The game ended with a Draw"
     clearField(field)
     publish(new CellChanged)

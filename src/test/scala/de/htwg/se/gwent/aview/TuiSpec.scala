@@ -11,14 +11,13 @@ import org.scalatest.wordspec.AnyWordSpec
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 
 class TuiSpec extends AnyWordSpec with Matchers {
-  val f = new Field(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newHandCard(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newHandCard(),0),0,0)
   "Tui works as a Text based User Interface" when {
     "a Tui" should {
       val archer = Card("Archer", 0, 3, 1)
-      val field = f.clear
       val playerTop = Player(TOP,"Top", HandCard(Vector[Card](archer,archer)),0)
       val playerBot = playerComponent.Player(BOT,"Bot", HandCard(Vector[Card](archer,archer)),0)
-      val controller = new Controller(field)
+      val f = new Field(Vector[Vector[Option[Card]]](),new Sunshine,playerTop,playerBot,0,0)
+      val controller = new Controller(f.clear)
       val tui = new Tui(controller)
 
       "have the active player pass on input 'c' and if he's the second one to pass the game is evaluated" in {
@@ -31,10 +30,8 @@ class TuiSpec extends AnyWordSpec with Matchers {
 
       "place the card with the chosen index into the chosen cell" in {
         tui.processInputLine("0 0 0",TOP)
-        //controller.playCardAt(field, 0, 0, playerTop, 0)
         controller.field.isEmpty(0,0) should be (false)
         tui.processInputLine("3 3 0",BOT)
-        //controller.playCardAt(field, 2, 2, playerBot, 0)
         controller.field.isEmpty(3,3) should be (false)
       }
       "can undo a Turn" in {
@@ -57,6 +54,10 @@ class TuiSpec extends AnyWordSpec with Matchers {
         controller.gameState = PLAYING
         //Wrong card
         tui.processInputLine("1 0 11",TOP)
+        controller.gameState should be (INPUTFAIL)
+        controller.gameState = PLAYING
+        //Wrong Input Form
+        tui.processInputLine("1 0",TOP)
         controller.gameState should be (INPUTFAIL)
         controller.gameState = PLAYING
         //Already set
