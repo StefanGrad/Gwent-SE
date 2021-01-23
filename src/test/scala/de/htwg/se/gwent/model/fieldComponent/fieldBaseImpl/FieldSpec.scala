@@ -7,7 +7,7 @@ import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-class Fieldspecs extends AnyWordSpec with Matchers {
+class FieldSpec extends AnyWordSpec with Matchers {
   val f = new Field(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newHandCard(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newHandCard(),0),0,0)
   "A Field is a 4x4 Array of Arrays with are then filled with Cards" when {
     "the game is started, the clear method is used to generate a playable empty Field" should {

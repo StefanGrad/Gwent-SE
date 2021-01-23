@@ -8,7 +8,7 @@ import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-class PlayCardCommandspecs extends AnyWordSpec with Matchers {
+class PlayCardCommandSpec extends AnyWordSpec with Matchers {
   "is a Command Pattern to do, undo and redo Steps" when {
     "PlayCardCommand is used it" should {
       val playerTop = Player(TOP,"Adrian",HandCard(Vector[Card](Card("Test",1,1,1))),0)

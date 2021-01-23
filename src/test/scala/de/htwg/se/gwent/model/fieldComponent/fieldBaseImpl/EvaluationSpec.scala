@@ -8,7 +8,7 @@ import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.{Fog, Fr
 import de.htwg.se.gwent.model.playerComponent.Player
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 
-class Evaluationspecs extends AnyWordSpec with Matchers {
+class EvaluationSpec extends AnyWordSpec with Matchers {
   val f = Field(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newHandCard(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newHandCard(),0),0,0)
   "Evaluation compares the Attack Values of both Players and retuns an Integer" when{
     "Evaluation under normal Weather(Sunshine)" should {

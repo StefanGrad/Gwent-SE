@@ -4,7 +4,7 @@ import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherStatus.{FOG, F
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-class WeatherStateSpecs extends AnyWordSpec with Matchers{
+class WeatherStateSpec extends AnyWordSpec with Matchers{
   "The Weather changes depending on the played Cards" when {
     "Cards are played" should {
       val weather = new Sunshine
