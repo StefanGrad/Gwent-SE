@@ -1,4 +1,4 @@
-/*package scala.de.htwg.se.gwent
+package scala.de.htwg.se.gwent
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -11,4 +11,3 @@ class GwentSpec extends AnyWordSpec with Matchers{
     }
   }
 }
-*/
