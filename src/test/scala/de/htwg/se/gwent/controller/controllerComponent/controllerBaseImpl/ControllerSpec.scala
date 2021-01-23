@@ -84,6 +84,8 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         ctrl.clearField(field)
         ctrl.playCardAt(field, 0,0,TOP,0)
         ctrl.field.getCard(0,0).get should be(testRanged)
+
+
       }
       "can undo and then redo" in {
         val ctrl = new Controller(field)
@@ -125,10 +127,8 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       "evaluate the round when the second Player passes" in {
         val ctrl = new Controller(field)
         ctrl.passRound()
-        ctrl.playCard(field,BOT, 0)
         ctrl.passRound()
-        ctrl.passRound()
-        playerBot.wins should be (1)
+        ctrl.field.round should be (1)
       }
       "change the state of the game" in {
         val ctrl = new Controller(field)

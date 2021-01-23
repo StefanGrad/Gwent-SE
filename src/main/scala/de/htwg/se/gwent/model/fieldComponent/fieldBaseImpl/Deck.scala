@@ -24,9 +24,9 @@ case class Deck() {
     Card("Pikenier", 0, 2, 0),
     Card("Musketier", 0, 3, 1),
     Card("Hobbit", 0, 0, 0),
-    Card ("FROST", 1, 0, 3),
-    Card ("FOG", 2, 0, 3),
-    Card ("SUNSHINE", 3, 0, 3))
+    Card ("FROST", 1, 0, 1),
+    Card ("FOG", 2, 0, 1),
+    Card ("SUNSHINE", 3, 0, 1))
   val length = deck.length
 
   def getRandomCard: CardInterface = {
