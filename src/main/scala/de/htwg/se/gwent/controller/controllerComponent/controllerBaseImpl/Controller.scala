@@ -82,7 +82,7 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
       row <- 0 until 4
       column <- 0 until 4
     } {
-      var tuple = logic.applyTryLogic(fieldPlay,row, column, player, cardIndex)
+      val tuple = logic.applyTryLogic(fieldPlay,row, column, player, cardIndex)
       if (tuple._1.equals(PLAYING)) {
         if (field.isEmpty(row, column)) {
           gameState = tuple._1
