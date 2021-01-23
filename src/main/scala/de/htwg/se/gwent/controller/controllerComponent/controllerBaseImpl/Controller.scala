@@ -2,7 +2,7 @@ package de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl
 
 import com.google.inject.{Guice, Inject}
 import de.htwg.se.gwent.GwentModule
-import de.htwg.se.gwent.controller.controllerComponent.GameStatus.{GameStatus, INPUTFAIL, PASSED, PLAYING}
+import de.htwg.se.gwent.controller.controllerComponent.GameStatus.{GameStatus, INPUTFAIL, LOADED, PASSED, PLAYING,SAVED}
 import de.htwg.se.gwent.controller.controllerComponent._
 import de.htwg.se.gwent.model.fieldComponent.{CardInterface, FieldInterface}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.Sunshine
@@ -35,20 +35,25 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
   def evaluate(fieldPlay: FieldInterface): Unit = {
     val winner = fieldPlay.evaluator.eval(fieldPlay,fieldPlay.weather)
     gameState = PLAYING
-    field = field.nextRound
+    field = fieldPlay.nextRound
     if (winner == 0) {
       updateWins(TOP)
       undoManager.nextRound
       gameMessage = "Winner Top"
-      return clearField(fieldPlay)
+      clearField(field)
+      return publish(new CellChanged)
     }
     if (winner == 1) {
       updateWins(BOT)
       undoManager.nextRound
-      return clearField(fieldPlay)
+      gameMessage = "Winner Bot"
+      clearField(field)
+      return publish(new CellChanged)
     }
     undoManager.nextRound
-    clearField(fieldPlay)
+    gameMessage = "The game ended with a Draw"
+    clearField(field)
+    publish(new CellChanged)
   }
 
   def clearField(fieldPlay: FieldInterface): Unit = {
@@ -59,7 +64,7 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
 
   def updateWins(playerType: PlayerType.Value):Unit = {
     field = field.updateWins(playerType)
-    publish(new CellChanged)
+    publish(new PlayerChanged)
   }
 
   def playerToString(player: Player): String = player.toString
@@ -99,11 +104,15 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
 
   def safe: Unit = {
     fileIo.save(field)
+    gameState = SAVED
+    gameMessage = "Saved Game"
     publish(new CellChanged)
   }
 
   def load: Unit = {
     field = fileIo.load
+    gameState = LOADED
+    gameMessage = "Loaded Game"
     publish(new CellChanged)
   }
 
