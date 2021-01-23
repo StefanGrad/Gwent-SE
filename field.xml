@@ -1,10 +1,10 @@
 <game>
     <field>
         <card>
-            <name> 0 </name>
+            <name> Archer </name>
             <ability> 0 </ability>
-            <strength> 0 </strength>
-            <range> 0 </range>
+            <strength> 1 </strength>
+            <range> 1 </range>
         </card>
         <card>
             <name> 0 </name>
@@ -98,11 +98,11 @@
         </card>
     </field>
     <weather> SUNSHINE </weather>
-    <turn> 1 </turn>
+    <turn> 0 </turn>
     <round> 0 </round>
     <players>
         <player>
-            <name> Adrian </name>
+            <name> Top </name>
             <wins> 0 </wins>
             <type> TOP </type>
             <hand>
@@ -112,25 +112,19 @@
                     <strength> 1 </strength>
                     <range> 1 </range>
                 </card>
+                <card>
+                    <name> Archer </name>
+                    <ability> 0 </ability>
+                    <strength> 1 </strength>
+                    <range> 1 </range>
+                </card>
             </hand>
         </player>
         <player>
-            <name> Stefan </name>
+            <name> Bot </name>
             <wins> 0 </wins>
             <type> BOT </type>
             <hand>
-                <card>
-                    <name> Knight </name>
-                    <ability> 0 </ability>
-                    <strength> 0 </strength>
-                    <range> 0 </range>
-                </card>
-                <card>
-                    <name> Knight </name>
-                    <ability> 0 </ability>
-                    <strength> 0 </strength>
-                    <range> 0 </range>
-                </card>
                 <card>
                     <name> Archer </name>
                     <ability> 0 </ability>

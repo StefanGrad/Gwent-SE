@@ -16,7 +16,6 @@ class FileIO extends FileIOInterface {
 
   override def load: FieldInterface = {
     val file = scala.xml.XML.loadFile("field.xml")
-    val injector = Guice.createInjector(new GwentModule)
     val turn = (file \\ "game" \ "turn").text.trim.toInt
     val round = (file \\ "game" \ "round").text.trim.toInt
     val fWeather = (file \\ "game" \ "weather").text.trim
@@ -73,7 +72,7 @@ class FileIO extends FileIOInterface {
   }
 
   def saveXML(field: FieldInterface): Unit = {
-    scala.xml.XML.save("grid.xml", getXml(field))
+    scala.xml.XML.save("field.xml", getXml(field))
   }
 
   def getXml(field: FieldInterface) = {
@@ -90,13 +89,14 @@ class FileIO extends FileIOInterface {
       </round>
       <players>
         {for {
-        pl <- 0 to 1
-      } yield {
-        pl match {
-          case 0 => playerToXml(field.playerTop)
-          case 1 => playerToXml(field.playerBot)
+          pl <- 0 to 1
+        } yield {
+          pl match {
+            case 0 => playerToXml(field.playerTop)
+            case 1 => playerToXml(field.playerBot)
+          }
         }
-      }}
+        }
       </players>
     </game>
   }
@@ -134,9 +134,7 @@ class FileIO extends FileIOInterface {
         }
       </type>
       <hand>
-        {
-        for {i <- 0 until player.handCard.size} yield {cardToXml(player.handCard.show(i))}
-        }
+        {for {i <- 0 until player.handCard.size} yield {cardToXml(player.handCard.show(i))}}
       </hand>
     </player>
   }
@@ -144,15 +142,16 @@ class FileIO extends FileIOInterface {
   def fieldToXml(field: Vector[Vector[Option[CardInterface]]]) = {
     <field>
       {for {
-      row <- 0 until 4
-      col <- 0 until 4
-    } yield {
-      if (field(row)(col).equals(None)) {
-        cardToXml(Card("0", 0, 0, 0))
-      } else {
-        cardToXml(field(row)(col).get)
+        row <- 0 until 4
+        col <- 0 until 4
+      } yield {
+        if (field(row)(col).equals(None)) {
+          cardToXml(Card("0", 0, 0, 0))
+        } else {
+          cardToXml(field(row)(col).get)
+        }
       }
-    }}
+      }
     </field>
   }
 }
