@@ -37,7 +37,7 @@ case class Field (field: Vector[Vector[Option[CardInterface]]],weather: State, p
     Field(this.field,weather.changeWeather(weatherStatus),this.playerTop,this.playerBot,turn, round)
   }
 
-  def isEmpty(col:Int,row:Int):Boolean = field(col)(row) match {
+  def isEmpty(row:Int,col:Int):Boolean = field(col)(row) match {
     case Some(value) => false
     case None => true
   }
