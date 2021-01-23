@@ -1,13 +1,13 @@
 package de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl
 
-import de.htwg.se.gwent.controller.controllerComponent.{ControllerInterface, choosePlayer}
+import de.htwg.se.gwent.controller.controllerComponent.ControllerInterface
 import de.htwg.se.gwent.model.fieldComponent.FieldInterface
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.Field
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 import de.htwg.se.gwent.model.playerComponent.{Player, PlayerType}
 
 import scala.de.htwg.se.gwent.util.Command
-//Der Prof hat bei sich nicht das controllerInterface eingebaut sondern ist weiterhin beim Controller geblieben, ist das ein Fehler (freie Punkte)?
+
 class PlayCardCommand(fieldPlay: FieldInterface, row: Int, col:Int, playerType: PlayerType.Value, cardIndex: Int, controller: Controller) extends Command{
   val player = choosePlayer.choice(playerType).player(controller)
   val hand = player.handCard

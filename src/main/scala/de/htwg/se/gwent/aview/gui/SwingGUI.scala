@@ -1,12 +1,14 @@
 package de.htwg.se.gwent.aview.gui
 
 import de.htwg.se.gwent.model.playerComponent.PlayerType
+
 import scala.de.htwg.se.gwent.aview.gui.CellPanel
 import scala.swing._
 import scala.swing.Swing.LineBorder
 import scala.swing.event._
 import PlayerType.{BOT, TOP}
-import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, ControllerInterface, PlayerChanged, choosePlayer}
+import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.choosePlayer
+import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, ControllerInterface, PlayerChanged}
 
 class SwingGUI(c :ControllerInterface) extends Frame {
   listenTo(c)

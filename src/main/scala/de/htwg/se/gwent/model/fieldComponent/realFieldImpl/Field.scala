@@ -5,5 +5,6 @@ import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, HandCard, Fiel
 import de.htwg.se.gwent.model.playerComponent.Player
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 
+
 class Field @Inject() extends BaseField(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newHandCard(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newHandCard(),0),0,0){
 }

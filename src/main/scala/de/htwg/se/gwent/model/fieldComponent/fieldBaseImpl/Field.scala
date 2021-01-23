@@ -1,6 +1,5 @@
 package de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl
 
-import de.htwg.se.gwent.controller.controllerComponent.PlayerChanged
 import de.htwg.se.gwent.model.fieldComponent.{CardInterface, FieldInterface}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.{Fog, Frost, State, Sunshine}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherStatus.{FOG, FROST, SUNSHINE}
@@ -14,9 +13,7 @@ case class Field (field: Vector[Vector[Option[CardInterface]]],weather: State, p
   val size = 4
   val blocknum = sqrt(size).toInt
 
-  def this() = this(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newHandCard(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newHandCard(),0),0,0)
-
-  def nextRound: FieldInterface = Field(field, weather, playerTop, playerBot, turn, round + 1)
+  def nextRound: FieldInterface = Field(field, weather, playerTop, playerBot, 0, round + 1)
 
   def doTurn: FieldInterface = Field(field, weather, playerTop, playerBot, turn + 1, round)
 
