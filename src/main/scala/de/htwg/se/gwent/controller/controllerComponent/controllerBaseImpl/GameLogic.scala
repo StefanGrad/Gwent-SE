@@ -25,7 +25,6 @@ class GameLogic{
         return (INPUTFAIL,"The Position is already filled.")
       case Failure(exception) =>
         return (INPUTFAIL,"Please play within the game area")
-      case _ => return (INPUTFAIL,"Please play within the game area")
     }
   }
 }

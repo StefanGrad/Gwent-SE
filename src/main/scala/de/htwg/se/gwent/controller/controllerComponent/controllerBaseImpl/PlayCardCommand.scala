@@ -1,6 +1,5 @@
 package de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl
 
-import de.htwg.se.gwent.controller.controllerComponent.ControllerInterface
 import de.htwg.se.gwent.model.fieldComponent.FieldInterface
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.Field
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
