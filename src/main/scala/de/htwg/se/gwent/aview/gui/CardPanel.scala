@@ -44,6 +44,8 @@ class CardPanel(playerType: PlayerType.Value, cardIndex: Int,controller: Control
       }
     }
   }
+  visible = true
+  redraw
 
   def redraw = {
     contents.clear()

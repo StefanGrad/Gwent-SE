@@ -86,6 +86,8 @@ class SwingGUI(controller :ControllerInterface) extends Frame {
     centerOnScreen()
     redraw
 
+    def handCardReloaded = contents = handcardPanel(playerType)
+
     def redraw = {
       for (index <- 0 until hand.size) hand(index).redraw
     }
@@ -96,8 +98,8 @@ class SwingGUI(controller :ControllerInterface) extends Frame {
     add(gameMessage, BorderPanel.Position.North)
   }
 
-  val frameTop = handCardFrame(TOP)
-  val frameBot = handCardFrame(BOT)
+  var frameTop = handCardFrame(TOP)
+  var frameBot = handCardFrame(BOT)
 
   menuBar = new MenuBar {
     contents += new Menu("File") {
@@ -131,8 +133,16 @@ class SwingGUI(controller :ControllerInterface) extends Frame {
   redraw
 
   reactions += {
-    case event: CellChanged   => redraw
-    case event: PlayerChanged => redraw
+    case event: CellChanged   => {
+      frameTop.handCardReloaded
+      frameBot.handCardReloaded
+      redraw
+    }
+    case event: PlayerChanged => {
+      frameTop.handCardReloaded
+      frameBot.handCardReloaded
+      redraw
+    }
     case event: Frosty => redraw
     case event: Fogy => redraw
     case event: Sunny => redraw

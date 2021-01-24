@@ -115,7 +115,7 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
     field = fileIo.load
     gameState = LOADED
     gameMessage = "Loaded Game"
-    publish(new CellChanged)
+    publish(new PlayerChanged)
   }
 
   def passRound():Unit = {

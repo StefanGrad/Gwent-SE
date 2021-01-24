@@ -1,7 +1,79 @@
 <game>
     <field>
         <card>
-            <name> Archer </name>
+            <name> 0 </name>
+            <ability> 0 </ability>
+            <strength> 0 </strength>
+            <range> 0 </range>
+        </card>
+        <card>
+            <name> 0 </name>
+            <ability> 0 </ability>
+            <strength> 0 </strength>
+            <range> 0 </range>
+        </card>
+        <card>
+            <name> 0 </name>
+            <ability> 0 </ability>
+            <strength> 0 </strength>
+            <range> 0 </range>
+        </card>
+        <card>
+            <name> 0 </name>
+            <ability> 0 </ability>
+            <strength> 0 </strength>
+            <range> 0 </range>
+        </card>
+        <card>
+            <name> Berserker </name>
+            <ability> 0 </ability>
+            <strength> 0 </strength>
+            <range> 0 </range>
+        </card>
+        <card>
+            <name> 0 </name>
+            <ability> 0 </ability>
+            <strength> 0 </strength>
+            <range> 0 </range>
+        </card>
+        <card>
+            <name> 0 </name>
+            <ability> 0 </ability>
+            <strength> 0 </strength>
+            <range> 0 </range>
+        </card>
+        <card>
+            <name> 0 </name>
+            <ability> 0 </ability>
+            <strength> 0 </strength>
+            <range> 0 </range>
+        </card>
+        <card>
+            <name> 0 </name>
+            <ability> 0 </ability>
+            <strength> 0 </strength>
+            <range> 0 </range>
+        </card>
+        <card>
+            <name> 0 </name>
+            <ability> 0 </ability>
+            <strength> 0 </strength>
+            <range> 0 </range>
+        </card>
+        <card>
+            <name> 0 </name>
+            <ability> 0 </ability>
+            <strength> 0 </strength>
+            <range> 0 </range>
+        </card>
+        <card>
+            <name> 0 </name>
+            <ability> 0 </ability>
+            <strength> 0 </strength>
+            <range> 0 </range>
+        </card>
+        <card>
+            <name> Blaster </name>
             <ability> 0 </ability>
             <strength> 1 </strength>
             <range> 1 </range>
@@ -24,96 +96,66 @@
             <strength> 0 </strength>
             <range> 0 </range>
         </card>
-        <card>
-            <name> 0 </name>
-            <ability> 0 </ability>
-            <strength> 0 </strength>
-            <range> 0 </range>
-        </card>
-        <card>
-            <name> 0 </name>
-            <ability> 0 </ability>
-            <strength> 0 </strength>
-            <range> 0 </range>
-        </card>
-        <card>
-            <name> 0 </name>
-            <ability> 0 </ability>
-            <strength> 0 </strength>
-            <range> 0 </range>
-        </card>
-        <card>
-            <name> 0 </name>
-            <ability> 0 </ability>
-            <strength> 0 </strength>
-            <range> 0 </range>
-        </card>
-        <card>
-            <name> 0 </name>
-            <ability> 0 </ability>
-            <strength> 0 </strength>
-            <range> 0 </range>
-        </card>
-        <card>
-            <name> 0 </name>
-            <ability> 0 </ability>
-            <strength> 0 </strength>
-            <range> 0 </range>
-        </card>
-        <card>
-            <name> 0 </name>
-            <ability> 0 </ability>
-            <strength> 0 </strength>
-            <range> 0 </range>
-        </card>
-        <card>
-            <name> 0 </name>
-            <ability> 0 </ability>
-            <strength> 0 </strength>
-            <range> 0 </range>
-        </card>
-        <card>
-            <name> 0 </name>
-            <ability> 0 </ability>
-            <strength> 0 </strength>
-            <range> 0 </range>
-        </card>
-        <card>
-            <name> 0 </name>
-            <ability> 0 </ability>
-            <strength> 0 </strength>
-            <range> 0 </range>
-        </card>
-        <card>
-            <name> 0 </name>
-            <ability> 0 </ability>
-            <strength> 0 </strength>
-            <range> 0 </range>
-        </card>
-        <card>
-            <name> 0 </name>
-            <ability> 0 </ability>
-            <strength> 0 </strength>
-            <range> 0 </range>
-        </card>
     </field>
     <weather> SUNSHINE </weather>
-    <turn> 0 </turn>
+    <turn> 2 </turn>
     <round> 0 </round>
     <players>
         <player>
-            <name> Top </name>
+            <name> Adrian </name>
             <wins> 0 </wins>
             <type> TOP </type>
             <hand>
                 <card>
-                    <name> Archer </name>
+                    <name> Kunai-Ninja </name>
                     <ability> 0 </ability>
                     <strength> 1 </strength>
                     <range> 1 </range>
                 </card>
                 <card>
-                    <name> Archer </name>
+                    <name> Kunai-Ninja </name>
+                    <ability> 0 </ability>
+                    <strength> 1 </strength>
+                    <range> 1 </range>
+                </card>
+                <card>
+                    <name> Blaster </name>
+                    <ability> 0 </ability>
+                    <strength> 1 </strength>
+                    <range> 1 </range>
+                </card>
+                <card>
+                    <name> Badass </name>
+                    <ability> 0 </ability>
+                    <strength> 0 </strength>
+                    <range> 0 </range>
+                </card>
+                <card>
+                    <name> FOG </name>
+                    <ability> 2 </ability>
+                    <strength> 1 </strength>
+                    <range> 1 </range>
+                </card>
+                <card>
+                    <name> FROST </name>
+                    <ability> 1 </ability>
+                    <strength> 1 </strength>
+                    <range> 1 </range>
+                </card>
+                <card>
+                    <name> FOG </name>
+                    <ability> 2 </ability>
+                    <strength> 1 </strength>
+                    <range> 1 </range>
+                </card>
+                <card>
+                    <name> FOG </name>
+                    <ability> 2 </ability>
+                    <strength> 1 </strength>
+                    <range> 1 </range>
+                </card>
+                <card>
+                    <name> Ballista </name>
                     <ability> 0 </ability>
                     <strength> 1 </strength>
                     <range> 1 </range>
@@ -121,21 +163,63 @@
             </hand>
         </player>
         <player>
-            <name> Bot </name>
+            <name> Stefan </name>
             <wins> 0 </wins>
             <type> BOT </type>
             <hand>
                 <card>
-                    <name> Archer </name>
+                    <name> Rider </name>
+                    <ability> 0 </ability>
+                    <strength> 0 </strength>
+                    <range> 0 </range>
+                </card>
+                <card>
+                    <name> Blaster </name>
                     <ability> 0 </ability>
                     <strength> 1 </strength>
                     <range> 1 </range>
                 </card>
                 <card>
-                    <name> Archer </name>
+                    <name> Man catcher </name>
                     <ability> 0 </ability>
+                    <strength> 0 </strength>
+                    <range> 0 </range>
+                </card>
+                <card>
+                    <name> FROST </name>
+                    <ability> 1 </ability>
                     <strength> 1 </strength>
                     <range> 1 </range>
+                </card>
+                <card>
+                    <name> Dwarf </name>
+                    <ability> 0 </ability>
+                    <strength> 0 </strength>
+                    <range> 0 </range>
+                </card>
+                <card>
+                    <name> Infantry </name>
+                    <ability> 0 </ability>
+                    <strength> 0 </strength>
+                    <range> 0 </range>
+                </card>
+                <card>
+                    <name> Infantry </name>
+                    <ability> 0 </ability>
+                    <strength> 0 </strength>
+                    <range> 0 </range>
+                </card>
+                <card>
+                    <name> SUNSHINE </name>
+                    <ability> 3 </ability>
+                    <strength> 1 </strength>
+                    <range> 1 </range>
+                </card>
+                <card>
+                    <name> Badass </name>
+                    <ability> 0 </ability>
+                    <strength> 0 </strength>
+                    <range> 0 </range>
                 </card>
             </hand>
         </player>

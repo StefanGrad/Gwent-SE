@@ -27,13 +27,13 @@ class CellPanel(row :Int, column :Int ,controller: ControllerInterface) extends 
     }
 
   var image = new ImagePanel{
-    imagePath = localFile + "/src/main/resources/blank.png"
+    imagePath = localFile + "/src/main/resources/sun.png"
   }
 
   val cell = new BoxPanel(Orientation.Vertical) {
     contents += label
     contents += image
-    preferredSize = new Dimension(120, 120)
+    preferredSize = new Dimension(120, 70)
     border = Swing.BeveledBorder(Swing.Raised)
     listenTo(mouse.clicks)
     listenTo(controller)
@@ -44,15 +44,15 @@ class CellPanel(row :Int, column :Int ,controller: ControllerInterface) extends 
         repaint
       }
       case frozen: Frosty => {
-        image.imagePath = localFile + "/src/main/resources/Snowflake.png"
+        image.imagePath = localFile + "/src/main/resources/snowflake.png"
         repaint
       }
       case fog: Fogy => {
-        image.imagePath = localFile + "/src/main/resources/Cloud.png"
+        image.imagePath = localFile + "/src/main/resources/cloud.png"
         repaint
       }
       case sun: Sunny => {
-        image.imagePath = localFile + "/src/main/resources/blank.png"
+        image.imagePath = localFile + "/src/main/resources/sun.png"
         repaint
       }
     }
