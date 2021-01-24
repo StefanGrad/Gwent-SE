@@ -27,8 +27,8 @@ class SwingGUI(c :ControllerInterface) extends Frame {
       row <- 0 until 4
       column <- 0 until 4
     } {
-      val cellPanel = new CellPanel(row, column, c)
-      cells(column)(row) = cellPanel
+      val cellPanel = new CellPanel(column, row, c)
+      cells(row)(column) = cellPanel
       contents += cellPanel
       cellPanel.border = LineBorder(java.awt.Color.YELLOW,1)
       listenTo(cellPanel)
@@ -94,7 +94,7 @@ class SwingGUI(c :ControllerInterface) extends Frame {
     for {
       row <- 0 until 4
       column <- 0 until 4
-    } cells(column)(row).redraw
+    } cells(row)(column).redraw
     for (index <- 0 until topHand.size) topHand(index).redraw
     for (index <- 0 until botHand.size) botHand(index).redraw
     gameMessage.text = c.gameMessage

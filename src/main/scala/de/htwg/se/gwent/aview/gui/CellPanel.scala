@@ -12,7 +12,7 @@ class CellPanel(row :Int, column :Int ,controller: ControllerInterface) extends 
 
   val cellColor = new Color(224, 224, 255)
 
-  def myCell = controller.field.getCard(row, column)
+  def myCell = controller.field.getCard(column, row)
 
   def cellText(row: Int, column: Int):String = {
     if (!controller.field.isEmpty(row, column)) {
