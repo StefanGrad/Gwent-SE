@@ -23,9 +23,7 @@ trait ControllerInterface extends Publisher{
   def redo: Unit
 }
 
-class CellChanged extends Event
-class PlayerChanged extends Event
-class NewGame extends Event
+class GameChange extends Event
 class Frosty extends Event
 class Fogy extends Event
 class Sunny extends Event

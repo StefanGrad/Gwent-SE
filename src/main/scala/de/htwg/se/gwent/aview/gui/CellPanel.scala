@@ -1,7 +1,7 @@
 package scala.de.htwg.se.gwent.aview.gui
 
 import de.htwg.se.gwent.aview.gui.ImagePanel
-import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, ControllerInterface, Fogy, Frosty, Sunny}
+import de.htwg.se.gwent.controller.controllerComponent.{GameChange, ControllerInterface, Fogy, Frosty, Sunny}
 import scala.swing._
 
 
@@ -39,7 +39,7 @@ class CellPanel(row :Int, column :Int ,controller: ControllerInterface) extends 
     listenTo(controller)
 
     reactions += {
-      case e: CellChanged => {
+      case e: GameChange => {
         label.text = cellText(row, column)
         repaint
       }

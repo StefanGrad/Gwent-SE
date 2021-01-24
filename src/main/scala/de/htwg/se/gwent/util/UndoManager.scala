@@ -3,7 +3,7 @@ package scala.de.htwg.se.gwent.util
 class UndoManager {
   private var undoStack: List[Command]= Nil
   private var redoStack: List[Command]= Nil
-  def nextRound:Boolean = {
+  def clear:Boolean = {
     undoStack = Nil
     redoStack = Nil
     true

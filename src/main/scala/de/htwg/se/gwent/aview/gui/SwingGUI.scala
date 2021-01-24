@@ -8,7 +8,7 @@ import scala.swing.Swing.LineBorder
 import scala.swing.event._
 import PlayerType.{BOT, TOP}
 import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.choosePlayer
-import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, ControllerInterface, Fogy, Frosty, PlayerChanged, Sunny}
+import de.htwg.se.gwent.controller.controllerComponent.{GameChange, ControllerInterface, Fogy, Frosty, Sunny}
 
 class SwingGUI(controller :ControllerInterface) extends Frame {
   listenTo(controller)
@@ -70,7 +70,7 @@ class SwingGUI(controller :ControllerInterface) extends Frame {
     contents = handcardPanel(playerType)
 
     reactions += {
-      case e: CellChanged => {
+      case e: GameChange => {
         controller.field.whoCanPlay match {
           case this.rememberType => {
             visible = true
@@ -106,6 +106,7 @@ class SwingGUI(controller :ControllerInterface) extends Frame {
     contents += new Menu("File") {
       mnemonic = Key.F
       contents += new MenuItem(Action("Quit") {System.exit(0)})
+      contents += new MenuItem(Action("New Game") {controller.createField})
       contents += new MenuItem(Action("Safe") {controller.safe})
       contents += new MenuItem(Action("Load") {controller.load})
     }
@@ -134,12 +135,7 @@ class SwingGUI(controller :ControllerInterface) extends Frame {
   redraw
 
   reactions += {
-    case event: CellChanged   => {
-      frameTop.handCardReloaded
-      frameBot.handCardReloaded
-      redraw
-    }
-    case event: PlayerChanged => {
+    case event: GameChange   => {
       frameTop.handCardReloaded
       frameBot.handCardReloaded
       redraw

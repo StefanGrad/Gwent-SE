@@ -44,7 +44,7 @@ class UndoManagerSpec extends AnyWordSpec with Matchers {
       command.state should be(1)
       undoManager.doStep(command)
       command.state should be(2)
-      undoManager.nextRound
+      undoManager.clear
       undoManager.undoStep
       command.state should be(2)
     }

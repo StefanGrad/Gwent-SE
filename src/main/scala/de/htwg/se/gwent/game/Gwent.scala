@@ -3,7 +3,7 @@ package de.htwg.se.gwent.game
 import com.google.inject.Guice
 import de.htwg.se.gwent.GwentModule
 import de.htwg.se.gwent.aview.gui.SwingGUI
-import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, ControllerInterface}
+import de.htwg.se.gwent.controller.controllerComponent.{GameChange, ControllerInterface}
 
 import scala.de.htwg.se.gwent.aview.Tui
 import scala.io.StdIn.readLine
@@ -14,7 +14,7 @@ object Gwent{
     val controller = injector.getInstance(classOf[ControllerInterface])
     val tui = new Tui(controller)
     val gui = new SwingGUI(controller)
-    controller.publish(new CellChanged)
+    controller.publish(new GameChange)
 
     println("Welcome to Gwent")
     println(controller.field.playerTop.handCard)
