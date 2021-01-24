@@ -38,7 +38,7 @@ class GameLogicSpec extends AnyWordSpec with Matchers {
       }
       "when a Card is played wrongly" in {
         logic.applyTryLogic(f,1,1,playerBot,0)._1 should be(INPUTFAIL)
-        logic.applyTryLogic(f,1,1,playerBot,0)._2 should be("You are playing for the enemy.")
+        logic.applyTryLogic(f,1,1,playerBot,0)._2 should be("You cannot Play a Card in this row.")
 
         logic.applyTryLogic(f,2,2,playerBot,11)._1 should be(INPUTFAIL)
         logic.applyTryLogic(f,2,2,playerBot,11)._2 should be("You don't have such a card.")
