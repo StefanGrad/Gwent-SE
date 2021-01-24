@@ -10,35 +10,34 @@ import PlayerType.{BOT, TOP}
 import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.choosePlayer
 import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, ControllerInterface, PlayerChanged}
 
-class SwingGUI(c :ControllerInterface) extends Frame {
-  listenTo(c)
+class SwingGUI(controller :ControllerInterface) extends Frame {
+  listenTo(controller)
 
   title = "Gwent"
 
-  var cells = Array.ofDim[CellPanel](c.field.size, c.field.size)
-  var topHand = Array.ofDim[CardPanel](c.field.playerTop.handCard.size)
-  var botHand = Array.ofDim[CardPanel](c.field.playerBot.handCard.size)
+  var cells = Array.ofDim[CellPanel](controller.field.size, controller.field.size)
+  var topHand = Array.ofDim[CardPanel](controller.field.playerTop.handCard.size)
+  var botHand = Array.ofDim[CardPanel](controller.field.playerBot.handCard.size)
 
   def gridPanel = new GridPanel(4, 4) {
-    preferredSize = new Dimension(125*4, 65*4)
+    preferredSize = new Dimension(125*4, 67*4)
     background = java.awt.Color.BLACK
     border = LineBorder(java.awt.Color.BLACK, 2)
     for {
       row <- 0 until 4
       column <- 0 until 4
     } {
-      val cellPanel = new CellPanel(column, row, c)
+      val cellPanel = new CellPanel(column, row, controller)
       cells(row)(column) = cellPanel
       contents += cellPanel
       cellPanel.border = LineBorder(java.awt.Color.YELLOW,1)
       listenTo(cellPanel)
     }
   }
-  val gameMessage = new TextField(c.gameMessage, 20)
+  val gameMessage = new TextField(controller.gameMessage, 20)
 
   def handcardPanel(playerType: PlayerType.Value) = {
-    val handSize = choosePlayer.choice(playerType).player(c).handCard.size
-    //new GridPanel(1,handSize) {
+    val handSize = choosePlayer.choice(playerType).player(controller).handCard.size
     new FlowPanel() {
       preferredSize = new Dimension(125*(handSize + 1), 65)
       border = LineBorder(java.awt.Color.BLACK, 2)
@@ -46,7 +45,7 @@ class SwingGUI(c :ControllerInterface) extends Frame {
       for {
         index <- 0 until handSize
       } {
-        val cardPanel = new CardPanel(playerType,index,c)
+        val cardPanel = new CardPanel(playerType,index,controller)
         playerType match {
           case TOP => topHand(index) = cardPanel
           case BOT => botHand(index) = cardPanel
@@ -57,99 +56,72 @@ class SwingGUI(c :ControllerInterface) extends Frame {
     }
   }
 
-  contents = /*new GridPanel(4,1){
-    background = java.awt.Color.BLACK
-    border = LineBorder(java.awt.Color.BLACK, 2)
-    contents += handcardPanel(TOP)
-    contents += gridPanel
-    contents += gameMessage
-    contents += handcardPanel(BOT)
-  }*/new BorderPanel {
+  def handCardFrame(playerType: PlayerType.Value) = new Frame{
+    listenTo(controller)
+    title = choosePlayer.choice(playerType).player(controller).name
+
+    val hand = playerType match {
+      case TOP => topHand
+      case BOT => botHand
+    }
+
+    val rememberType = playerType
+
+    contents = handcardPanel(playerType)
+
+    reactions += {
+      case e: CellChanged => {
+        controller.field.whoCanPlay match {
+          case this.rememberType => {
+            visible = true
+            repaint
+          }
+          case _ => {
+            visible = false
+            repaint
+          }
+        }
+      }
+    }
+    centerOnScreen()
+    redraw
+
+    def redraw = {
+      for (index <- 0 until hand.size) hand(index).redraw
+    }
+  }
+
+  contents = new BorderPanel {
     add(gridPanel, BorderPanel.Position.Center)
     add(gameMessage, BorderPanel.Position.North)
-    /*
-    add(handcardPanel(TOP), BorderPanel.Position.North)
-    add(gridPanel, BorderPanel.Position.Center)
-    add(gameMessage, BorderPanel.Position.East)
-    add(handcardPanel(BOT), BorderPanel.Position.South)*/
   }
 
-  val frameTop = new Frame {
-    title = c.field.playerTop.name
-    contents = handcardPanel(TOP)
-    listenTo(c)
-
-    reactions += {
-      case e: CellChanged => {
-        c.field.whoCanPlay match {
-          case TOP => {
-            visible = true
-            repaint
-          }
-          case BOT => {
-            visible = false
-            repaint
-          }
-        }
-      }
-    }
-    centerOnScreen()
-    redraw
-
-    def redraw = {
-      for (index <- 0 until topHand.size) topHand(index).redraw
-    }
-  }
-  val frameBot = new Frame {
-    title = c.field.playerBot.name
-    contents = handcardPanel(BOT)
-    listenTo(c)
-
-    reactions += {
-      case e: CellChanged => {
-        c.field.whoCanPlay match {
-          case TOP => {
-            visible = false
-            repaint
-          }
-          case BOT => {
-            visible = true
-            repaint
-          }
-        }
-      }
-    }
-    centerOnScreen()
-    redraw
-
-    def redraw = {
-      for (index <- 0 until botHand.size) botHand(index).redraw
-    }
-  }
+  val frameTop = handCardFrame(TOP)
+  val frameBot = handCardFrame(BOT)
 
   menuBar = new MenuBar {
     contents += new Menu("File") {
       mnemonic = Key.F
       contents += new MenuItem(Action("Quit") {System.exit(0)})
-      contents += new MenuItem(Action("Safe") {c.safe})
-      contents += new MenuItem(Action("Load") {c.load})
+      contents += new MenuItem(Action("Safe") {controller.safe})
+      contents += new MenuItem(Action("Load") {controller.load})
     }
     contents += new Menu("Edit") {
       mnemonic = Key.E
-      contents += new MenuItem(Action("Undo") { c.undo })
-      contents += new MenuItem(Action("Redo") { c.redo })
+      contents += new MenuItem(Action("Undo") { controller.undo })
+      contents += new MenuItem(Action("Redo") { controller.redo })
     }
     contents += new Menu("HandCard") {
-      contents += new MenuItem(Action(c.field.playerTop.name) {
+      contents += new MenuItem(Action(controller.field.playerTop.name) {
         frameTop.visible = true
       })
-      contents += new MenuItem(Action(c.field.playerBot.name) {
+      contents += new MenuItem(Action(controller.field.playerBot.name) {
         frameBot.visible = true
       })
     }
     contents += new Menu("End Round") {
       mnemonic = Key.P
-      contents += new MenuItem(Action("Pass") { c.passRound() })
+      contents += new MenuItem(Action("Pass") { controller.passRound() })
     }
   }
 
@@ -168,9 +140,7 @@ class SwingGUI(c :ControllerInterface) extends Frame {
       row <- 0 until 4
       column <- 0 until 4
     } cells(row)(column).redraw
-    //for (index <- 0 until topHand.size) topHand(index).redraw
-    //for (index <- 0 until botHand.size) botHand(index).redraw
-    gameMessage.text = c.gameMessage
+    gameMessage.text = controller.gameMessage
     repaint
   }
 }

@@ -4,9 +4,9 @@ import com.google.inject.{Guice, Inject}
 import de.htwg.se.gwent.GwentModule
 import de.htwg.se.gwent.controller.controllerComponent.GameStatus.{GameStatus, INPUTFAIL, LOADED, PASSED, PLAYING,SAVED}
 import de.htwg.se.gwent.controller.controllerComponent._
-import de.htwg.se.gwent.model.fieldComponent.{CardInterface, FieldInterface}
+import de.htwg.se.gwent.model.fieldComponent.{FieldInterface}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.Sunshine
-import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Field, HandCard, WeatherState}
+import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Field, HandCard}
 import de.htwg.se.gwent.model.fileIOComponent.FileIOInterface
 import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 import de.htwg.se.gwent.model.playerComponent.{Player, PlayerType}
@@ -37,6 +37,7 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
     gameState = PLAYING
     field = fieldPlay.nextRound
     undoManager.nextRound
+    publish(new WeatherChanged)
     if (field.round == 4) {
       gameMessage = "The Game ended with " + field.playerTop.wins + " wins for " + field.playerTop.name + "\n and" + field.playerBot.wins + " wins for " + field.playerBot.name
       return createField
@@ -44,24 +45,22 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
     if (winner == 0) {
       updateWins(TOP)
       gameMessage = "Winner Top"
-      clearField(field)
-      return publish(new CellChanged)
+      return clearField(field)
     }
     if (winner == 1) {
       updateWins(BOT)
       gameMessage = "Winner Bot"
-      clearField(field)
-      return publish(new CellChanged)
+      return clearField(field)
     }
     gameMessage = "The game ended with a Draw"
     clearField(field)
-    publish(new CellChanged)
   }
 
   def clearField(fieldPlay: FieldInterface): Unit = {
     field = fieldPlay.clear
     gameState = PLAYING
-    publish(new CellChanged)
+    publish(new WeatherChanged)
+    publish(new NewGame)
   }
 
   def updateWins(playerType: PlayerType.Value):Unit = {
@@ -73,19 +72,21 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
 
   def playCardAt(row: Int, col:Int, playerType: PlayerType.Value , cardIndex: Int): Unit = {
     val player = choosePlayer.choice(playerType).player(this)
-    if (playerType != field.whoCanPlay) {return publish(new CellChanged)}
+    val abilityOfCard = player.handCard.show(cardIndex).ability
+    if (playerType != field.whoCanPlay) {return}
+
     val tuple = logic.applyTryLogic(this.field,row, col, player, cardIndex)
     gameState = tuple._1
     gameMessage = tuple._2
     if (gameState.equals(PLAYING)) {
+      if (abilityOfCard != 0) publish(new WeatherChanged)
       undoManager.doStep(new PlayCardCommand(this.field, row, col, playerType, cardIndex, this))
     }
     publish(new CellChanged)
   }
 
   def playCard(playerType: PlayerType.Value , cardIndex: Int): Unit = {
-    val player = choosePlayer.choice(playerType).player(this)
-    if (playerType != this.field.whoCanPlay) {return publish(new CellChanged)}
+    if (playerType != this.field.whoCanPlay) {return}
     for {
       row <- 0 until 4
       column <- 0 until 4
@@ -93,15 +94,6 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
       playCardAt(row, column,playerType,cardIndex)
       if(gameState.equals(PLAYING)) return publish(new CellChanged)
     }
-      /*val tuple = logic.applyTryLogic(this.field,row, column, player, cardIndex)
-      if (tuple._1.equals(PLAYING)) {
-        gameState = tuple._1
-        gameMessage = tuple._2
-        undoManager.doStep(new PlayCardCommand(this.field, row, column, playerType, cardIndex, this))
-        return publish(new CellChanged)
-      }
-
-    }*/
     gameMessage = "No available Spots for this Card"
     gameState = INPUTFAIL
     publish(new CellChanged)
