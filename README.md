@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.com/StefanGrad/Gwent-SE.svg?branch=workingVer)](https://travis-ci.com/StefanGrad/Gwent-SE)
+[![Build Status](https://travis-ci.com/StefanGrad/Gwent-SE.svg?branch=master)](https://travis-ci.com/StefanGrad/Gwent-SE)
 
-[![Coverage Status](https://coveralls.io/repos/github/StefanGrad/Gwent-SE/badge.svg?branch=workingVer)](https://coveralls.io/github/StefanGrad/Gwent-SE?branch=workingVer)
+[![Coverage Status](https://coveralls.io/repos/github/StefanGrad/Gwent-SE/badge.svg?branch=master)](https://coveralls.io/github/StefanGrad/Gwent-SE?branch=master)
 
 # GWENT
 Project for a Software Engineering class
