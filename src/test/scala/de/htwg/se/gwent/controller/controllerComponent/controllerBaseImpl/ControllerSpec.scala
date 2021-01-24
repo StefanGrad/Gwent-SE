@@ -28,10 +28,10 @@ class ControllerSpec extends AnyWordSpec with Matchers {
         ctrl.field.turn should be (0)
         ctrl.field.round should be(0)
 
-        ctrl.field.playerTop.name should be("Adrian")
+        ctrl.field.playerTop.name should be("Player Top")
         ctrl.field.playerTop.handCard.size should be(10)
 
-        ctrl.field.playerBot.name should be("Stefan")
+        ctrl.field.playerBot.name should be("Player Bottom")
         ctrl.field.playerBot.handCard.size should be(10)
       }
       "convert a Field into a String" in {
