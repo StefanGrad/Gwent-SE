@@ -25,7 +25,7 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
 
   private val undoManager = new UndoManager
   def createField:Unit = {
-    field = Field(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Adrian",HandCard(Vector[Card]()).newHandCard(),0),Player(BOT,"Stefan",HandCard(Vector[Card]()).newHandCard(),0),0,0).clear
+    field = Field(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Player Top",HandCard(Vector[Card]()).newHandCard(),0),Player(BOT,"Player Bottom",HandCard(Vector[Card]()).newHandCard(),0),0,0).clear
     publish(new CellChanged)
   }
   def fieldToString: String = field.toString
@@ -39,7 +39,7 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
     undoManager.nextRound
     publish(new Sunny)
     if (field.round == 4) {
-      gameMessage = "The Game ended with " + field.playerTop.wins + " wins for " + field.playerTop.name + "\n and" + field.playerBot.wins + " wins for " + field.playerBot.name
+      gameMessage = "The Game ended with " + field.playerTop.wins + " wins for " + field.playerTop.name + " and " + field.playerBot.wins + " wins for " + field.playerBot.name
       return createField
     }
     if (winner == 0) {
