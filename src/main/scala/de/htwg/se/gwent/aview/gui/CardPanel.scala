@@ -25,7 +25,7 @@ class CardPanel(playerType: PlayerType.Value, cardIndex: Int,controller: Control
 
   val card = new BoxPanel(Orientation.Vertical) {
     contents += label
-    preferredSize = new Dimension(100, 60)
+    preferredSize = new Dimension(120, 60)
     border = Swing.BeveledBorder(Swing.Raised)
     listenTo(mouse.clicks)
     listenTo(controller)
