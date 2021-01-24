@@ -26,4 +26,6 @@ trait ControllerInterface extends Publisher{
 class CellChanged extends Event
 class PlayerChanged extends Event
 class NewGame extends Event
-class WeatherChanged extends Event
+class Frosty extends Event
+class Fogy extends Event
+class Sunny extends Event

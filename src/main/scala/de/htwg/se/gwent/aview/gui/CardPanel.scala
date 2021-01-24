@@ -2,7 +2,7 @@ package de.htwg.se.gwent.aview.gui
 
 
 import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.choosePlayer
-import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, ControllerInterface}
+import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, ControllerInterface, Frosty}
 import de.htwg.se.gwent.model.playerComponent.PlayerType
 
 import scala.swing._

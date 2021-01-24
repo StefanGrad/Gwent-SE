@@ -37,7 +37,7 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
     gameState = PLAYING
     field = fieldPlay.nextRound
     undoManager.nextRound
-    publish(new WeatherChanged)
+    publish(new Sunny)
     if (field.round == 4) {
       gameMessage = "The Game ended with " + field.playerTop.wins + " wins for " + field.playerTop.name + "\n and" + field.playerBot.wins + " wins for " + field.playerBot.name
       return createField
@@ -59,7 +59,7 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
   def clearField(fieldPlay: FieldInterface): Unit = {
     field = fieldPlay.clear
     gameState = PLAYING
-    publish(new WeatherChanged)
+    publish(new Sunny)
     publish(new NewGame)
   }
 
@@ -79,7 +79,12 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
     gameState = tuple._1
     gameMessage = tuple._2
     if (gameState.equals(PLAYING)) {
-      if (abilityOfCard != 0) publish(new WeatherChanged)
+      abilityOfCard match {
+        case 1 => publish(new Frosty)
+        case 2 => publish(new Fogy)
+        case 3 => publish(new Sunny)
+        case _ =>
+      }
       undoManager.doStep(new PlayCardCommand(this.field, row, col, playerType, cardIndex, this))
     }
     publish(new CellChanged)

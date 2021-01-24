@@ -16,7 +16,7 @@ case class Deck() {
     Card("Lancer", 0, 3, 0),
     Card("Rider", 0, 4, 0),
     Card("Man catcher", 0, 2, 0),
-    Card("Hobbit", 0, 1, 0),
+    Card("Hobbit", 3, 1, 0),
 
     Card("Archer", 0, 2, 1),
     Card("Sniper", 0, 2, 1),

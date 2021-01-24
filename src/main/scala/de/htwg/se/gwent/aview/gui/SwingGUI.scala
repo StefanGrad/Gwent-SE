@@ -8,7 +8,7 @@ import scala.swing.Swing.LineBorder
 import scala.swing.event._
 import PlayerType.{BOT, TOP}
 import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.choosePlayer
-import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, ControllerInterface, PlayerChanged}
+import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, ControllerInterface, Fogy, Frosty, PlayerChanged, Sunny}
 
 class SwingGUI(controller :ControllerInterface) extends Frame {
   listenTo(controller)
@@ -133,6 +133,9 @@ class SwingGUI(controller :ControllerInterface) extends Frame {
   reactions += {
     case event: CellChanged   => redraw
     case event: PlayerChanged => redraw
+    case event: Frosty => redraw
+    case event: Fogy => redraw
+    case event: Sunny => redraw
   }
 
   def redraw = {
