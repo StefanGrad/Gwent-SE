@@ -115,6 +115,7 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
     field = fileIo.load
     gameState = LOADED
     gameMessage = "Loaded Game"
+    undoManager.nextRound
     publish(new PlayerChanged)
   }
 

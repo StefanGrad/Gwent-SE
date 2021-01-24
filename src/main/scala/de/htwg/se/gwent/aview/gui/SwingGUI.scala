@@ -83,7 +83,8 @@ class SwingGUI(controller :ControllerInterface) extends Frame {
         }
       }
     }
-    centerOnScreen()
+    //centerOnScreen()
+    location = new Point(80,20)
     redraw
 
     def handCardReloaded = contents = handcardPanel(playerType)
@@ -129,7 +130,7 @@ class SwingGUI(controller :ControllerInterface) extends Frame {
 
   minimumSize = new Dimension(800,600)
   visible = true
-  centerOnScreen()
+  location = new Point(350,115)
   redraw
 
   reactions += {
