@@ -1,6 +1,6 @@
 package scala.de.htwg.se.gwent.aview
 
-import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, ControllerInterface}
+import de.htwg.se.gwent.controller.controllerComponent.{GameChange, ControllerInterface}
 import de.htwg.se.gwent.model.playerComponent.PlayerType
 import de.htwg.se.gwent.controller.controllerComponent.GameStatus.{INPUTFAIL, PLAYING}
 
@@ -26,7 +26,7 @@ class Tui(controller: ControllerInterface) extends Reactor{
   }
 
   reactions += {
-    case event: CellChanged => println(controller.field.toString)
+    case event: GameChange => println(controller.field.toString)
   }
 
 }

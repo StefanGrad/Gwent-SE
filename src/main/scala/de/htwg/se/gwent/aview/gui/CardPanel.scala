@@ -2,7 +2,7 @@ package de.htwg.se.gwent.aview.gui
 
 
 import de.htwg.se.gwent.controller.controllerComponent.controllerBaseImpl.choosePlayer
-import de.htwg.se.gwent.controller.controllerComponent.{CellChanged, ControllerInterface, Frosty}
+import de.htwg.se.gwent.controller.controllerComponent.{GameChange, ControllerInterface, Frosty}
 import de.htwg.se.gwent.model.playerComponent.PlayerType
 
 import scala.swing._
@@ -30,7 +30,7 @@ class CardPanel(playerType: PlayerType.Value, cardIndex: Int,controller: Control
     listenTo(mouse.clicks)
     listenTo(controller)
     reactions += {
-      case e: CellChanged => {
+      case e: GameChange => {
         label.text = cardText(cardIndex)
         repaint
       }

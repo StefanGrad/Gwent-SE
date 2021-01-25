@@ -25,8 +25,9 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
 
   private val undoManager = new UndoManager
   def createField:Unit = {
+    undoManager.clear
     field = Field(Vector[Vector[Option[Card]]](),new Sunshine,Player(TOP,"Player Top",HandCard(Vector[Card]()).newHandCard(),0),Player(BOT,"Player Bottom",HandCard(Vector[Card]()).newHandCard(),0),0,0).clear
-    publish(new CellChanged)
+    publish(new GameChange)
   }
   def fieldToString: String = field.toString
 
@@ -36,7 +37,7 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
     val winner = fieldPlay.evaluator.eval(fieldPlay,fieldPlay.weather)
     gameState = PLAYING
     field = fieldPlay.nextRound
-    undoManager.nextRound
+    undoManager.clear
     publish(new Sunny)
     if (field.round == 4) {
       gameMessage = "The Game ended with " + field.playerTop.wins + " wins for " + field.playerTop.name + " and " + field.playerBot.wins + " wins for " + field.playerBot.name
@@ -60,12 +61,12 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
     field = fieldPlay.clear
     gameState = PLAYING
     publish(new Sunny)
-    publish(new NewGame)
+    publish(new GameChange)
   }
 
   def updateWins(playerType: PlayerType.Value):Unit = {
     field = field.updateWins(playerType)
-    publish(new PlayerChanged)
+    publish(new GameChange)
   }
 
   def playerToString(player: Player): String = player.toString
@@ -87,7 +88,7 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
       }
       undoManager.doStep(new PlayCardCommand(this.field, row, col, playerType, cardIndex, this))
     }
-    publish(new CellChanged)
+    publish(new GameChange)
   }
 
   def playCard(playerType: PlayerType.Value , cardIndex: Int): Unit = {
@@ -97,46 +98,46 @@ class Controller @Inject() (var field: FieldInterface) extends ControllerInterfa
       column <- 0 until 4
     } {
       playCardAt(row, column,playerType,cardIndex)
-      if(gameState.equals(PLAYING)) return publish(new CellChanged)
+      if(gameState.equals(PLAYING)) return publish(new GameChange)
     }
     gameMessage = "No available Spots for this Card"
     gameState = INPUTFAIL
-    publish(new CellChanged)
+    publish(new GameChange)
   }
 
   def safe: Unit = {
     fileIo.save(field)
     gameState = SAVED
     gameMessage = "Saved Game"
-    publish(new CellChanged)
+    publish(new GameChange)
   }
 
   def load: Unit = {
     field = fileIo.load
     gameState = LOADED
     gameMessage = "Loaded Game"
-    undoManager.nextRound
-    publish(new PlayerChanged)
+    undoManager.clear
+    publish(new GameChange)
   }
 
   def passRound():Unit = {
     if (gameState.equals(PASSED)) {
       evaluate(field)
-      return publish(new CellChanged)
+      return publish(new GameChange)
     }
     gameState = PASSED
     field = field.doTurn
-    publish(new CellChanged)
+    publish(new GameChange)
   }
 
   def undo: Unit = {
     undoManager.undoStep
-    publish(new CellChanged)
+    publish(new GameChange)
   }
 
   def redo: Unit = {
     undoManager.redoStep
-    publish(new CellChanged)
+    publish(new GameChange)
   }
 
 }
