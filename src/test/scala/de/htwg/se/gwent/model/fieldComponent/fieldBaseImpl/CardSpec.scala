@@ -19,7 +19,7 @@ class CardSpec extends AnyWordSpec with Matchers {
         Card("",0,0,0).isEmpty should be (true)
       }
       "can be converted to a nice String" in {
-        Card("Archer", 0 ,3, 1).toString should be("Archer A0 S3 R1")
+        Card("Archer", 0 ,3, 1).toString should be("Archer S3 R1")
       }
     }
   }
