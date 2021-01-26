@@ -36,7 +36,7 @@ A simplified version of the card game Gwent from the rpg The Witcher 3
  
  ![alt text](src/main/pics/field.PNG)<br/>
  
-    ![alt text](src/main/pics/played.PNG)<br/>
+ ![alt text](src/main/pics/played.PNG)<br/>
  
  * The players Cards are automatically opened in a new window when their turn starts
  * If you close your Card window you can always reopen it with the "Handcard" Menu on the field
