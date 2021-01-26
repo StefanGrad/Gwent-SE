@@ -32,7 +32,9 @@ A simplified version of the card game Gwent from the rpg The Witcher 3
  ## GUI
  * The playing field is a 4x4 grid
  * The Topside and first player plays on the upper two rows and the second player on the bottom two
- * Cards with a range of 1 can only be played in the outer rows of the field, range 0 on the inner rows<br/>
+ * Cards with a range of 1 can only be played in the outer rows of the field, range 0 on the inner rows
+ * ####The Field GUI might need to be resized to refresh and show the cards. 
+ <br/>
  
  ![alt text](src/main/pics/field.PNG)<br/>
  
