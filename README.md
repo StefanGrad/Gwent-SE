@@ -8,7 +8,7 @@ Project for a Software Engineering class
 A simplified version of the card game Gwent from the rpg The Witcher 3
 
 
-#How the Game works
+## How the Game works
 
 * Both players get 10 random Cards in their hands
 * Players DON'T get new Cards in new rounds
@@ -29,17 +29,18 @@ A simplified version of the card game Gwent from the rpg The Witcher 3
  
 
  
- #GUI
+ ## GUI
  * The playing field is a 4x4 grid
  * The Topside and first player plays on the upper two rows and the second player on the bottom two
  * Cards with a range of 1 can only be played in the outer rows of the field, range 0 on the inner rows
  ![alt text](src/main/pics/field.PNG)<br/>
+ 
  ![alt text](src/main/pics/Cards played.PNG)<br/>
  * The players Cards are automatically opened in a new window when their turn starts
  * If you close your Card window you can always reopen it with the "Handcard" Menu on the field
  ![alt text](src/main/pics/Cards PlayerTop.PNG)<br/>
  
-  #TUI
+ ## TUI
   * When starting up the game the players are greeted and both their Cards are printed out
   * With each turn a new updated textgrid is shown
   * The TUI Controls are:<br/>
