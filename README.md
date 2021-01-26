@@ -33,7 +33,7 @@ A simplified version of the card game Gwent from the rpg The Witcher 3
  * The playing field is a 4x4 grid
  * The Topside and first player plays on the upper two rows and the second player on the bottom two
  * Cards with a range of 1 can only be played in the outer rows of the field, range 0 on the inner rows
- * ####The Field GUI might need to be resized to refresh and show the cards. 
+ ####The Field GUI might need to be resized to refresh and show the cards. 
  <br/>
  
  ![alt text](src/main/pics/field.PNG)<br/>
@@ -42,6 +42,7 @@ A simplified version of the card game Gwent from the rpg The Witcher 3
  
  * The players Cards are automatically opened in a new window when their turn starts
  * If you close your Card window you can always reopen it with the "Handcard" Menu on the field<br/>
+ 
  ![alt text](src/main/pics/Cards PlayerTop.PNG)<br/>
  
  ## TUI
