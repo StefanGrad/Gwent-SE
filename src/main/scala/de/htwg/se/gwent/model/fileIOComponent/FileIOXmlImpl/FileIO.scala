@@ -1,7 +1,6 @@
 package de.htwg.se.gwent.model.fileIOComponent.FileIOXmlImpl
 
-import com.google.inject.Guice
-import de.htwg.se.gwent.GwentModule
+
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.WeatherState.{Fog, Frost, Sunshine}
 import de.htwg.se.gwent.model.fieldComponent.{CardInterface, FieldInterface}
 import de.htwg.se.gwent.model.fieldComponent.fieldBaseImpl.{Card, Field, HandCard}
