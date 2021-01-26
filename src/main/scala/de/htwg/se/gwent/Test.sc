@@ -1,4 +1,3 @@
-import scala.collection.immutable
 
 val d = Vector[Vector[Int]](Vector[Int](0,1),Vector[Int](1,0))
 val v = Vector[Int](0,1)

@@ -49,10 +49,10 @@ A simplified version of the card game Gwent from the rpg The Witcher 3
   * When starting up the game the players are greeted and both their Cards are printed out
   * With each turn a new updated textgrid is shown
   * The TUI Controls are:<br/>
-          -c => pass this Round<br/>
-          -z => undo<br/>
-          -r => redo<br/>
-          -row column Index => Play the indexed card in row/column<br/>
+          - c => pass this Round<br/>
+          - z => undo<br/>
+          - r => redo<br/>
+          - row column Index => Play the indexed card in row/column<br/>
   ![alt text](src/main/pics/TUI_STARTT.PNG)<br/>
   
     ![alt text](src/main/pics/TUI.PNG)<br/>
