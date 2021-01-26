@@ -56,7 +56,7 @@ class HandCardSpec extends AnyWordSpec with Matchers {
         hand.draw(Card("Archer", 0, 3, 1)) should be(HandCard(Vector[Card](Card("Archer", 0, 3, 1))))
       }
       "can be converted" in {
-        HandCard(Vector[CardInterface](Card("Archer", 0, 3, 1))).toString should be("Archer A0 S3 R1")
+        HandCard(Vector[CardInterface](Card("Archer", 0, 3, 1))).toString should be("Archer S3 R1")
       }
     }
   }

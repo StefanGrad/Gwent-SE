@@ -77,7 +77,7 @@ class ControllerSpec extends AnyWordSpec with Matchers {
       }
       "turn a player into a String" in {
         val ctrl = new Controller(field)
-        ctrl.playerToString(ctrl.field.playerTop) should be("Adrian has won 0 times and holds in his Hand: Archer A0 S1 R1")
+        ctrl.playerToString(ctrl.field.playerTop) should be("Adrian has won 0 times and holds in his Hand: Archer S1 R1")
       }
       "play a Card at a chosen Cell" in {
         val player1 = Player(TOP,"Adrian",HandCard(Vector[Card](testRanged,testRanged,testRanged,testRanged,testCloseCombat,testCloseCombat,testCloseCombat,testCloseCombat,testCloseCombat)),0)

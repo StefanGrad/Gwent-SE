@@ -21,8 +21,8 @@ class PlayerSpec extends AnyWordSpec with Matchers {
         playerBot.wins should be(1)
       }
       "have a nice String representation" in {
-        playerTop.toString should be("Your Name has won 1 times and holds in his Hand: Archer A0 S3 R1")
-        playerBot.toString should be("Your Name has won 1 times and holds in his Hand: Archer A0 S3 R1")
+        playerTop.toString should be("Your Name has won 1 times and holds in his Hand: Archer S3 R1")
+        playerBot.toString should be("Your Name has won 1 times and holds in his Hand: Archer S3 R1")
       }
       "get the specified playing field" in {
         PlayerArea.handel(TOP) should be (Vector[Int](1,0))
