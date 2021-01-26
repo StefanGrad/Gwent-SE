@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/StefanGrad/Gwent-SE.svg?branch=master)](https://travis-ci.com/StefanGrad/Gwent-SE)
 
 [![Coverage Status](https://coveralls.io/repos/github/StefanGrad/Gwent-SE/badge.svg?branch=master)](https://coveralls.io/github/StefanGrad/Gwent-SE?branch=master) <br/>
-![alt text](src/main/pics/logo.PNG)
+![alt text](src/main/pics/logo.PNG)<br/>
 # GWENT
 Project for a Software Engineering class
 
@@ -37,7 +37,7 @@ A simplified version of the card game Gwent from the rpg The Witcher 3
  ![alt text](src/main/pics/Cards played.PNG)<br/>
  * The players Cards are automatically opened in a new window when their turn starts
  * If you close your Card window you can always reopen it with the "Handcard" Menu on the field
- ![alt text](src/main/pics/Cards PlayerTop.PNG)
+ ![alt text](src/main/pics/Cards PlayerTop.PNG)<br/>
  
   ###TUI:
   * When starting up the game the players are greeted and both their Cards are printed out
@@ -49,4 +49,4 @@ A simplified version of the card game Gwent from the rpg The Witcher 3
           -row column Index => Play the indexed card in row/column<br/>
   ![alt text](src/main/pics/TUI_STARTT.PNG)<br/>
   
-    ![alt text](src/main/pics/TUI.PNG)
+    ![alt text](src/main/pics/TUI.PNG)<br/>
