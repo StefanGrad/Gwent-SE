@@ -11,7 +11,7 @@ import de.htwg.se.gwent.model.playerComponent.PlayerType.{BOT, TOP}
 
 import scala.xml.PrettyPrinter
 
-class FileIO extends FileIOInterface {
+class FileIO extends FileIOInterface{
 
 
   override def load: FieldInterface = {
